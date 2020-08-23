@@ -24,7 +24,7 @@ public class ModWorldGen {
 
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_DUNGEON = DUNGEON.configure(new StructurePoolFeatureConfig(() -> {
         return DungeonPools.STARTPOOL;
-    }, 10));
+    }, 7));
 
     ///
 

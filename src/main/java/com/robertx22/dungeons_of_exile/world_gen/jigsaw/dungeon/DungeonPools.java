@@ -60,6 +60,7 @@ public class DungeonPools {
 
         ROOMS.add(new StrucInfo("dungeon/rooms/spider_basement_to_treasure"));
         ROOMS.add(new StrucInfo("dungeon/rooms/small_room_campfire"));
+        ROOMS.add(new StrucInfo("dungeon/rooms/hall_and_room"));
 
         HALLS.add(new StrucInfo("dungeon/halls/straight_hall"));
         HALLS.add(new StrucInfo("dungeon/halls/curved_hall"));
@@ -85,31 +86,11 @@ public class DungeonPools {
 
         );
 
-        /*
-        StructurePools.register(new StructurePool(new Identifier(Ref.MODID, "dungeon/rooms"), new Identifier("empty"),
-            ImmutableList.of(
-                Pair.of(method_30435(Ref.MODID + ":dungeon/rooms/spider_basement_to_treasure", EMPTY), 1),
-                Pair.of(method_30435(Ref.MODID + ":dungeon/rooms/small_room_campfire", EMPTY), 1)
-            ), RIGID)
-        );
-
-         */
-
         StructurePools.register(new StructurePool(new Identifier(Ref.MODID, "dungeon/near_starts"), new Identifier("empty"),
             ImmutableList.of(
                 Pair.of(method_30435(Ref.MODID + ":dungeon/near_starts/near_start1", EMPTY), 1)
             ), RIGID)
         );
-
-        /*
-        StructurePools.register(new StructurePool(new Identifier(Ref.MODID, "dungeon/halls"), new Identifier("empty"),
-            ImmutableList.of(
-                Pair.of(method_30435(Ref.MODID + ":dungeon/halls/straight_hall", EMPTY), 1),
-                Pair.of(method_30435(Ref.MODID + ":dungeon/halls/curved_hall", EMPTY), 1)
-            ), RIGID)
-        );
-
-         */
 
         StructurePools.register(new StructurePool(new Identifier(Ref.MODID, "dungeon/treasure"), new Identifier("empty"),
             ImmutableList.of(
