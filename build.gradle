@@ -1,0 +1,132 @@
+plugins {
+    id 'fabric-loom' version '0.4-SNAPSHOT'
+    id 'maven-publish'
+    id 'com.matthewprenger.cursegradle' version '1.4.0'
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+archivesBaseName = project.archives_base_name
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+    maven {
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://dl.bintray.com/ladysnake/libs'
+    }
+    maven {
+        url = 'https://maven.fabricmc.net/io/github/prospector/modmenu/'
+    }
+}
+
+
+dependencies {
+
+    //Base
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+
+    modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"){
+        exclude(group: "net.fabricmc.fabric-api:fabric-biomes")
+		exclude(group: "net.fabricmc.fabric-api:fabric-dimensions")
+    }
+
+    //APIs
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-base:${cardinal_version}"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-entity:${cardinal_version}"
+    modImplementation "io.github.onyxstudios.Cardinal-Components-API:cardinal-components-world:${cardinal_version}"
+  
+	modApi ("io.github.prospector:modmenu:${mod_menu_version}"){
+         exclude(group: "net.fabricmc.fabric-api")
+    }
+   
+	
+	modApi ("me.shedaniel.cloth:config-2:${config_api_version}"){
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+   
+    modApi ("me.sargunvohra.mcmods:autoconfig1u:${auto_config_version}"){
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+    
+    compile files("Library-Of-Exile-1.16.2-1.0.2-dev.jar")
+
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include "fabric.mod.json"
+        expand "version": project.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude "fabric.mod.json"
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += project.file("src/generated/resources")
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+}
+
+jar {
+    from "LICENSE"
+}
+
+// CURSEFORGE STUFF
+
+curseforge {
+
+    def curseProp = new Properties()
+    File secretPropsFile = file("key.properties")
+    curseProp.load(secretPropsFile.newInputStream())
+
+    project {
+        apiKey = curseProp.getProperty('curseKey')
+        id = "${curse_id}"
+        releaseType = "${curse_release}"
+        changelogType = 'text'
+        changelog = file('CHANGELOG.txt')
+        addGameVersion("1.16.1")
+        addGameVersion("Fabric")
+        addGameVersion("Java 8")
+
+        relations {
+            requiredDependency 'fabric-api'
+            requiredDependency 'library-of-exile'
+            requiredDependency 'cardinal-components'
+            requiredDependency 'auto-config-updated-api'
+
+            optionalDependency 'age-of-exile'
+        }
+        mainArtifact(remapJar)
+
+        afterEvaluate {
+            uploadTask.dependsOn("remapJar")
+        }
+    }
+    options {
+        forgeGradleIntegration = false
+    }
+}
+

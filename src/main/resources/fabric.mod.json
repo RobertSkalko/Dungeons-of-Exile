@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "id": "dungeons_of_exile",
+  "version": "1.0.0",
+  "name": "Dungeons of Exile",
+  "description": "Conquer Dungeons and aquire Loot!",
+  "authors": [
+    "mcrobertx22"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/dungeons-of-exile",
+    "sources": "https://github.com/RobertSkalko/Dungeons-of-Exile"
+  },
+  "license": "",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.robertx22.dungeons_of_exile.main.CommonInit"
+    ],
+    "client": [
+      "com.robertx22.dungeons_of_exile.main.ClientInit"
+    ],
+    "modmenu": [
+      "com.robertx22.dungeons_of_exile.main.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "dungeons_of_exile.mixins.json"
+  ],
+  "depends": {
+    "minecraft": "1.16.2",
+    "fabricloader": ">=0.9.0",
+    "fabric": ">=0.18.0",
+    "library_of_exile": ">=1.0.2"
+  },
+  "suggests": {
+    "age_of_exile": "*"
+  }
+}
