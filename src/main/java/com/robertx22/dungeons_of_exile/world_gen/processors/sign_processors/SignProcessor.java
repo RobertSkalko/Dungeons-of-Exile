@@ -22,6 +22,8 @@ public class SignProcessor extends StructureProcessor {
 
     public static final Codec<SignProcessor> CODEC = Codec.unit(SignProcessor::new);
 
+    static List<SignTextProc> PROCS = Arrays.asList(TreasureProc.getInstance(), SpawnerProc.getInstance());
+
     @Override
     public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo blockinfo2, StructurePlacementData structurePlacementData) {
         BlockState currentState = blockinfo2.state;
@@ -39,10 +41,10 @@ public class SignProcessor extends StructureProcessor {
                     .map(x -> x.getString())
                     .collect(Collectors.toList());
 
-                if (SpawnerProc.getInstance()
-                    .shouldProcess(texts)) {
-                    return SpawnerProc.getInstance()
-                        .getProcessed(blockinfo2, texts);
+                for (SignTextProc x : PROCS) {
+                    if (x.shouldProcess(texts)) {
+                        return x.getProcessed(blockinfo2, texts);
+                    }
                 }
 
             }

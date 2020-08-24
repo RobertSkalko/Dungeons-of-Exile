@@ -6,6 +6,7 @@ import com.robertx22.dungeons_of_exile.main.Ref;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
 import net.minecraft.structure.pool.StructurePools;
+import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
 
 import java.util.ArrayList;
@@ -38,7 +39,13 @@ public class DungeonPools {
 
         public PoolBuilder add(Identifier id) {
             crashIfAlreadyBuilt();
-            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.PROCESSORS), 1));
+            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.DEFAULT_PROCESSORS), 1));
+            return this;
+        }
+
+        public PoolBuilder add(Identifier id, StructureProcessorList processors) {
+            crashIfAlreadyBuilt();
+            elements.add(Pair.of(method_30435(id.toString(), processors), 1));
             return this;
         }
 
