@@ -28,6 +28,7 @@ public class OnFloorProcessor extends StructureProcessor {
         BlockState resultState = blockinfo2.state;
 
         Random random = structurePlacementData.getRandom(blockinfo2.pos);
+// no air blocks are processed.. HMMM
 
         if (currentState.isAir()) {
             if (FloorProcessor.isFloorPlaceholder(worldView.getBlockState(pos.down())

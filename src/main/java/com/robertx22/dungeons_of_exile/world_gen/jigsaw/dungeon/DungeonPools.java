@@ -73,6 +73,7 @@ public class DungeonPools {
         ROOMS.add(new StrucInfo("dungeon/rooms/small_room_campfire"));
         ROOMS.add(new StrucInfo("dungeon/rooms/hall_and_room"));
         ROOMS.add(new StrucInfo("dungeon/rooms/lava"));
+        ROOMS.add(new StrucInfo("dungeon/rooms/zombie_haystack"));
 
         HALLS.add(new StrucInfo("dungeon/halls/straight_hall"));
         HALLS.add(new StrucInfo("dungeon/halls/curved_hall"));
@@ -97,6 +98,13 @@ public class DungeonPools {
         PoolBuilder treasureBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/treasure"));
         treasureBuilder.add(new Identifier(Ref.MODID, "dungeon/treasure/treasure1"));
         treasureBuilder.build();
+
+        PoolBuilder walladdonsbuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/wall_addons"));
+        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/hidden_chance_chest"));
+        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/hidden_room_path"));
+        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/addon_nothing"));
+        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/lava_secret_zombie_room"));
+        walladdonsbuilder.build();
 
     }
 

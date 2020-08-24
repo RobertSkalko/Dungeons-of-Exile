@@ -43,7 +43,7 @@ public class SignProcessor extends StructureProcessor {
 
                 for (SignTextProc x : PROCS) {
                     if (x.shouldProcess(texts)) {
-                        return x.getProcessed(blockinfo2, texts);
+                        return x.getProcessed(worldView, blockinfo2, structurePlacementData, texts);
                     }
                 }
 

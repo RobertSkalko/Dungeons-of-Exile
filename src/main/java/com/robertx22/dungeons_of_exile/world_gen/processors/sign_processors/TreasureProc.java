@@ -5,9 +5,13 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.Structure;
+import net.minecraft.structure.StructurePlacementData;
+import net.minecraft.world.WorldView;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class TreasureProc extends SignTextProc {
 
@@ -19,7 +23,26 @@ public class TreasureProc extends SignTextProc {
     }
 
     @Override
-    public Structure.StructureBlockInfo getProcessed(Structure.StructureBlockInfo info, List<String> strings) {
+    public Structure.StructureBlockInfo getProcessed(WorldView worldView, Structure.StructureBlockInfo info, StructurePlacementData data, List<String> strings) {
+
+        Random random = data.getRandom(info.pos);
+
+        List<String> chances = strings.stream()
+            .filter(x -> x.contains("chance"))
+            .collect(Collectors.toList());
+
+        if (!chances.isEmpty()) {
+            String numbers = chances.get(0)
+                .replaceAll("[^0-9]+", " ");
+
+            Float chance = Float.parseFloat(numbers);
+
+            if (chance <= random.nextFloat() * 100) {
+                return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), info.tag);
+            }
+
+        }
+
         CompoundTag resultTag = new CompoundTag();
 
         ChestBlockEntity chest = new ChestBlockEntity();

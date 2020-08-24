@@ -7,8 +7,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.Structure;
+import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.MobSpawnerEntry;
+import net.minecraft.world.WorldView;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.List;
@@ -26,7 +28,11 @@ public class SpawnerProc extends SignTextProc {
     }
 
     @Override
-    public Structure.StructureBlockInfo getProcessed(Structure.StructureBlockInfo info, List<String> strings) {
+    public Structure.StructureBlockInfo getProcessed(WorldView worldView, Structure.StructureBlockInfo info, StructurePlacementData data, List<String> strings) {
+
+        if (worldView.isClient()) {
+            return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), new CompoundTag());
+        }
 
         MobSpawnerBlockEntity spawner = new MobSpawnerBlockEntity();
         MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getLogic();
