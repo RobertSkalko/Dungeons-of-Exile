@@ -1,10 +1,10 @@
 package com.robertx22.dungeons_of_exile.world_gen.processors.sign_processors;
 
+import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
@@ -13,6 +13,7 @@ import net.minecraft.world.MobSpawnerEntry;
 import net.minecraft.world.WorldView;
 import org.apache.commons.lang3.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,14 +49,15 @@ public class SpawnerProc extends SignTextProc {
                 type = EntityType.CAVE_SPIDER;
             }
         } else if (strings.contains("[fire]")) {
-            List<EntityType> firemobs = Registry.ENTITY_TYPE.stream()
-                .filter(x -> x.isFireImmune() && x.getHeight() < 3)
+            List<EntityType> firemobs = DungeonConfig.get()
+                .getAllowedSpawnerMobs()
+                .stream()
+                .filter(x -> x.isFireImmune())
                 .collect(Collectors.toList());
             type = firemobs.get(RandomUtils.nextInt(0, firemobs.size()));
         } else {
-            List<EntityType> mobs = Registry.ENTITY_TYPE.stream()
-                .filter(x -> x.getSpawnGroup() == SpawnGroup.MONSTER && x.getHeight() < 3)
-                .collect(Collectors.toList());
+            List<EntityType> mobs = new ArrayList<>(DungeonConfig.get()
+                .getAllowedSpawnerMobs());
             type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
         }
 

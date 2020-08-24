@@ -3,6 +3,7 @@ package com.robertx22.dungeons_of_exile.mixins;
 import com.mojang.authlib.GameProfileRepository;
 import com.mojang.authlib.minecraft.MinecraftSessionService;
 import com.mojang.datafixers.DataFixer;
+import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModWorldGen;
 import net.fabricmc.fabric.mixin.structure.BiomeAccessor;
 import net.minecraft.resource.ResourcePackManager;
@@ -44,6 +45,10 @@ public class MinecraftServerMixin {
         at = @At(value = "TAIL")
     )
     private void modifyBiomeRegistry(Thread thread, DynamicRegistryManager.Impl impl, LevelStorage.Session session, SaveProperties saveProperties, ResourcePackManager resourcePackManager, Proxy proxy, DataFixer dataFixer, ServerResourceManager serverResourceManager, MinecraftSessionService minecraftSessionService, GameProfileRepository gameProfileRepository, UserCache userCache, WorldGenerationProgressListenerFactory worldGenerationProgressListenerFactory, CallbackInfo ci) {
+
+        if (!DungeonConfig.get().ENABLE_MOD) {
+            return;
+        }
 
         if (registryManager.getOptional(Registry.BIOME_KEY)
             .isPresent()) {
