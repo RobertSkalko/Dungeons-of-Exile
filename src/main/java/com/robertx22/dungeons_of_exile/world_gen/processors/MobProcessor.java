@@ -1,9 +1,12 @@
 package com.robertx22.dungeons_of_exile.world_gen.processors;
 
 import com.mojang.serialization.Codec;
+import com.robertx22.dungeons_of_exile.blocks.DelayedBlockEntity;
+import com.robertx22.dungeons_of_exile.main.ModStuff;
 import com.robertx22.dungeons_of_exile.main.ModWorldGen;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.processor.StructureProcessor;
@@ -24,25 +27,13 @@ public class MobProcessor extends StructureProcessor {
             if (currentState.getBlock() == Blocks.ZOMBIE_HEAD) {
                 resultState = Blocks.AIR.getDefaultState();
 
-                /*
-                ChunkRegion chunk = (ChunkRegion) worldView;
+                DelayedBlockEntity en = new DelayedBlockEntity();
+                en.executionString = "mob";
 
-                List<EntityType> mobs = Registry.ENTITY_TYPE.stream()
-                    .filter(x -> x.getSpawnGroup() == SpawnGroup.MONSTER && x.getHeight() < 3)
-                    .collect(Collectors.toList());
-                EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
+                CompoundTag tag = new CompoundTag();
+                en.toTag(tag);
 
-                Entity en = type.create(chunk.toServerWorld());
-
-                en.setPos(blockinfo2.pos.getX(), blockinfo2.pos.getY(), blockinfo2.pos.getZ());
-
-                chunk.toServerWorld()
-                    .spawnEntity(en);
-
-                 */
-
-                // CHUNK.TOSERVEWORLD() HERE FREEZES GAME! FIND ANOTHER WAY TO SPAWN MOBS
-
+                return new Structure.StructureBlockInfo(blockinfo2.pos, ModStuff.INSTANCE.DELAY_BLOCK.getDefaultState(), tag);
             }
         } catch (Exception e) {
             e.printStackTrace();
