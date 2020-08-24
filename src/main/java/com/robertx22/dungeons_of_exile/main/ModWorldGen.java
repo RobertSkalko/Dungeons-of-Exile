@@ -5,6 +5,7 @@ import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
 import com.robertx22.dungeons_of_exile.world_gen.processors.biome_processor.BiomeProcessor;
 import com.robertx22.dungeons_of_exile.world_gen.processors.floor_processor.FloorProcessor;
+import com.robertx22.dungeons_of_exile.world_gen.processors.on_floor_processor.OnFloorProcessor;
 import com.robertx22.dungeons_of_exile.world_gen.processors.sign_processors.SignProcessor;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.structure.processor.BlockAgeStructureProcessor;
@@ -26,7 +27,7 @@ public class ModWorldGen {
 
     }
 
-    public StructureProcessorList DEFAULT_PROCESSORS = regProcs("my_processors", ImmutableList.of(new FloorProcessor(), new BiomeProcessor(), new BlockAgeStructureProcessor(0.3F), new SignProcessor()));
+    public StructureProcessorList DEFAULT_PROCESSORS = regProcs("my_processors", ImmutableList.of(new OnFloorProcessor(), new FloorProcessor(), new BiomeProcessor(), new BlockAgeStructureProcessor(0.2F), new SignProcessor()));
 
     public StructureFeature<StructurePoolFeatureConfig> DUNGEON = new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
 
@@ -38,7 +39,8 @@ public class ModWorldGen {
 
     public StructureProcessorType<BiomeProcessor> BIOME_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":biome_processor", BiomeProcessor.CODEC);
     public StructureProcessorType<SignProcessor> SIGN_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":sign_processor", SignProcessor.CODEC);
-    public StructureProcessorType<FloorProcessor> MAGMA_FLOOR_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":magma_floor_processor", FloorProcessor.CODEC);
+    public StructureProcessorType<FloorProcessor> FLOOR_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":floor_processor", FloorProcessor.CODEC);
+    public StructureProcessorType<OnFloorProcessor> ON_FLOOR_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":on_floor_processor", OnFloorProcessor.CODEC);
 
     public ModWorldGen() {
 

@@ -19,7 +19,12 @@ public class FloorProcessor extends StructureProcessor {
     public static final Codec<FloorProcessor> CODEC = Codec.unit(FloorProcessor::new);
 
     public static Block MAGMA_PLACEHOLDER = Blocks.GOLD_BLOCK;
+    public static Block COBBLE_PLACEHOLDER = Blocks.IRON_BLOCK;
     public static Block SOUL_SAND_PLACEHOLDER = Blocks.DIAMOND_BLOCK;
+
+    public static boolean isFloorPlaceholder(Block block) {
+        return block == MAGMA_PLACEHOLDER || block == SOUL_SAND_PLACEHOLDER || block == COBBLE_PLACEHOLDER;
+    }
 
     @Override
     public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo blockinfo2, StructurePlacementData structurePlacementData) {
@@ -47,7 +52,7 @@ public class FloorProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return ModWorldGen.INSTANCE.MAGMA_FLOOR_PROCESSOR;
+        return ModWorldGen.INSTANCE.FLOOR_PROCESSOR;
     }
 }
 

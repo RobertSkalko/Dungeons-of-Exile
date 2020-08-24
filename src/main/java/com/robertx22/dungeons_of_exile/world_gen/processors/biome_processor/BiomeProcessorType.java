@@ -9,6 +9,10 @@ public abstract class BiomeProcessorType {
 
     public abstract String id();
 
+    public boolean isDefault() {
+        return false;
+    }
+
     public abstract boolean isBiomeGood(Biome biome);
 
     public abstract Map<Block, Block> getReplaceMap();

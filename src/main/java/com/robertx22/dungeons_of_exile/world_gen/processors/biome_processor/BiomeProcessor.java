@@ -43,14 +43,13 @@ public class BiomeProcessor extends StructureProcessor {
         Biome biome = worldView.getBiome(pos);
 
         for (BiomeProcessorType t : BiomeProcessor.MAP.values()) {
-            if (t.isBiomeGood(biome)) {
+            if (t.isBiomeGood(biome) && !t.isDefault()) {
                 type = t;
                 break;
             }
         }
-
         if (type == null) {
-            return blockinfo2;
+            type = BrickProc.getInstance();
         }
 
         Map<Block, Block> map = type.getReplaceMap();

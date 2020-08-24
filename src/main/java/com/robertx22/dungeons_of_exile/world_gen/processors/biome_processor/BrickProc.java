@@ -19,6 +19,11 @@ public class BrickProc extends BiomeProcessorType {
     private BrickProc() {
     }
 
+    @Override
+    public boolean isDefault() {
+        return true;
+    }
+
     public static BrickProc getInstance() {
         return BrickProc.SingletonHolder.INSTANCE;
     }
@@ -30,7 +35,7 @@ public class BrickProc extends BiomeProcessorType {
 
     @Override
     public boolean isBiomeGood(Biome biome) {
-        return biome.getCategory() == Biome.Category.FOREST;
+        return true;
     }
 
     @Override
