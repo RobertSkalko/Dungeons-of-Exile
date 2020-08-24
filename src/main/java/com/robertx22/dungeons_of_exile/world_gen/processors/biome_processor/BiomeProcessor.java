@@ -1,4 +1,4 @@
-package com.robertx22.dungeons_of_exile.world_gen.processors;
+package com.robertx22.dungeons_of_exile.world_gen.processors.biome_processor;
 
 import com.mojang.serialization.Codec;
 import com.robertx22.dungeons_of_exile.main.ModWorldGen;
@@ -20,11 +20,6 @@ import java.util.Map;
 public class BiomeProcessor extends StructureProcessor {
 
     public static HashMap<String, BiomeProcessorType> MAP;
-    public String typeid;
-
-    public BiomeProcessor(String typeid) {
-        this.typeid = typeid;
-    }
 
     static {
         MAP = new HashMap<>();
@@ -38,11 +33,7 @@ public class BiomeProcessor extends StructureProcessor {
         MAP.put(proc.id(), proc);
     }
 
-    public static final Codec<BiomeProcessor> CODEC = Codec.STRING.fieldOf("type")
-        .xmap(BiomeProcessor::new, (blockAgeStructureProcessor) -> {
-            return blockAgeStructureProcessor.typeid;
-        })
-        .codec();
+    public static final Codec<BiomeProcessor> CODEC = Codec.unit(BiomeProcessor::new);
 
     @Override
     public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo blockinfo2, StructurePlacementData structurePlacementData) {

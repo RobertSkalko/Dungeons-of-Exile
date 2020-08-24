@@ -1,43 +1,26 @@
-package com.robertx22.dungeons_of_exile.world_gen.processors;
+package com.robertx22.dungeons_of_exile.world_gen.processors.sign_processors;
 
 import com.mojang.serialization.Codec;
 import com.robertx22.dungeons_of_exile.main.ModWorldGen;
-import com.robertx22.dungeons_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import com.robertx22.dungeons_of_exile.mixin_ducks.SignDuck;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.SignBlock;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.MobSpawnerEntry;
 import net.minecraft.world.WorldView;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DungeonProcessor extends StructureProcessor {
+public class SignProcessor extends StructureProcessor {
 
-    String nothing;
-
-    public DungeonProcessor(String typeid) {
-
-    }
-
-    public static final Codec<DungeonProcessor> CODEC = Codec.STRING.fieldOf("type")
-        .xmap(DungeonProcessor::new, (p) -> {
-            return p.nothing;
-        })
-        .codec();
+    public static final Codec<SignProcessor> CODEC = Codec.unit(SignProcessor::new);
 
     @Override
     public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo blockinfo2, StructurePlacementData structurePlacementData) {
@@ -56,31 +39,10 @@ public class DungeonProcessor extends StructureProcessor {
                     .map(x -> x.getString())
                     .collect(Collectors.toList());
 
-                if (texts.contains("[spawner]")) {
-                    resultState = Blocks.SPAWNER.getDefaultState();
-
-                    MobSpawnerBlockEntity spawner = new MobSpawnerBlockEntity();
-                    MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getLogic();
-                    saccess.getspawnPotentials()
-                        .clear();
-
-                    EntityType type = EntityType.SPIDER; // TODO
-
-                    MobSpawnerEntry entry = new MobSpawnerEntry();
-                    entry.getEntityTag()
-                        .putString("id", Registry.ENTITY_TYPE.getId(type)
-                            .toString());
-
-                    saccess.getspawnPotentials()
-                        .add(entry);
-
-                    spawner.getLogic()
-                        .setSpawnEntry(entry);
-
-                    CompoundTag resultTag = new CompoundTag();
-                    spawner.toTag(resultTag);
-
-                    return new Structure.StructureBlockInfo(blockinfo2.pos, resultState, resultTag);
+                if (SpawnerProc.getInstance()
+                    .shouldProcess(texts)) {
+                    return SpawnerProc.getInstance()
+                        .getProcessed(blockinfo2, texts);
                 }
 
             }

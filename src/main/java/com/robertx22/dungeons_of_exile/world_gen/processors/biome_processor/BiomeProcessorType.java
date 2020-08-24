@@ -1,4 +1,4 @@
-package com.robertx22.dungeons_of_exile.world_gen.processors;
+package com.robertx22.dungeons_of_exile.world_gen.processors.biome_processor;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.biome.Biome;

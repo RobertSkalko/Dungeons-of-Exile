@@ -1,7 +1,7 @@
 package com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import com.robertx22.dungeons_of_exile.main.ModWorldGen;
 import com.robertx22.dungeons_of_exile.main.Ref;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.pool.StructurePoolElement;
@@ -14,7 +14,6 @@ import java.util.function.Function;
 
 import static net.minecraft.structure.pool.StructurePool.Projection.RIGID;
 import static net.minecraft.structure.pool.StructurePoolElement.method_30435;
-import static net.minecraft.structure.processor.StructureProcessorLists.EMPTY;
 
 public class DungeonPools {
 
@@ -39,7 +38,7 @@ public class DungeonPools {
 
         public PoolBuilder add(Identifier id) {
             crashIfAlreadyBuilt();
-            elements.add(Pair.of(method_30435(id.toString(), EMPTY), 1));
+            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.PROCESSORS), 1));
             return this;
         }
 
@@ -49,18 +48,24 @@ public class DungeonPools {
             }
         }
 
-        public void build() {
+        public StructurePool build() {
             crashIfAlreadyBuilt();
             this.built = true;
-            StructurePools.register(new StructurePool(poolId, new Identifier("empty"), elements, RIGID));
+            return StructurePools.register(new StructurePool(poolId, new Identifier("empty"), elements, RIGID));
         }
     }
 
     static {
 
+        PoolBuilder startBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/starts"));
+        startBuilder.add(new Identifier(Ref.MODID, "dungeon/starts/start1"));
+        startBuilder.add(new Identifier(Ref.MODID, "dungeon/starts/tiny_ruin"));
+        STARTPOOL = startBuilder.build();
+
         ROOMS.add(new StrucInfo("dungeon/rooms/spider_basement_to_treasure"));
         ROOMS.add(new StrucInfo("dungeon/rooms/small_room_campfire"));
         ROOMS.add(new StrucInfo("dungeon/rooms/hall_and_room"));
+        ROOMS.add(new StrucInfo("dungeon/rooms/lava"));
 
         HALLS.add(new StrucInfo("dungeon/halls/straight_hall"));
         HALLS.add(new StrucInfo("dungeon/halls/curved_hall"));
@@ -70,7 +75,7 @@ public class DungeonPools {
         hallBuilder.build();
 
         PoolBuilder roomBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/rooms"));
-        HALLS.forEach(x -> roomBuilder.add(new Identifier(x.id)));
+        ROOMS.forEach(x -> roomBuilder.add(new Identifier(x.id)));
         roomBuilder.build();
 
         PoolBuilder randomBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/random"));
@@ -78,25 +83,13 @@ public class DungeonPools {
         ROOMS.forEach(x -> randomBuilder.add(new Identifier(x.id)));
         randomBuilder.build();
 
-        STARTPOOL = StructurePools.register(new StructurePool(new Identifier(Ref.MODID, "dungeon/starts"), new Identifier("empty"),
-            ImmutableList.of(
-                Pair.of(method_30435(Ref.MODID + ":dungeon/starts/start1", EMPTY), 1),
-                Pair.of(method_30435(Ref.MODID + ":dungeon/starts/tiny_ruin", EMPTY), 1)
-            ), RIGID)
+        PoolBuilder nearBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/near_starts"));
+        nearBuilder.add(new Identifier(Ref.MODID, "dungeon/near_starts/near_start1"));
+        nearBuilder.build();
 
-        );
-
-        StructurePools.register(new StructurePool(new Identifier(Ref.MODID, "dungeon/near_starts"), new Identifier("empty"),
-            ImmutableList.of(
-                Pair.of(method_30435(Ref.MODID + ":dungeon/near_starts/near_start1", EMPTY), 1)
-            ), RIGID)
-        );
-
-        StructurePools.register(new StructurePool(new Identifier(Ref.MODID, "dungeon/treasure"), new Identifier("empty"),
-            ImmutableList.of(
-                Pair.of(method_30435(Ref.MODID + ":dungeon/treasure/treasure1", EMPTY), 1)
-            ), RIGID)
-        );
+        PoolBuilder treasureBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/treasure"));
+        treasureBuilder.add(new Identifier(Ref.MODID, "dungeon/treasure/treasure1"));
+        treasureBuilder.build();
 
     }
 
