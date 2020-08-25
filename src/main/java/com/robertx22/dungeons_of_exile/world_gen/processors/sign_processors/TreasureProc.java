@@ -1,8 +1,8 @@
 package com.robertx22.dungeons_of_exile.world_gen.processors.sign_processors;
 
+import com.robertx22.dungeons_of_exile.main.ModLoottables;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
@@ -47,7 +47,7 @@ public class TreasureProc extends SignTextProc {
 
         ChestBlockEntity chest = new ChestBlockEntity();
 
-        chest.setLootTable(LootTables.SIMPLE_DUNGEON_CHEST, RandomUtils.nextLong());
+        chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
 
         chest.toTag(resultTag);
 

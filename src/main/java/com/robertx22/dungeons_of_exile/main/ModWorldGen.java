@@ -34,7 +34,7 @@ public class ModWorldGen {
 
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_DUNGEON = DUNGEON.configure(new StructurePoolFeatureConfig(() -> {
         return DungeonPools.STARTPOOL;
-    }, 6));
+    }, 5));
 
     ///
 
@@ -48,7 +48,7 @@ public class ModWorldGen {
 
         FabricStructureBuilder.create(new Identifier(Ref.MODID, "dungeon"), DUNGEON)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(10, 0, 378235)
+            .defaultConfig(20, 0, 378235)
             .superflatFeature(CONFIG_DUNGEON)
             .register();
 
