@@ -28,26 +28,30 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
     @Override
     public void tick() {
 
-        if (executionString.contains("mob")) {
-            List<EntityType> mobs = new ArrayList<>(DungeonConfig.get()
-                .getAllowedSpawnerMobs());
-            EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
+        try {
+            if (executionString.contains("mob")) {
+                List<EntityType> mobs = new ArrayList<>(DungeonConfig.get()
+                    .getAllowedSpawnerMobs());
+                EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
-            Entity en = type.create(world);
+                Entity en = type.create(world);
 
-            en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
-            ServerWorld sw = (ServerWorld) world;
+                en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
+                ServerWorld sw = (ServerWorld) world;
 
-            if (en instanceof MobEntity) {
-                MobEntity mob = (MobEntity) en;
-                mob.initialize(sw, sw.getLocalDifficulty(en.getBlockPos()), SpawnReason.SPAWNER, null, null);
+                if (en instanceof MobEntity) {
+                    MobEntity mob = (MobEntity) en;
+                    mob.initialize(sw, sw.getLocalDifficulty(en.getBlockPos()), SpawnReason.SPAWNER, null, null);
+                }
+
+                sw.spawnEntityAndPassengers(en);
+                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+
             }
-
-            sw.spawnEntityAndPassengers(en);
+        } catch (Exception e) {
+            e.printStackTrace();
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
-
         }
-
     }
 
     @Override
