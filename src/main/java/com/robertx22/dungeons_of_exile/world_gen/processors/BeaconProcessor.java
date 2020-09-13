@@ -26,9 +26,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MobProcessor extends StructureProcessor {
+public class BeaconProcessor extends StructureProcessor {
 
-    public static final Codec<MobProcessor> CODEC = Codec.unit(MobProcessor::new);
+    public static final Codec<BeaconProcessor> CODEC = Codec.unit(BeaconProcessor::new);
 
     @Override
     public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo info, StructurePlacementData data) {
@@ -95,7 +95,7 @@ public class MobProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return ModWorldGen.INSTANCE.MOB_PROCESSOR;
+        return ModWorldGen.INSTANCE.BEACON_PROCESSOR;
     }
 }
 

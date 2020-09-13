@@ -2,6 +2,7 @@ package com.robertx22.dungeons_of_exile.blocks;
 
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModLoottables;
+import com.robertx22.library_of_exile.utils.SoundUtils;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.EntityType;
@@ -12,6 +13,7 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -23,8 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RandomBlock extends Block {
+
     public RandomBlock() {
-        super(AbstractBlock.Settings.of(Material.STONE));
+        super(AbstractBlock.Settings.of(Material.STONE)
+            .strength(50.0F, 1200.0F));
     }
 
     @Override
@@ -37,6 +41,7 @@ public class RandomBlock extends Block {
 
         try {
             if (player != null) {
+                SoundUtils.playSound(player, SoundEvents.ENTITY_PLAYER_LEVELUP, 1, 1);
 
                 if (world.random.nextFloat() > 0.5F) {
 

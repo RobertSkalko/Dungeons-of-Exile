@@ -56,7 +56,9 @@ public class MinecraftServerMixin {
             for (Biome biome : registryManager.getOptional(Registry.BIOME_KEY)
                 .get()) {
 
-                if (biome.getCategory() == Biome.Category.NETHER || biome.getCategory() == Biome.Category.THEEND) {
+                if (biome.getCategory() == Biome.Category.NONE ||
+                    biome.getCategory() == Biome.Category.NETHER ||
+                    biome.getCategory() == Biome.Category.THEEND) {
                     continue;
                 }
 
