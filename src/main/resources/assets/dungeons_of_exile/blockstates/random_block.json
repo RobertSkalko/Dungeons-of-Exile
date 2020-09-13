@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "dungeons_of_exile:block/random_block"
+    }
+  }
+}

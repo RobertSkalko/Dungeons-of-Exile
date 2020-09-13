@@ -44,13 +44,9 @@ public class TreasureProc extends SignTextProc {
         }
 
         CompoundTag resultTag = new CompoundTag();
-
         ChestBlockEntity chest = new ChestBlockEntity();
-
         chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
-
         chest.toTag(resultTag);
-
         return new Structure.StructureBlockInfo(info.pos, Blocks.CHEST.getDefaultState(), resultTag);
 
     }

@@ -68,7 +68,6 @@ public class SpawnerProc extends SignTextProc {
 
         saccess.getspawnPotentials()
             .add(entry);
-
         spawner.getLogic()
             .setSpawnEntry(entry);
 

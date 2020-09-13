@@ -65,6 +65,7 @@ public class MinecraftServerMixin {
                 list = new HashMap<>(list);
                 list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
                     .add(ModWorldGen.INSTANCE.DUNGEON);
+
                 access.setStructureLists(list);
 
                 GenerationSettingsAccessor gen = (GenerationSettingsAccessor) biome.getGenerationSettings();

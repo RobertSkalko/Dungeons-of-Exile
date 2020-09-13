@@ -2,6 +2,7 @@ package com.robertx22.dungeons_of_exile.main;
 
 import com.robertx22.dungeons_of_exile.blocks.DelayedBlock;
 import com.robertx22.dungeons_of_exile.blocks.DelayedBlockEntity;
+import com.robertx22.dungeons_of_exile.blocks.RandomBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -15,6 +16,9 @@ public class ModStuff {
     public static ModStuff INSTANCE;
 
     public DelayedBlock DELAY_BLOCK = of("delay", new DelayedBlock());
+    public RandomBlock RANDOM_BLOCK = of("random_block", new RandomBlock());
+
+    //  public RandomBlock RABNDOM_BLOCK_ITEM = of("random_block", new BlockItem(RANDOM_BLOCK, new Item.Settings()));
 
     <T extends Block> T of(String id, T c) {
         Registry.register(Registry.BLOCK, new Identifier(Ref.MODID, id), c);

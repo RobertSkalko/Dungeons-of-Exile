@@ -25,8 +25,6 @@ public class DungeonConfig implements ConfigData {
             addMob(EntityType.CAVE_SPIDER);
             addMob(EntityType.SKELETON);
             addMob(EntityType.HUSK);
-            addMob(EntityType.BLAZE);
-            addMob(EntityType.WITCH);
         }
     }
 

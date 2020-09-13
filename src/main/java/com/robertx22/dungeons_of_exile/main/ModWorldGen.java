@@ -5,11 +5,8 @@ import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
 import com.robertx22.dungeons_of_exile.world_gen.processors.MobProcessor;
 import com.robertx22.dungeons_of_exile.world_gen.processors.biome_processor.BiomeProcessor;
-import com.robertx22.dungeons_of_exile.world_gen.processors.floor_processor.FloorProcessor;
-import com.robertx22.dungeons_of_exile.world_gen.processors.on_floor_processor.OnFloorProcessor;
 import com.robertx22.dungeons_of_exile.world_gen.processors.sign_processors.SignProcessor;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
-import net.minecraft.structure.processor.BlockAgeStructureProcessor;
 import net.minecraft.structure.processor.StructureProcessor;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.structure.processor.StructureProcessorType;
@@ -28,7 +25,7 @@ public class ModWorldGen {
 
     }
 
-    public StructureProcessorList DEFAULT_PROCESSORS = regProcs("my_processors", ImmutableList.of(new MobProcessor(), new OnFloorProcessor(), new FloorProcessor(), new BiomeProcessor(), new BlockAgeStructureProcessor(0.1F), new SignProcessor()));
+    public StructureProcessorList DEFAULT_PROCESSORS = regProcs("my_processors", ImmutableList.of(new MobProcessor(), new SignProcessor()));
 
     public StructureFeature<StructurePoolFeatureConfig> DUNGEON = new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
 
@@ -40,15 +37,13 @@ public class ModWorldGen {
 
     public StructureProcessorType<BiomeProcessor> BIOME_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":biome_processor", BiomeProcessor.CODEC);
     public StructureProcessorType<SignProcessor> SIGN_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":sign_processor", SignProcessor.CODEC);
-    public StructureProcessorType<FloorProcessor> FLOOR_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":floor_processor", FloorProcessor.CODEC);
-    public StructureProcessorType<OnFloorProcessor> ON_FLOOR_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":on_floor_processor", OnFloorProcessor.CODEC);
     public StructureProcessorType<MobProcessor> MOB_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":mob_processor", MobProcessor.CODEC);
 
     public ModWorldGen() {
 
         FabricStructureBuilder.create(new Identifier(Ref.MODID, "dungeon"), DUNGEON)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(20, 0, 378235)
+            .defaultConfig(8, 0, 378235)
             .superflatFeature(CONFIG_DUNGEON)
             .register();
 

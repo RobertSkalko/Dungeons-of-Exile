@@ -21,7 +21,6 @@ public class DungeonPools {
     public static StructurePool STARTPOOL;
 
     static List<StrucInfo> ROOMS = new ArrayList<>();
-    static List<StrucInfo> HALLS = new ArrayList<>();
 
     public static void init() {
 
@@ -40,6 +39,12 @@ public class DungeonPools {
         public PoolBuilder add(Identifier id) {
             crashIfAlreadyBuilt();
             elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.DEFAULT_PROCESSORS), 1));
+            return this;
+        }
+
+        public PoolBuilder add(Identifier id, int weight) {
+            crashIfAlreadyBuilt();
+            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.DEFAULT_PROCESSORS), weight));
             return this;
         }
 
@@ -65,49 +70,24 @@ public class DungeonPools {
     static {
 
         PoolBuilder startBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/starts"));
-        startBuilder.add(new Identifier(Ref.MODID, "dungeon/starts/start1"));
-        startBuilder.add(new Identifier(Ref.MODID, "dungeon/starts/tiny_ruin"));
+        startBuilder.add(new Identifier(Ref.MODID, "dungeon/starts/start"));
         STARTPOOL = startBuilder.build();
 
-        ROOMS.add(new StrucInfo("dungeon/rooms/spider_basement_to_treasure"));
-        ROOMS.add(new StrucInfo("dungeon/rooms/small_room_campfire"));
-        ROOMS.add(new StrucInfo("dungeon/rooms/hall_and_room"));
-        ROOMS.add(new StrucInfo("dungeon/rooms/lava"));
-        ROOMS.add(new StrucInfo("dungeon/rooms/zombie_haystack"));
-        ROOMS.add(new StrucInfo("dungeon/rooms/big_pillars_fountain_room"));
-
-        HALLS.add(new StrucInfo("dungeon/halls/straight_hall"));
-        HALLS.add(new StrucInfo("dungeon/halls/curved_hall"));
-
-        PoolBuilder hallBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/halls"));
-        HALLS.forEach(x -> hallBuilder.add(new Identifier(x.id)));
-        hallBuilder.build();
+        ROOMS.add(new StrucInfo("dungeon/rooms/room1"));
+        ROOMS.add(new StrucInfo("dungeon/rooms/room2"));
+        ROOMS.add(new StrucInfo("dungeon/rooms/room3"));
+        ROOMS.add(new StrucInfo("dungeon/rooms/pool1"));
 
         PoolBuilder roomBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/rooms"));
+        roomBuilder.add(new Identifier(Ref.MODID, "dungeon/halls/hall"), 3);
+        roomBuilder.add(new Identifier(Ref.MODID, "dungeon/near_start/triple_hall"));
+
         ROOMS.forEach(x -> roomBuilder.add(new Identifier(x.id)));
         roomBuilder.build();
 
-        PoolBuilder randomBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/random"));
-        HALLS.forEach(x -> randomBuilder.add(new Identifier(x.id)));
-        ROOMS.forEach(x -> randomBuilder.add(new Identifier(x.id)));
-        randomBuilder.build();
-
-        PoolBuilder nearBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/near_starts"));
-        nearBuilder.add(new Identifier(Ref.MODID, "dungeon/near_starts/near_start1"));
-        nearBuilder.build();
-
-        PoolBuilder treasureBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/treasure"));
-        treasureBuilder.add(new Identifier(Ref.MODID, "dungeon/treasure/treasure1"));
-        treasureBuilder.build();
-
-        PoolBuilder walladdonsbuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/wall_addons"));
-        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/hidden_chance_chest"));
-        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/hidden_room_path"));
-        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/addon_nothing"));
-        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/lava_secret_zombie_room"));
-        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/addon_tiny_base"));
-        walladdonsbuilder.add(new Identifier(Ref.MODID, "dungeon/wall_addons/addon_iron_ore"));
-        walladdonsbuilder.build();
+        PoolBuilder stairsBuilder = new PoolBuilder(new Identifier(Ref.MODID, "dungeon/stairs"));
+        stairsBuilder.add(new Identifier(Ref.MODID, "dungeon/stairs/stairs"));
+        stairsBuilder.build();
 
     }
 
