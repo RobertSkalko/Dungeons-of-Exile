@@ -1,8 +1,3 @@
-v.1.0.2
-* added a new feature: Anti Mass Kills.
-It stops drops if you kill too many mobs at the same time in a small radius.
-By default to trigger it, kill 10 mobs within 2 seconds and 15 blocks.
+First release!
 
-v.1.0.1
-
-Fix a check that made it work in reverse
+Added 1 dungeon. 

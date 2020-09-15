@@ -20,8 +20,10 @@ public class ModDungeonFeature extends JigsawFeature {
         return
             chunkGen.getHeightOnGround(cpos.getStartX(), cpos.getStartZ(), Heightmap.Type.MOTION_BLOCKING) < 68 &&
                 chunkGen.getHeightOnGround(cpos.getEndX(), cpos.getEndZ(), Heightmap.Type.MOTION_BLOCKING) < 68 &&
-                biome.getDepth() < 0.5F &&
-                biome.getCategory() != Biome.Category.OCEAN; // no mountains
+                biome.getDepth() < 0.5F
+                && biome.getCategory() != Biome.Category.OCEAN
+                && biome.getCategory() != Biome.Category.BEACH
+                && biome.getCategory() != Biome.Category.RIVER;
 
     }
 }

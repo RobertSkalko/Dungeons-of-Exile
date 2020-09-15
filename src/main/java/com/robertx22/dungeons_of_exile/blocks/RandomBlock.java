@@ -67,23 +67,28 @@ public class RandomBlock extends Block {
 
     public void summonMob(World world, BlockPos pos) {
 
-        List<EntityType> mobs = new ArrayList<>(DungeonConfig.get()
-            .getAllowedSpawnerMobs());
-        EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
+        try {
+            List<EntityType> mobs = new ArrayList<>(DungeonConfig.get()
+                .getAllowedSpawnerMobs());
+            EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
-        LivingEntity en = (LivingEntity) type.create(world);
+            LivingEntity en = (LivingEntity) type.create(world);
 
-        en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
-        ServerWorld sw = (ServerWorld) world;
+            en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
+            ServerWorld sw = (ServerWorld) world;
 
-        if (en instanceof MobEntity) {
-            MobEntity mob = (MobEntity) en;
-            mob.initialize(sw, sw.getLocalDifficulty(en.getBlockPos()), SpawnReason.SPAWNER, null, null);
+            if (en instanceof MobEntity) {
+                MobEntity mob = (MobEntity) en;
+                mob.initialize(sw, sw.getLocalDifficulty(en.getBlockPos()), SpawnReason.SPAWNER, null, null);
+            }
+
+            en.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 40, 3));
+
+            sw.spawnEntityAndPassengers(en);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        en.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 40, 3));
-
-        sw.spawnEntityAndPassengers(en);
         world.setBlockState(pos, Blocks.AIR.getDefaultState());
 
     }
