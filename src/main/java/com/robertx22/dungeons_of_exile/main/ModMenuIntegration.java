@@ -17,6 +17,6 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public String getModId() {
-        return "balance_of_exile";
+        return "dungeons_of_exile";
     }
 }

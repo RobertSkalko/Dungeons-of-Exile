@@ -5,6 +5,7 @@ import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
 import com.robertx22.dungeons_of_exile.world_gen.processors.BeaconProcessor;
 import com.robertx22.dungeons_of_exile.world_gen.processors.biome_processor.BiomeProcessor;
+import com.robertx22.dungeons_of_exile.world_gen.tower.TowerFeature;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.processor.*;
@@ -14,6 +15,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
@@ -33,10 +35,13 @@ public class ModWorldGen {
     ));
 
     public StructureFeature<StructurePoolFeatureConfig> DUNGEON = new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
+    public StructureFeature<DefaultFeatureConfig> TOWER = new TowerFeature(DefaultFeatureConfig.CODEC);
 
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_DUNGEON = DUNGEON.configure(new StructurePoolFeatureConfig(() -> {
         return DungeonPools.STARTPOOL;
     }, 6));
+
+    public ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> CONFIG_TOWER = TOWER.configure(DefaultFeatureConfig.INSTANCE);
 
     public StructureProcessorType<BiomeProcessor> BIOME_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":biome_processor", BiomeProcessor.CODEC);
     public StructureProcessorType<BeaconProcessor> BEACON_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":mob_processor", BeaconProcessor.CODEC);
@@ -47,6 +52,12 @@ public class ModWorldGen {
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
             .defaultConfig(20, 0, 378235)
             .superflatFeature(CONFIG_DUNGEON)
+            .register();
+
+        FabricStructureBuilder.create(new Identifier(Ref.MODID, "tower"), TOWER)
+            .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+            .defaultConfig(5, 0, 278235)
+            .superflatFeature(CONFIG_TOWER)
             .register();
 
     }

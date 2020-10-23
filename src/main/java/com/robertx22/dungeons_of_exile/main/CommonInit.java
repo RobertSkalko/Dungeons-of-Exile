@@ -15,6 +15,8 @@ public class CommonInit implements ModInitializer {
             System.out.println("Dungeons of Exile mod disabled as per config.");
         }
         ModStuff.INSTANCE = new ModStuff();
+
+        ModStructurePieces.init();
         ModWorldGen.init();
         DungeonPools.init();
 
