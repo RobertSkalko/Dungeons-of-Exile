@@ -1,10 +1,17 @@
 package com.robertx22.dungeons_of_exile.world_gen.tower;
 
+import com.google.common.collect.ImmutableList;
 import com.robertx22.dungeons_of_exile.main.ModStructurePieces;
 import com.robertx22.dungeons_of_exile.main.Ref;
+import com.robertx22.dungeons_of_exile.world_gen.processors.SignProcessor;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.structure.*;
 import net.minecraft.structure.processor.BlockIgnoreStructureProcessor;
+import net.minecraft.structure.processor.RuleStructureProcessor;
+import net.minecraft.structure.processor.StructureProcessorRule;
+import net.minecraft.structure.rule.AlwaysTrueRuleTest;
+import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
@@ -82,7 +89,11 @@ public class TowerPieces {
             StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
                 .setMirror(BlockMirror.NONE)
                 .setPosition(pos)
+                .addProcessor(new SignProcessor())
+                .addProcessor(new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.SMOOTH_STONE, 0.4F), AlwaysTrueRuleTest.INSTANCE, Blocks.AIR.getDefaultState())))
+                )
                 .addProcessor(BlockIgnoreStructureProcessor.IGNORE_STRUCTURE_BLOCKS);
+
             this.setStructureData(structure, this.pos, structurePlacementData);
         }
 

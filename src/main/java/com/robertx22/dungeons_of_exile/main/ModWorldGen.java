@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
 import com.robertx22.dungeons_of_exile.world_gen.processors.BeaconProcessor;
+import com.robertx22.dungeons_of_exile.world_gen.processors.SignProcessor;
 import com.robertx22.dungeons_of_exile.world_gen.processors.biome_processor.BiomeProcessor;
 import com.robertx22.dungeons_of_exile.world_gen.tower.TowerFeature;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
@@ -34,6 +35,10 @@ public class ModWorldGen {
 
     ));
 
+    public StructureProcessorList TOWER_PROCESSORS = regProcs("tower_processors", ImmutableList.of(
+        new SignProcessor()
+    ));
+
     public StructureFeature<StructurePoolFeatureConfig> DUNGEON = new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
     public StructureFeature<DefaultFeatureConfig> TOWER = new TowerFeature(DefaultFeatureConfig.CODEC);
 
@@ -45,6 +50,7 @@ public class ModWorldGen {
 
     public StructureProcessorType<BiomeProcessor> BIOME_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":biome_processor", BiomeProcessor.CODEC);
     public StructureProcessorType<BeaconProcessor> BEACON_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":mob_processor", BeaconProcessor.CODEC);
+    public StructureProcessorType<SignProcessor> SIGN_PROCESSOR = StructureProcessorType.register(Ref.MODID + ":sign_processor", SignProcessor.CODEC);
 
     public ModWorldGen() {
 
