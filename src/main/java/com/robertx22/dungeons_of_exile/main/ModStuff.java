@@ -2,6 +2,7 @@ package com.robertx22.dungeons_of_exile.main;
 
 import com.robertx22.dungeons_of_exile.blocks.DelayedBlock;
 import com.robertx22.dungeons_of_exile.blocks.DelayedBlockEntity;
+import com.robertx22.dungeons_of_exile.blocks.FinalTreasureBlock;
 import com.robertx22.dungeons_of_exile.blocks.RandomBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
@@ -17,6 +18,7 @@ public class ModStuff {
 
     public DelayedBlock DELAY_BLOCK = of("delay", new DelayedBlock());
     public RandomBlock RANDOM_BLOCK = of("random_block", new RandomBlock());
+    public FinalTreasureBlock FINAL_TREASURE_BLOCK = of("final_treasure", new FinalTreasureBlock());
 
     //  public RandomBlock RABNDOM_BLOCK_ITEM = of("random_block", new BlockItem(RANDOM_BLOCK, new Item.Settings()));
 

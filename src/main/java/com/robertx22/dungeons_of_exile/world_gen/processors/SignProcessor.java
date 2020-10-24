@@ -3,6 +3,7 @@ package com.robertx22.dungeons_of_exile.world_gen.processors;
 import com.mojang.serialization.Codec;
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModLoottables;
+import com.robertx22.dungeons_of_exile.main.ModStuff;
 import com.robertx22.dungeons_of_exile.main.ModWorldGen;
 import com.robertx22.dungeons_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import com.robertx22.dungeons_of_exile.mixin_ducks.SignDuck;
@@ -118,6 +119,10 @@ public class SignProcessor extends StructureProcessor {
                         chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
                         chest.toTag(resultTag);
                         return new Structure.StructureBlockInfo(info.pos, Blocks.CHEST.getDefaultState(), resultTag);
+                    }
+
+                    if (str.contains("[final_treasure]")) {
+                        return new Structure.StructureBlockInfo(info.pos, ModStuff.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
                     }
 
                 }
