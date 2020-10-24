@@ -1,7 +1,9 @@
-v.1.0.1 
+v.1.1.0
+* added towers!
+Towers are very common across the world. But, they have unique functionality!
+If you can climb to the top and click the final block, the tower will disappear!
+That way you have the benefit of easy to see dungeons, and landscape won't be destroyed by ugly tall towers after you conquered them.
+Credit to AtomicStryker's Battle Towers mod for the idea.
 
-- fix modmenu integ
-
-First release!
-
-Added 1 dungeon. 
+* added configs that can disable the features
+* made dungeons a bit rarer

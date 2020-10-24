@@ -56,13 +56,13 @@ public class ModWorldGen {
 
         FabricStructureBuilder.create(new Identifier(Ref.MODID, "dungeon"), DUNGEON)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(20, 0, 378235)
+            .defaultConfig(22, 0, 378235)
             .superflatFeature(CONFIG_DUNGEON)
             .register();
 
         FabricStructureBuilder.create(new Identifier(Ref.MODID, "tower"), TOWER)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(5, 0, 278235)
+            .defaultConfig(8, 0, 278235)
             .superflatFeature(CONFIG_TOWER)
             .register();
 

@@ -1,6 +1,7 @@
 package com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon;
 
 import com.mojang.serialization.Codec;
+import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
@@ -17,13 +18,13 @@ public class ModDungeonFeature extends JigsawFeature {
 
     @Override
     protected boolean shouldStartAt(ChunkGenerator chunkGen, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos cpos, StructurePoolFeatureConfig structurePoolFeatureConfig) {
-        return
+        return DungeonConfig.get().ENABLE_DUNGEON &&
             chunkGen.getHeightOnGround(cpos.getStartX(), cpos.getStartZ(), Heightmap.Type.MOTION_BLOCKING) < 68 &&
-                chunkGen.getHeightOnGround(cpos.getEndX(), cpos.getEndZ(), Heightmap.Type.MOTION_BLOCKING) < 68 &&
-                biome.getDepth() < 0.5F
-                && biome.getCategory() != Biome.Category.OCEAN
-                && biome.getCategory() != Biome.Category.BEACH
-                && biome.getCategory() != Biome.Category.RIVER;
+            chunkGen.getHeightOnGround(cpos.getEndX(), cpos.getEndZ(), Heightmap.Type.MOTION_BLOCKING) < 68 &&
+            biome.getDepth() < 0.5F
+            && biome.getCategory() != Biome.Category.OCEAN
+            && biome.getCategory() != Biome.Category.BEACH
+            && biome.getCategory() != Biome.Category.RIVER;
 
     }
 }

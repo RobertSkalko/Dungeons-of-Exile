@@ -16,6 +16,9 @@ public class DungeonConfig implements ConfigData {
 
     public boolean ENABLE_MOD = true;
 
+    public boolean ENABLE_DUNGEON = true;
+    public boolean ENABLE_TOWER = true;
+
     DungeonConfig() {
 
         if (ALLOWED_MODS_FOR_SPAWNERS.isEmpty()) {

@@ -1,13 +1,17 @@
 package com.robertx22.dungeons_of_exile.world_gen.tower;
 
 import com.mojang.serialization.Codec;
+import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import net.minecraft.structure.StructureManager;
 import net.minecraft.structure.StructureStart;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.gen.ChunkRandom;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.StructureFeature;
@@ -15,6 +19,11 @@ import net.minecraft.world.gen.feature.StructureFeature;
 public class TowerFeature extends StructureFeature<DefaultFeatureConfig> {
     public TowerFeature(Codec<DefaultFeatureConfig> codec) {
         super(codec);
+    }
+
+    @Override
+    protected boolean shouldStartAt(ChunkGenerator chunkGen, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos cpos, DefaultFeatureConfig structurePoolFeatureConfig) {
+        return DungeonConfig.get().ENABLE_TOWER;
     }
 
     @Override
