@@ -19,6 +19,7 @@ import net.minecraft.world.gen.feature.StructureFeature;
 public class TowerFeature extends StructureFeature<DefaultFeatureConfig> {
     public TowerFeature(Codec<DefaultFeatureConfig> codec) {
         super(codec);
+
     }
 
     @Override

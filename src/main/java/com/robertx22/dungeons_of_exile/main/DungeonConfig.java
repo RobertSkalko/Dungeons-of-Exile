@@ -1,11 +1,13 @@
 package com.robertx22.dungeons_of_exile.main;
 
+import com.robertx22.library_of_exile.config_utils.BlackOrWhiteList;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.dimension.DimensionType;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +21,12 @@ public class DungeonConfig implements ConfigData {
     public boolean ENABLE_DUNGEON = true;
     public boolean ENABLE_TOWER = true;
 
+    public FeatureConfig TOWER_CONFIG = new FeatureConfig();
+
     DungeonConfig() {
+        TOWER_CONFIG.PER_DIM.dimensions.add(DimensionType.OVERWORLD_ID.toString());
+        TOWER_CONFIG.PER_DIM.blackOrWhiteList = BlackOrWhiteList.WHITELIST;
+        TOWER_CONFIG.PER_BIOME.blackOrWhiteList = BlackOrWhiteList.BLACKLIST;
 
         if (ALLOWED_MODS_FOR_SPAWNERS.isEmpty()) {
             addMob(EntityType.ZOMBIE);

@@ -1,6 +1,7 @@
 package com.robertx22.dungeons_of_exile.world_gen.tower;
 
 import com.google.common.collect.ImmutableList;
+import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModStructurePieces;
 import com.robertx22.dungeons_of_exile.main.Ref;
 import com.robertx22.dungeons_of_exile.world_gen.processors.SignProcessor;
@@ -21,6 +22,7 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.Heightmap;
 import net.minecraft.world.ServerWorldAccess;
 import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
@@ -110,6 +112,12 @@ public class TowerPieces {
 
         @Override
         public boolean generate(StructureWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGenerator, Random random, BlockBox boundingBox, ChunkPos chunkPos, BlockPos blockPos) {
+
+            DimensionType type = world.getDimension();
+
+            if (!DungeonConfig.get().TOWER_CONFIG.isAllowedIn(type, world.getBiome(pos), world.toServerWorld())) {
+                return false;
+            }
 
             StructurePlacementData structurePlacementData = (new StructurePlacementData()).setRotation(this.rotation)
                 .setMirror(BlockMirror.NONE)

@@ -21,6 +21,20 @@ public class CommonInit implements ModInitializer {
         ModStructurePieces.init();
         ModWorldGen.init();
         DungeonPools.init();
+        /*
+
+        ServerWorldEvents.LOAD.register(
+            (server, world) -> {
+
+                Map<StructureFeature<?>, StructureConfig> map = world.getChunkManager()
+                    .getChunkGenerator()
+                    .getStructuresConfig()
+                    .getStructures();
+
+            }
+        );
+
+         */
 
         ServerTickEvents.END_WORLD_TICK.register(x -> TowerDestroyer.tickAll(x));
 
