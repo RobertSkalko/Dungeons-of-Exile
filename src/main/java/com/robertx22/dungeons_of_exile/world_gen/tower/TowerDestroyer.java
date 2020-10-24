@@ -44,10 +44,10 @@ public class TowerDestroyer {
         if (pos.getY() < 50) {
             return true;
         }
-        return explosions > 4 * 7 || tick > 5000;
+        return explosions > 6 * 7 || tick > 5000;
     }
 
-    static List<Tag.Identified<Block>> TAGS = Arrays.asList(BlockTags.SIGNS, BlockTags.STONE_BRICKS, BlockTags.STAIRS, BlockTags.SLABS);
+    static List<Tag.Identified<Block>> TAGS = Arrays.asList(BlockTags.SIGNS, BlockTags.STONE_BRICKS, BlockTags.STAIRS, BlockTags.SLABS, BlockTags.WALLS, BlockTags.FENCES);
     static List<Block> BLOCKS = Arrays.asList(Blocks.SMOOTH_STONE, Blocks.SPAWNER, Blocks.CHEST);
 
     static boolean shouldDestroyBlock(Block block) {
@@ -75,10 +75,14 @@ public class TowerDestroyer {
 
     static boolean shouldKeepDrops(World world, Block block) {
 
+        return false;
+        /*
         if (block != Blocks.CHEST && world.random.nextBoolean()) {
             return true; // drop only half the stones
         }
         return false;
+
+         */
     }
 
     public void onTick(World world) {

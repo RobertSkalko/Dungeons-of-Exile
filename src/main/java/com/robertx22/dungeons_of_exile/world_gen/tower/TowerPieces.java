@@ -31,13 +31,13 @@ import java.util.Random;
 public class TowerPieces {
     private static final List<Identifier> TOPS = Arrays.asList(new Identifier(Ref.MODID, "tower/top/top0"));
     private static final List<Identifier> BOTTOMS = Arrays.asList(new Identifier(Ref.MODID, "tower/bottom/bottom0"));
-    private static final List<Identifier> MIDDLES = Arrays.asList(new Identifier(Ref.MODID, "tower/middle/middle0"));
+    private static final List<Identifier> MIDDLES = Arrays.asList(new Identifier(Ref.MODID, "tower/middle/middle0"), new Identifier(Ref.MODID, "tower/middle/middle1"), new Identifier(Ref.MODID, "tower/middle/middle2"));
 
     static Identifier random(List<Identifier> list, Random ran) {
         if (list.size() == 1) {
             return list.get(0);
         }
-        return list.get(ran.nextInt(list.size() - 1));
+        return list.get(ran.nextInt(list.size()));
     }
 
     public static void addPieces(StructureManager manager, BlockPos pos, BlockRotation rotation, List<StructurePiece> pieces, Random random) {
