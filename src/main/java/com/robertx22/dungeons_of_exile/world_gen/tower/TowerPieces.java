@@ -131,7 +131,12 @@ public class TowerPieces {
             int yheight = world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, bpos.getX(), bpos.getZ());
             this.pos = bpos.add(0, yheight - 90 - 1, 0);
 
-            boolean bl = super.generate(world, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
+            boolean bl = false;
+            try {
+                bl = super.generate(world, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
+            } catch (Exception e) {// some chunk out of bounds thing happens sometimes??
+                e.printStackTrace();
+            }
 
             this.pos = save;
 

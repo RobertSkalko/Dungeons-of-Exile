@@ -1,6 +1,7 @@
 package com.robertx22.dungeons_of_exile.world_gen.processors;
 
 import com.mojang.serialization.Codec;
+import com.robertx22.dungeons_of_exile.blocks.DelayedBlockEntity;
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModLoottables;
 import com.robertx22.dungeons_of_exile.main.ModStuff;
@@ -120,7 +121,13 @@ public class SignProcessor extends StructureProcessor {
                         chest.toTag(resultTag);
                         return new Structure.StructureBlockInfo(info.pos, Blocks.CHEST.getDefaultState(), resultTag);
                     }
-
+                    if (str.contains("[boss]")) {
+                        CompoundTag resultTag = new CompoundTag();
+                        DelayedBlockEntity delay = new DelayedBlockEntity();
+                        delay.executionString = "boss";
+                        delay.toTag(resultTag);
+                        return new Structure.StructureBlockInfo(info.pos, ModStuff.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
+                    }
                     if (str.contains("[final_treasure]")) {
                         return new Structure.StructureBlockInfo(info.pos, ModStuff.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
                     }

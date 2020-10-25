@@ -36,6 +36,10 @@ public class DungeonConfig implements ConfigData {
             addMob(EntityType.SKELETON);
             addMob(EntityType.HUSK);
         }
+
+        if (ALLOWED_BOSSES.isEmpty()) {
+            addBoss(ModEntities.INSTANCE.FIRE_GOLEM);
+        }
     }
 
     void addMob(EntityType type) {
@@ -43,10 +47,22 @@ public class DungeonConfig implements ConfigData {
             .toString());
     }
 
+    void addBoss(EntityType type) {
+        ALLOWED_BOSSES.add(Registry.ENTITY_TYPE.getId(type)
+            .toString());
+    }
+
     Set<String> ALLOWED_MODS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?
+    Set<String> ALLOWED_BOSSES = new HashSet<>(); // todo turn into tag?
 
     public Set<EntityType> getAllowedSpawnerMobs() {
         return ALLOWED_MODS_FOR_SPAWNERS.stream()
+            .map(x -> Registry.ENTITY_TYPE.get(new Identifier(x)))
+            .collect(Collectors.toSet());
+    }
+
+    public Set<EntityType> getAllowedBosses() {
+        return ALLOWED_BOSSES.stream()
             .map(x -> Registry.ENTITY_TYPE.get(new Identifier(x)))
             .collect(Collectors.toSet());
     }

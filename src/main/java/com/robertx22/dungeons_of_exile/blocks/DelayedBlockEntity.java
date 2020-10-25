@@ -48,6 +48,25 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
                 world.setBlockState(pos, Blocks.AIR.getDefaultState());
 
             }
+            if (executionString.equals("boss")) {
+                List<EntityType> mobs = new ArrayList<>(DungeonConfig.get()
+                    .getAllowedBosses());
+                EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
+
+                Entity en = type.create(world);
+
+                en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
+                ServerWorld sw = (ServerWorld) world;
+
+                if (en instanceof MobEntity) {
+                    MobEntity mob = (MobEntity) en;
+                    mob.initialize(sw, sw.getLocalDifficulty(en.getBlockPos()), SpawnReason.SPAWNER, null, null);
+                }
+
+                sw.spawnEntityAndPassengers(en);
+                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
