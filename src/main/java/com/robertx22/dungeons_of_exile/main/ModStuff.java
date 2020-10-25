@@ -1,9 +1,9 @@
 package com.robertx22.dungeons_of_exile.main;
 
-import com.robertx22.dungeons_of_exile.blocks.DelayedBlock;
-import com.robertx22.dungeons_of_exile.blocks.DelayedBlockEntity;
-import com.robertx22.dungeons_of_exile.blocks.FinalTreasureBlock;
 import com.robertx22.dungeons_of_exile.blocks.RandomBlock;
+import com.robertx22.dungeons_of_exile.blocks.delay.DelayedBlock;
+import com.robertx22.dungeons_of_exile.blocks.delay.DelayedBlockEntity;
+import com.robertx22.dungeons_of_exile.blocks.final_treasure.FinalTreasureBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;

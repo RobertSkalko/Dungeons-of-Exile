@@ -1,4 +1,4 @@
-package com.robertx22.dungeons_of_exile.blocks;
+package com.robertx22.dungeons_of_exile.blocks.delay;
 
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModStuff;
@@ -25,8 +25,15 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
         super(ModStuff.INSTANCE.DELAY_ENTITY);
     }
 
+    int ticks = 0;
+
     @Override
     public void tick() {
+        ticks++;
+
+        if (ticks < 5) {
+            return;
+        }
 
         try {
             if (executionString.contains("mob")) {
@@ -54,6 +61,11 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
                 EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
                 Entity en = type.create(world);
+
+                if (en instanceof MobEntity) {
+                    MobEntity mob = (MobEntity) en;
+                    mob.setPersistent();
+                }
 
                 en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
                 ServerWorld sw = (ServerWorld) world;

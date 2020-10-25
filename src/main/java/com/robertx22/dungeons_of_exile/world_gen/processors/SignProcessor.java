@@ -1,7 +1,7 @@
 package com.robertx22.dungeons_of_exile.world_gen.processors;
 
 import com.mojang.serialization.Codec;
-import com.robertx22.dungeons_of_exile.blocks.DelayedBlockEntity;
+import com.robertx22.dungeons_of_exile.blocks.delay.DelayedBlockEntity;
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModLoottables;
 import com.robertx22.dungeons_of_exile.main.ModStuff;

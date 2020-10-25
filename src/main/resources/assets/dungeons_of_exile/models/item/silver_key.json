@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "dungeons_of_exile:item/silver_key"
+    }
+}

@@ -1,5 +1,6 @@
 package com.robertx22.dungeons_of_exile.mobs.ai;
 
+import com.robertx22.dungeons_of_exile.main.ModItems;
 import com.robertx22.library_of_exile.packets.defaults.EntityPacket;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +12,9 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.Packet;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
@@ -19,9 +22,9 @@ public class FireGolemEntity extends IronGolemEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 40)
+            .add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
             .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.27D)
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 4)
+            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)
             .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 60)
             .add(EntityAttributes.GENERIC_ARMOR, 1);
     }
@@ -79,6 +82,12 @@ public class FireGolemEntity extends IronGolemEntity {
     }
 
     @Override
+    public void onDeath(DamageSource source) {
+        this.dropStack(new ItemStack(ModItems.INSTANCE.SILVER_KEY), 1);
+        super.onDeath(source);
+    }
+
+    @Override
     public boolean damage(DamageSource source, float amount) {
 
         if (!(source.getAttacker() instanceof PlayerEntity)) {
@@ -100,7 +109,7 @@ public class FireGolemEntity extends IronGolemEntity {
 
     @Override
     public boolean canImmediatelyDespawn(double distanceSquared) {
-        return true; // so peaceful removes it
+        return this.world.getDifficulty() == Difficulty.PEACEFUL;
     }
 
 }

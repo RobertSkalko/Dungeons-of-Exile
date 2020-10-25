@@ -1,12 +1,12 @@
-package com.robertx22.dungeons_of_exile.blocks;
+package com.robertx22.dungeons_of_exile.blocks.final_treasure;
 
-import com.robertx22.dungeons_of_exile.main.DungeonConfig;
+import com.robertx22.dungeons_of_exile.main.ModItems;
 import com.robertx22.dungeons_of_exile.main.ModLoottables;
 import com.robertx22.dungeons_of_exile.world_gen.tower.TowerDestroyer;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -30,15 +30,15 @@ public class FinalTreasureBlock extends Block {
 
             try {
 
-                if (!world.getEntitiesByClass(MobEntity.class, player.getBoundingBox()
-                    .expand(25), x -> true)
-                    .stream()
-                    .anyMatch(e -> DungeonConfig.get()
-                        .getAllowedBosses()
-                        .stream()
-                        .anyMatch(b -> b.equals(e.getType())))) {
+                ItemStack stack = player.getMainHandStack();
+
+                if (stack
+                    .getItem() == ModItems.INSTANCE.SILVER_KEY) {
+
+                    stack.decrement(1);
 
                     world.setBlockState(pos.up(), Blocks.CHEST.getDefaultState());
+                    world.setBlockState(pos, Blocks.AIR.getDefaultState());
 
                     ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos.up());
                     chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
@@ -46,7 +46,7 @@ public class FinalTreasureBlock extends Block {
                     // todo drop loot
                     TowerDestroyer.list.add(new TowerDestroyer(pos, world));
                 } else {
-                    player.sendMessage(new LiteralText("The tower guardian is waiting for you."), false);
+                    player.sendMessage(new LiteralText("Silver key required."), false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -54,5 +54,6 @@ public class FinalTreasureBlock extends Block {
             return ActionResult.SUCCESS;
         }
     }
+
 }
 

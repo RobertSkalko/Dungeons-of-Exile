@@ -15,6 +15,7 @@ public class CommonInit implements ModInitializer {
     public void onInitialize() {
 
         ModStuff.INSTANCE = new ModStuff();
+        ModItems.INSTANCE = new ModItems();
 
         ModEntities.INSTANCE = new ModEntities();
 

@@ -1,4 +1,4 @@
-package com.robertx22.dungeons_of_exile.blocks;
+package com.robertx22.dungeons_of_exile.blocks.delay;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
