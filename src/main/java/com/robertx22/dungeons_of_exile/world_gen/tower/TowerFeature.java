@@ -41,7 +41,7 @@ public class TowerFeature extends StructureFeature<DefaultFeatureConfig> {
         public void init(DynamicRegistryManager dynamicRegistryManager, ChunkGenerator chunkGenerator, StructureManager structureManager, int i, int j, Biome biome, DefaultFeatureConfig defaultFeatureConfig) {
             int k = i * 16;
             int l = j * 16;
-            BlockPos blockPos = new BlockPos(k, 90, l);
+            BlockPos blockPos = new BlockPos(k, 0, l);
             BlockRotation blockRotation = BlockRotation.random(this.random);
             TowerPieces.addPieces(structureManager, blockPos, blockRotation, this.children, this.random);
             this.setBoundingBoxFromChildren();

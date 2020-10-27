@@ -129,10 +129,13 @@ public class TowerPieces {
             BlockPos bpos = this.pos.add(Structure.transform(structurePlacementData, new BlockPos(0, 0, 0)));
 
             int yheight = world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, bpos.getX(), bpos.getZ());
-            this.pos = bpos.add(0, yheight - 90 - 1, 0);
+            this.pos = bpos.add(0, yheight - 1, 0);
+
+            this.pos = new BlockPos(pos.getX() - pos.getX() % 16, pos.getY(), pos.getZ() - pos.getZ() % 16); // make sure its in chunk bounds?
 
             boolean bl = false;
             try {
+
                 bl = super.generate(world, structureAccessor, chunkGenerator, random, boundingBox, chunkPos, blockPos);
             } catch (Exception e) {// some chunk out of bounds thing happens sometimes??
                 e.printStackTrace();

@@ -5,5 +5,8 @@ If you can climb to the top and click the final block, the tower will disappear!
 That way you have the benefit of easy to see dungeons, and landscape won't be destroyed by ugly tall towers after you conquered them.
 Credit to AtomicStryker's Battle Towers mod for the idea.
 
++ added Magma Golem, the guardian at the top of the tower
++ added silver key, dropped by tower guadians and unlock the final treasure at the top
+
 * added configs that can disable the features
 * made dungeons a bit rarer
