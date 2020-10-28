@@ -58,8 +58,7 @@ public class ModWorldGen {
 
         FabricStructureBuilder.create(new Identifier(Ref.MODID, "tower"), TOWER)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(7, 0, 278235)
-            .adjustsSurface() // flatten surface
+            .defaultConfig(DungeonConfig.get().TOWER_SEPARATION, 0, 278235)
             .superflatFeature(CONFIG_TOWER)
             .register();
 

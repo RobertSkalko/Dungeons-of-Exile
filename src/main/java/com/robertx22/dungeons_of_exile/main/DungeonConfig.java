@@ -4,6 +4,7 @@ import com.robertx22.library_of_exile.config_utils.BlackOrWhiteList;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
+import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
@@ -21,7 +22,10 @@ public class DungeonConfig implements ConfigData {
     public boolean ENABLE_DUNGEON = true;
     public boolean ENABLE_TOWER = true;
 
+    @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig TOWER_CONFIG = new FeatureConfig();
+
+    public int TOWER_SEPARATION = 8;
 
     DungeonConfig() {
         TOWER_CONFIG.PER_DIM.dimensions.add(DimensionType.OVERWORLD_ID.toString());
@@ -52,7 +56,10 @@ public class DungeonConfig implements ConfigData {
             .toString());
     }
 
+    @ConfigEntry.Gui.CollapsibleObject
     Set<String> ALLOWED_MODS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?
+
+    @ConfigEntry.Gui.CollapsibleObject
     Set<String> ALLOWED_BOSSES = new HashSet<>(); // todo turn into tag?
 
     public Set<EntityType> getAllowedSpawnerMobs() {

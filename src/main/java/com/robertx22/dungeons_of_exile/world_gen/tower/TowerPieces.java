@@ -128,7 +128,8 @@ public class TowerPieces {
 
             BlockPos bpos = this.pos.add(Structure.transform(structurePlacementData, new BlockPos(0, 0, 0)));
 
-            int yheight = world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, bpos.getX(), bpos.getZ());
+            int yheight = world.getTopY(Heightmap.Type.WORLD_SURFACE_WG, bpos.getX() + 8, bpos.getZ() + 8);
+
             this.pos = bpos.add(0, yheight - 1, 0);
 
             this.pos = new BlockPos(pos.getX() - pos.getX() % 16, pos.getY(), pos.getZ() - pos.getZ() % 16); // make sure its in chunk bounds?

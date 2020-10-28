@@ -24,7 +24,7 @@ public class TowerFeature extends StructureFeature<DefaultFeatureConfig> {
 
     @Override
     protected boolean shouldStartAt(ChunkGenerator chunkGen, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos cpos, DefaultFeatureConfig structurePoolFeatureConfig) {
-        return DungeonConfig.get().ENABLE_TOWER;
+        return DungeonConfig.get().ENABLE_MOD && DungeonConfig.get().ENABLE_TOWER;
     }
 
     @Override

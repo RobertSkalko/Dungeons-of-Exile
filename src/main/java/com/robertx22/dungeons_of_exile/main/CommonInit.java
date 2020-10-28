@@ -34,6 +34,11 @@ public class CommonInit implements ModInitializer {
 
         ModEntities.INSTANCE = new ModEntities();
 
+        AutoConfig.register(DungeonConfig.class, JanksonConfigSerializer::new);
+        if (!DungeonConfig.get().ENABLE_MOD) {
+            System.out.println("Dungeons of Exile mod disabled as per config.");
+        }
+
         ModStructurePieces.init();
         ModWorldGen.init();
         DungeonPools.init();
@@ -41,12 +46,6 @@ public class CommonInit implements ModInitializer {
         FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.FIRE_GOLEM, FireGolemEntity.createAttributes());
 
         ServerTickEvents.END_WORLD_TICK.register(x -> TowerDestroyer.tickAll(x));
-
-        AutoConfig.register(DungeonConfig.class, JanksonConfigSerializer::new);
-        if (!DungeonConfig.get().ENABLE_MOD) {
-            System.out.println("Dungeons of Exile mod disabled as per config.");
-
-        }
 
         ServerLifecycleEvents.SERVER_STARTING.register(x -> {
 
@@ -58,6 +57,7 @@ public class CommonInit implements ModInitializer {
                 for (Biome biome : registryManager.get(Registry.BIOME_KEY)) {
 
                     if (biome.getCategory() == Biome.Category.NONE ||
+                        biome.getCategory() == Biome.Category.OCEAN ||
                         biome.getCategory() == Biome.Category.NETHER ||
                         biome.getCategory() == Biome.Category.THEEND) {
                         continue;
