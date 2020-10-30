@@ -36,7 +36,7 @@ public class BigTowerPools {
 
         public PoolBuilder add(Identifier id) {
             crashIfAlreadyBuilt();
-            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.DEFAULT_PROCESSORS), 1));
+            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.DEFAULT_PROCESSORS), 1000));
             return this;
         }
 
@@ -48,7 +48,7 @@ public class BigTowerPools {
 
         public PoolBuilder add(Identifier id, StructureProcessorList processors) {
             crashIfAlreadyBuilt();
-            elements.add(Pair.of(method_30435(id.toString(), processors), 1));
+            elements.add(Pair.of(method_30435(id.toString(), processors), 1000));
             return this;
         }
 
@@ -74,6 +74,11 @@ public class BigTowerPools {
         PoolBuilder middleBuilder = new PoolBuilder(new Identifier(Ref.NEWMODID, "bigtower_middle"));
         middleBuilder.add(new Identifier(Ref.MODID, "bigtower/middle/middle0"));
         middleBuilder.build();
+
+        PoolBuilder sideBuilder = new PoolBuilder(new Identifier(Ref.NEWMODID, "bigtower_side"));
+        sideBuilder.add(new Identifier(Ref.MODID, "bigtower/side/emptyside"));
+        sideBuilder.add(new Identifier(Ref.MODID, "bigtower/side/bigside0"), 500);
+        sideBuilder.build();
 
     }
 

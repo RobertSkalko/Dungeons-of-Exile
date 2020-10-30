@@ -47,7 +47,7 @@ public class ModWorldGen {
 
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_BIGTOWER = BIGTOWER.configure(new StructurePoolFeatureConfig(() -> {
         return BigTowerPools.STARTPOOL;
-    }, 500));
+    }, 15));
 
     public ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> CONFIG_TOWER = TOWER.configure(DefaultFeatureConfig.INSTANCE);
 
