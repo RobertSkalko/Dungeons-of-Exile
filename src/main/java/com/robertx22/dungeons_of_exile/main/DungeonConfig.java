@@ -32,7 +32,7 @@ public class DungeonConfig implements ConfigData {
         TOWER_CONFIG.PER_DIM.blackOrWhiteList = BlackOrWhiteList.WHITELIST;
         TOWER_CONFIG.PER_BIOME.blackOrWhiteList = BlackOrWhiteList.BLACKLIST;
 
-        if (ALLOWED_MODS_FOR_SPAWNERS.isEmpty()) {
+        if (ALLOWED_MOBS_FOR_SPAWNERS.isEmpty()) {
             addMob(EntityType.ZOMBIE);
             addMob(EntityType.ZOMBIE_VILLAGER);
             addMob(EntityType.SPIDER);
@@ -47,7 +47,7 @@ public class DungeonConfig implements ConfigData {
     }
 
     void addMob(EntityType type) {
-        ALLOWED_MODS_FOR_SPAWNERS.add(Registry.ENTITY_TYPE.getId(type)
+        ALLOWED_MOBS_FOR_SPAWNERS.add(Registry.ENTITY_TYPE.getId(type)
             .toString());
     }
 
@@ -57,13 +57,13 @@ public class DungeonConfig implements ConfigData {
     }
 
     @ConfigEntry.Gui.CollapsibleObject
-    Set<String> ALLOWED_MODS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?
+    Set<String> ALLOWED_MOBS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?
 
     @ConfigEntry.Gui.CollapsibleObject
     Set<String> ALLOWED_BOSSES = new HashSet<>(); // todo turn into tag?
 
     public Set<EntityType> getAllowedSpawnerMobs() {
-        return ALLOWED_MODS_FOR_SPAWNERS.stream()
+        return ALLOWED_MOBS_FOR_SPAWNERS.stream()
             .map(x -> Registry.ENTITY_TYPE.get(new Identifier(x)))
             .collect(Collectors.toSet());
     }

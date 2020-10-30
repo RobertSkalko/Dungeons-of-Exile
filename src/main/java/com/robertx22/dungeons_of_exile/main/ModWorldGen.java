@@ -1,6 +1,8 @@
 package com.robertx22.dungeons_of_exile.main;
 
 import com.google.common.collect.ImmutableList;
+import com.robertx22.dungeons_of_exile.world_gen.jigsaw.big_tower.BigTowerFeature;
+import com.robertx22.dungeons_of_exile.world_gen.jigsaw.big_tower.BigTowerPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
 import com.robertx22.dungeons_of_exile.world_gen.processors.BeaconProcessor;
@@ -36,11 +38,16 @@ public class ModWorldGen {
     ));
 
     public StructureFeature<StructurePoolFeatureConfig> DUNGEON = new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
+    public StructureFeature<StructurePoolFeatureConfig> BIGTOWER = new BigTowerFeature(StructurePoolFeatureConfig.CODEC);
     public StructureFeature<DefaultFeatureConfig> TOWER = new TowerFeature(DefaultFeatureConfig.CODEC);
 
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_DUNGEON = DUNGEON.configure(new StructurePoolFeatureConfig(() -> {
         return DungeonPools.STARTPOOL;
     }, 6));
+
+    public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_BIGTOWER = BIGTOWER.configure(new StructurePoolFeatureConfig(() -> {
+        return BigTowerPools.STARTPOOL;
+    }, 500));
 
     public ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> CONFIG_TOWER = TOWER.configure(DefaultFeatureConfig.INSTANCE);
 
@@ -54,6 +61,13 @@ public class ModWorldGen {
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
             .defaultConfig(22, 0, 378235)
             .superflatFeature(CONFIG_DUNGEON)
+            .register();
+
+        FabricStructureBuilder.create(new Identifier(Ref.MODID, "bigtower"), BIGTOWER)
+            .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+            .defaultConfig(5, 0, 578235)
+            .superflatFeature(CONFIG_BIGTOWER)
+            .adjustsSurface()
             .register();
 
         FabricStructureBuilder.create(new Identifier(Ref.MODID, "tower"), TOWER)

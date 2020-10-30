@@ -2,6 +2,7 @@ package com.robertx22.dungeons_of_exile.main;
 
 import com.robertx22.dungeons_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.dungeons_of_exile.mobs.ai.FireGolemEntity;
+import com.robertx22.dungeons_of_exile.world_gen.jigsaw.big_tower.BigTowerPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.dungeons_of_exile.world_gen.tower.TowerDestroyer;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
@@ -42,6 +43,7 @@ public class CommonInit implements ModInitializer {
         ModStructurePieces.init();
         ModWorldGen.init();
         DungeonPools.init();
+        BigTowerPools.init();
 
         FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.FIRE_GOLEM, FireGolemEntity.createAttributes());
 
@@ -50,6 +52,8 @@ public class CommonInit implements ModInitializer {
         ServerLifecycleEvents.SERVER_STARTING.register(x -> {
 
             DynamicRegistryManager registryManager = x.getRegistryManager();
+
+            int num = 0;
 
             if (registryManager.getOptional(Registry.BIOME_KEY)
                 .isPresent()) {
@@ -62,6 +66,7 @@ public class CommonInit implements ModInitializer {
                         biome.getCategory() == Biome.Category.THEEND) {
                         continue;
                     }
+                    num++;
 
                     BiomeAccessor access = (BiomeAccessor) (Object) biome;
                     Map<Integer, List<StructureFeature<?>>> list = access.getStructureLists();
@@ -70,6 +75,8 @@ public class CommonInit implements ModInitializer {
                         .add(ModWorldGen.INSTANCE.DUNGEON);
                     list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
                         .add(ModWorldGen.INSTANCE.TOWER);
+                    list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
+                        .add(ModWorldGen.INSTANCE.BIGTOWER);
 
                     access.setStructureLists(list);
 
@@ -77,10 +84,18 @@ public class CommonInit implements ModInitializer {
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
                     setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_DUNGEON);
                     setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_TOWER);
+                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BIGTOWER);
                     gen.setGSStructureFeatures(setlist);
 
                 }
             }
+
+            if (num == 0) {
+                System.out.print("Didn't find any biomes to add Dungeons of Exile structures to, means mod is broken!");
+            }
+
+            System.out.println("Added DOE structures to " + num + " biomes");
+
         });
 
         System.out.println("Dungeons of Exile initialized.");

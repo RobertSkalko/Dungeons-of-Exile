@@ -4,4 +4,6 @@ public class Ref {
 
     public static String MODID = "dungeons_of_exile";
 
+    public static String NEWMODID = "world_of_exile";
+
 }

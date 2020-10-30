@@ -1,3 +1,6 @@
+v.1.1.2
+* possibly fix generation bug
+
 v.1.1.1
 * added tower separation config and made them a bit rarer by default
 * shouldn't spawn in oceans anymore

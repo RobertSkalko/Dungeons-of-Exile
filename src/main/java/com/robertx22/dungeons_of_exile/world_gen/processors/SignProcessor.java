@@ -144,7 +144,7 @@ public class SignProcessor extends StructureProcessor {
 
     @Override
     protected StructureProcessorType<?> getType() {
-        return ModWorldGen.INSTANCE.BEACON_PROCESSOR;
+        return ModWorldGen.INSTANCE.SIGN_PROCESSOR;
     }
 }
 
