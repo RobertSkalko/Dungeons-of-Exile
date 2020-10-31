@@ -3,9 +3,11 @@
   "package": "com.robertx22.dungeons_of_exile.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "BuiltInBiomesAccessor",
     "GenerationSettingsAccessor",
     "MobSpawnerLogicMixin",
-    "SignMixin"
+    "SignMixin",
+    "StructuresConfigAccessor"
   ],
   "client": [
   ],

@@ -1,6 +1,7 @@
 package com.robertx22.dungeons_of_exile.main;
 
 import com.robertx22.dungeons_of_exile.mixins.GenerationSettingsAccessor;
+import com.robertx22.dungeons_of_exile.mixins.StructuresConfigAccessor;
 import com.robertx22.dungeons_of_exile.mobs.ai.FireGolemEntity;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.big_tower.BigTowerPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
@@ -10,12 +11,17 @@ import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.mixin.structure.BiomeAccessor;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
+import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
 
@@ -45,9 +51,39 @@ public class CommonInit implements ModInitializer {
         DungeonPools.init();
         BigTowerPools.init();
 
+        ModBiomes.INSTANCE = new ModBiomes();
+
         FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.FIRE_GOLEM, FireGolemEntity.createAttributes());
 
         ServerTickEvents.END_WORLD_TICK.register(x -> TowerDestroyer.tickAll(x));
+
+        ServerWorldEvents.LOAD.register(new ServerWorldEvents.Load() {
+            @Override
+            public void onWorldLoad(MinecraftServer server, ServerWorld world) {
+
+                Map<StructureFeature<?>, StructureConfig> tempMap = new HashMap<>(world.getChunkManager()
+                    .getChunkGenerator()
+                    .getStructuresConfig()
+                    .getStructures());
+
+                if (!world.getRegistryKey()
+                    .getValue()
+                    .toString()
+                    .equals(new Identifier(Ref.MODID, "blackstone_dim").toString())) {
+                    tempMap.remove(ModWorldGen.INSTANCE.BIGTOWER);
+                } else {
+                    tempMap.put(ModWorldGen.INSTANCE.BIGTOWER, new StructureConfig(8, 0, 578235));
+                }
+
+                StructuresConfigAccessor acc =
+                    (StructuresConfigAccessor) world.getChunkManager()
+                        .getChunkGenerator()
+                        .getStructuresConfig();
+
+                acc.setGSStructureFeatures(tempMap);
+
+            }
+        });
 
         ServerLifecycleEvents.SERVER_STARTING.register(x -> {
 
@@ -62,7 +98,6 @@ public class CommonInit implements ModInitializer {
 
                     if (biome.getCategory() == Biome.Category.NONE ||
                         biome.getCategory() == Biome.Category.OCEAN ||
-                        biome.getCategory() == Biome.Category.NETHER ||
                         biome.getCategory() == Biome.Category.THEEND) {
                         continue;
                     }

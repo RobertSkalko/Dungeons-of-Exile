@@ -1,0 +1,55 @@
+{
+  "surface_builder": "minecraft:dirt",
+  "depth": 0.125,
+  "scale": 0.05,
+  "temperature": 0.8,
+  "downfall": 0.4,
+  "precipitation": "none",
+  "category": "nether",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 1,
+  "effects": {
+    "sky_color": 16345922,
+    "fog_color": 16697536,
+    "water_color": 13315841,
+    "water_fog_color": 329011
+  },
+  "starts": [
+    "dungeons_of_exile:bigtower"
+  ],
+  "spawners": {
+    "monster": [
+      {
+        "type": "minecraft:skeleton",
+        "weight": 255,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "minecraft:wither_skeleton",
+        "weight": 111,
+        "minCount": 1,
+        "maxCount": 2
+      },
+      {
+        "type": "minecraft:zombified_piglin",
+        "weight": 55,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:piglin_brute",
+        "weight": 1000,
+        "minCount": 1,
+        "maxCount": 5
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {},
+  "features": [
+    [
+      "minecraft:basalt_blobs"
+    ]
+  ]
+}

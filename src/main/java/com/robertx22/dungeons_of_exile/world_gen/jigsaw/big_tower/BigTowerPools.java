@@ -73,11 +73,13 @@ public class BigTowerPools {
 
         PoolBuilder middleBuilder = new PoolBuilder(new Identifier(Ref.NEWMODID, "bigtower_middle"));
         middleBuilder.add(new Identifier(Ref.MODID, "bigtower/middle/middle0"));
+        middleBuilder.add(new Identifier(Ref.MODID, "bigtower/middle/top"), 1);
         middleBuilder.build();
 
         PoolBuilder sideBuilder = new PoolBuilder(new Identifier(Ref.NEWMODID, "bigtower_side"));
         sideBuilder.add(new Identifier(Ref.MODID, "bigtower/side/emptyside"));
         sideBuilder.add(new Identifier(Ref.MODID, "bigtower/side/bigside0"), 500);
+        sideBuilder.add(new Identifier(Ref.MODID, "bigtower/side/side1"), 150);
         sideBuilder.build();
 
     }

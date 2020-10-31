@@ -45,9 +45,10 @@ public class ModWorldGen {
         return DungeonPools.STARTPOOL;
     }, 6));
 
-    public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_BIGTOWER = BIGTOWER.configure(new StructurePoolFeatureConfig(() -> {
-        return BigTowerPools.STARTPOOL;
-    }, 15));
+    public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_BIGTOWER = BIGTOWER.configure(
+        new StructurePoolFeatureConfig(() -> {
+            return BigTowerPools.STARTPOOL;
+        }, 25));
 
     public ConfiguredStructureFeature<DefaultFeatureConfig, ? extends StructureFeature<DefaultFeatureConfig>> CONFIG_TOWER = TOWER.configure(DefaultFeatureConfig.INSTANCE);
 
@@ -65,7 +66,7 @@ public class ModWorldGen {
 
         FabricStructureBuilder.create(new Identifier(Ref.MODID, "bigtower"), BIGTOWER)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(5, 0, 578235)
+            .defaultConfig(8, 0, 578235)
             .superflatFeature(CONFIG_BIGTOWER)
             .adjustsSurface()
             .register();
