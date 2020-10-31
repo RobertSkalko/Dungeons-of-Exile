@@ -23,7 +23,7 @@ public class ModEntities {
         EntityType<T> type = FabricEntityTypeBuilder.<T>create(SpawnGroup.MONSTER, factory).dimensions(size)
             .fireImmune()
             .build();
-        Registry.register(Registry.ENTITY_TYPE, new Identifier(Ref.MODID, id), type);
+        Registry.register(Registry.ENTITY_TYPE, new Identifier(WOE.MODID, id), type);
         //ENTITY_TYPES.add(type);
 
         SpawnRestrictionAccessor.callRegister(type, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canMobSpawn);

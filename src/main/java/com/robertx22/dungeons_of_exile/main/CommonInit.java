@@ -2,8 +2,9 @@ package com.robertx22.dungeons_of_exile.main;
 
 import com.robertx22.dungeons_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.dungeons_of_exile.mobs.ai.FireGolemEntity;
-import com.robertx22.dungeons_of_exile.world_gen.jigsaw.big_tower.BigTowerPools;
+import com.robertx22.dungeons_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
+import com.robertx22.dungeons_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerPools;
 import com.robertx22.dungeons_of_exile.world_gen.tower.TowerDestroyer;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
@@ -33,7 +34,8 @@ public class CommonInit implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        ModStuff.INSTANCE = new ModStuff();
+        ModProcessors.INSTANCE = new ModProcessors();
+        ModBlocks.INSTANCE = new ModBlocks();
         ModItems.INSTANCE = new ModItems();
 
         ModEntities.INSTANCE = new ModEntities();
@@ -46,7 +48,8 @@ public class CommonInit implements ModInitializer {
         ModStructurePieces.init();
         ModWorldGen.init();
         DungeonPools.init();
-        BigTowerPools.init();
+        BlackStoneTowerPools.init();
+        StoneBrickTowerPools.init();
 
         ModBiomes.INSTANCE = new ModBiomes();
 
@@ -84,8 +87,11 @@ public class CommonInit implements ModInitializer {
                     BiomeAccessor access = (BiomeAccessor) (Object) biome;
                     Map<Integer, List<StructureFeature<?>>> list = access.getStructureLists();
                     list = new HashMap<>(list);
-                    list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                        .add(ModWorldGen.INSTANCE.DUNGEON);
+
+                    if (biome.getCategory() != Biome.Category.NETHER) {
+                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
+                            .add(ModWorldGen.INSTANCE.DUNGEON);
+                    }
                     list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
                         .add(ModWorldGen.INSTANCE.TOWER);
                     list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
@@ -95,7 +101,9 @@ public class CommonInit implements ModInitializer {
 
                     GenerationSettingsAccessor gen = (GenerationSettingsAccessor) biome.getGenerationSettings();
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
-                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_DUNGEON);
+                    if (biome.getCategory() != Biome.Category.NETHER) {
+                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_DUNGEON);
+                    }
                     setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_TOWER);
                     setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER);
                     gen.setGSStructureFeatures(setlist);

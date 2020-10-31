@@ -1,6 +1,12 @@
 package com.robertx22.dungeons_of_exile.main;
 
-public class Ref {
+import net.minecraft.util.Identifier;
+
+public class WOE {
+
+    public static Identifier id(String str) {
+        return new Identifier(MODID, str);
+    }
 
     public static String MODID = "dungeons_of_exile";
 

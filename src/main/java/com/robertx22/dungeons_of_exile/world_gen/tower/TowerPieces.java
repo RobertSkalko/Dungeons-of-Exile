@@ -3,7 +3,7 @@ package com.robertx22.dungeons_of_exile.world_gen.tower;
 import com.google.common.collect.ImmutableList;
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
 import com.robertx22.dungeons_of_exile.main.ModStructurePieces;
-import com.robertx22.dungeons_of_exile.main.Ref;
+import com.robertx22.dungeons_of_exile.main.WOE;
 import com.robertx22.dungeons_of_exile.world_gen.processors.SignProcessor;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundTag;
@@ -31,9 +31,9 @@ import java.util.List;
 import java.util.Random;
 
 public class TowerPieces {
-    private static final List<Identifier> TOPS = Arrays.asList(new Identifier(Ref.MODID, "tower/top/top0"));
-    private static final List<Identifier> BOTTOMS = Arrays.asList(new Identifier(Ref.MODID, "tower/bottom/bottom0"));
-    private static final List<Identifier> MIDDLES = Arrays.asList(new Identifier(Ref.MODID, "tower/middle/middle0"), new Identifier(Ref.MODID, "tower/middle/middle1"), new Identifier(Ref.MODID, "tower/middle/middle2"));
+    private static final List<Identifier> TOPS = Arrays.asList(new Identifier(WOE.MODID, "tower/top/top0"));
+    private static final List<Identifier> BOTTOMS = Arrays.asList(new Identifier(WOE.MODID, "tower/bottom/bottom0"));
+    private static final List<Identifier> MIDDLES = Arrays.asList(new Identifier(WOE.MODID, "tower/middle/middle0"), new Identifier(WOE.MODID, "tower/middle/middle1"), new Identifier(WOE.MODID, "tower/middle/middle2"));
 
     static Identifier random(List<Identifier> list, Random ran) {
         if (list.size() == 1) {

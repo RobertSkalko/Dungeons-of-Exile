@@ -24,7 +24,7 @@ public class ModBiomes {
 
     public static ModBiomes INSTANCE;
 
-    public static final RegistryKey<Biome> WARPED_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(Ref.MODID, "mod_warped_forest"));
+    public static final RegistryKey<Biome> WARPED_KEY = RegistryKey.of(Registry.BIOME_KEY, new Identifier(WOE.MODID, "mod_warped_forest"));
     public Biome MOD_WARPED_FOREST = register(WARPED_KEY, createWarpedForest());
 
     public ModBiomes() {

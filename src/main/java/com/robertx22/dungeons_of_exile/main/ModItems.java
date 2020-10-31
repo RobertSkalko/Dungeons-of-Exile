@@ -11,7 +11,7 @@ public class ModItems extends Packets {
     public SilverKeyItem SILVER_KEY = item("silver_key", new SilverKeyItem());
 
     <T extends Item> T item(String id, T c) {
-        Registry.register(Registry.ITEM, new Identifier(Ref.MODID, id), c);
+        Registry.register(Registry.ITEM, new Identifier(WOE.MODID, id), c);
         return c;
     }
 

@@ -1,6 +1,6 @@
 package com.robertx22.dungeons_of_exile.world_gen.tower;
 
-import com.robertx22.dungeons_of_exile.main.Ref;
+import com.robertx22.dungeons_of_exile.main.WOE;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.ChestBlockEntity;
@@ -67,7 +67,7 @@ public class TowerDestroyer {
 
         if (Registry.BLOCK.getId(block)
             .getNamespace()
-            .equals(Ref.MODID)) {
+            .equals(WOE.MODID)) {
             return true;
         }
         return false;

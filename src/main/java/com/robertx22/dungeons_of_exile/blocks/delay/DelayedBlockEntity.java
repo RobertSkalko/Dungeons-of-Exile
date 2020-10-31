@@ -1,7 +1,7 @@
 package com.robertx22.dungeons_of_exile.blocks.delay;
 
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
-import com.robertx22.dungeons_of_exile.main.ModStuff;
+import com.robertx22.dungeons_of_exile.main.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -22,7 +22,7 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
     public String executionString = "";
 
     public DelayedBlockEntity() {
-        super(ModStuff.INSTANCE.DELAY_ENTITY);
+        super(ModBlocks.INSTANCE.DELAY_ENTITY);
     }
 
     int ticks = 0;

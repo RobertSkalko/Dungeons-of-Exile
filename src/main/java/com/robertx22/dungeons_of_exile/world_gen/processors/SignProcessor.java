@@ -3,8 +3,8 @@ package com.robertx22.dungeons_of_exile.world_gen.processors;
 import com.mojang.serialization.Codec;
 import com.robertx22.dungeons_of_exile.blocks.delay.DelayedBlockEntity;
 import com.robertx22.dungeons_of_exile.main.DungeonConfig;
+import com.robertx22.dungeons_of_exile.main.ModBlocks;
 import com.robertx22.dungeons_of_exile.main.ModLoottables;
-import com.robertx22.dungeons_of_exile.main.ModStuff;
 import com.robertx22.dungeons_of_exile.main.ModWorldGen;
 import com.robertx22.dungeons_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import com.robertx22.dungeons_of_exile.mixin_ducks.SignDuck;
@@ -126,10 +126,10 @@ public class SignProcessor extends StructureProcessor {
                         DelayedBlockEntity delay = new DelayedBlockEntity();
                         delay.executionString = "boss";
                         delay.toTag(resultTag);
-                        return new Structure.StructureBlockInfo(info.pos, ModStuff.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
+                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
                     }
                     if (str.contains("[final_treasure]")) {
-                        return new Structure.StructureBlockInfo(info.pos, ModStuff.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
+                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
                     }
 
                 }

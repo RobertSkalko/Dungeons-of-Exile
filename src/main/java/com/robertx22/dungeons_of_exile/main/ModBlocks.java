@@ -12,9 +12,9 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.function.Supplier;
 
-public class ModStuff {
+public class ModBlocks {
 
-    public static ModStuff INSTANCE;
+    public static ModBlocks INSTANCE;
 
     public DelayedBlock DELAY_BLOCK = of("delay", new DelayedBlock());
     public RandomBlock RANDOM_BLOCK = of("random_block", new RandomBlock());
@@ -23,7 +23,7 @@ public class ModStuff {
     //  public RandomBlock RABNDOM_BLOCK_ITEM = of("random_block", new BlockItem(RANDOM_BLOCK, new Item.Settings()));
 
     <T extends Block> T of(String id, T c) {
-        Registry.register(Registry.BLOCK, new Identifier(Ref.MODID, id), c);
+        Registry.register(Registry.BLOCK, new Identifier(WOE.MODID, id), c);
         return c;
     }
 
@@ -36,7 +36,7 @@ public class ModStuff {
             .toString(), type);
     }
 
-    public ModStuff() {
+    public ModBlocks() {
 
     }
 

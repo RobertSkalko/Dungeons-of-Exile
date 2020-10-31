@@ -5,7 +5,7 @@ import net.minecraft.structure.StructurePieceType;
 
 public class ModStructurePieces {
 
-    public static StructurePieceType TowerPiece = StructurePieceType.register(TowerPieces.Piece::new, Ref.MODID + ":tower");
+    public static StructurePieceType TowerPiece = StructurePieceType.register(TowerPieces.Piece::new, WOE.MODID + ":tower");
 
     public static void init() {
 

@@ -1,4 +1,4 @@
-package com.robertx22.dungeons_of_exile.world_gen.jigsaw.big_tower;
+package com.robertx22.dungeons_of_exile.world_gen.jigsaw.blackstone_tower;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.util.math.ChunkPos;
@@ -9,8 +9,8 @@ import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.JigsawFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
-public class BigTowerFeature extends JigsawFeature {
-    public BigTowerFeature(Codec<StructurePoolFeatureConfig> codec) {
+public class BlackstoneTowerStructure extends JigsawFeature {
+    public BlackstoneTowerStructure(Codec<StructurePoolFeatureConfig> codec) {
         super(codec, 0, true, true);
     }
 

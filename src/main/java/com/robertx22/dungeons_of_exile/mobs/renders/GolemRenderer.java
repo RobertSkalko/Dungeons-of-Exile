@@ -1,6 +1,6 @@
 package com.robertx22.dungeons_of_exile.mobs.renders;
 
-import com.robertx22.dungeons_of_exile.main.Ref;
+import com.robertx22.dungeons_of_exile.main.WOE;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.IronGolemEntityModel;
@@ -14,7 +14,7 @@ public class GolemRenderer extends MobEntityRenderer<IronGolemEntity, IronGolemE
 
     public GolemRenderer(String id, EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new IronGolemEntityModel(), 0.7F);
-        TEXTURE = new Identifier(Ref.MODID, "textures/entity/golem/" + id + ".png");
+        TEXTURE = new Identifier(WOE.MODID, "textures/entity/golem/" + id + ".png");
     }
 
     @Override
