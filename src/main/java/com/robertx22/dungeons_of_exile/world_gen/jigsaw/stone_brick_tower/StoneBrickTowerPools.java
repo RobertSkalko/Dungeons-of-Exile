@@ -30,17 +30,17 @@ public class StoneBrickTowerPools {
 
     static {
 
-        AbstractPool startBuilder = new Pool(new Identifier(WOE.NEWMODID, "tower_start"));
+        Pool startBuilder = new Pool(new Identifier(WOE.NEWMODID, "tower_start"));
         startBuilder.add(new Identifier(WOE.MODID, "tower/start/start0"));
         STARTPOOL = startBuilder.build();
 
-        AbstractPool middleBuilder = new Pool(new Identifier(WOE.NEWMODID, "tower_middle"));
+        Pool middleBuilder = new Pool(new Identifier(WOE.NEWMODID, "tower_middle"));
         middleBuilder.add(new Identifier(WOE.MODID, "tower/middle/middle0"));
         middleBuilder.build();
 
-        AbstractPool topBuilder = new Pool(new Identifier(WOE.NEWMODID, "tower_top"));
-        topBuilder.add(new Identifier(WOE.MODID, "tower/side/topbig"));
-        topBuilder.add(new Identifier(WOE.MODID, "tower/side/topsmall"));
+        Pool topBuilder = new Pool(new Identifier(WOE.NEWMODID, "tower_top"));
+        topBuilder.add(new Identifier(WOE.MODID, "tower/top/topbig"));
+        topBuilder.add(new Identifier(WOE.MODID, "tower/top/topsmall"));
         topBuilder.build();
 
     }

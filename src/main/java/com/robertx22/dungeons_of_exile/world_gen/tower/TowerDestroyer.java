@@ -30,21 +30,30 @@ public class TowerDestroyer {
     World world;
     boolean started = false;
 
+    BlockPos chestPos;
+
     int tick = 0;
 
-    public TowerDestroyer(BlockPos pos, World world) {
+    public TowerDestroyer(BlockPos pos, World world, ChestBlockEntity chest) {
         this.pos = pos;
         this.world = world;
 
+        this.chestPos = chest.getPos();
+
     }
 
-    int explosions = 0;
+    boolean stop = false;
 
     public boolean isDone(World world) {
-        if (pos.getY() < 50) {
+        if (stop) {
             return true;
         }
-        return explosions > 6 * 7 || tick > 5000;
+
+        if (pos.getY() < 50) {
+            // at end dont leave chest at top standing lol
+            return true;
+        }
+        return timesDidntDestroy > 2;
     }
 
     static List<Tag.Identified<Block>> TAGS = Arrays.asList(BlockTags.SIGNS, BlockTags.STONE_BRICKS, BlockTags.STAIRS, BlockTags.SLABS, BlockTags.WALLS, BlockTags.FENCES);
@@ -85,6 +94,8 @@ public class TowerDestroyer {
          */
     }
 
+    int timesDidntDestroy = 0;
+
     public void onTick(World world) {
 
         if (!this.world.equals(world)) {
@@ -103,8 +114,10 @@ public class TowerDestroyer {
 
         if (started && tick % 20 == 0) {
 
-            for (int x = -10; x < 16; x++) {
-                for (int z = -10; z < 16; z++) {
+            boolean destroyed = false;
+
+            for (int x = -9; x < 9; x++) {
+                for (int z = -9; z < 9; z++) {
                     BlockPos p = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
 
                     Block block = world.getBlockState(p)
@@ -121,14 +134,23 @@ public class TowerDestroyer {
                         }
                     } else {
                         if (shouldDestroyBlock(block)) {
+                            destroyed = true;
                             world.breakBlock(p, shouldKeepDrops(world, block));
                         }
                     }
                 }
 
             }
-            explosions++;
+
+            if (!destroyed) {
+                timesDidntDestroy++;
+            }
+
             pos = pos.down(1);
+
+            if (isDone(world)) {
+                world.breakBlock(this.chestPos, true);
+            }
         }
     }
 }

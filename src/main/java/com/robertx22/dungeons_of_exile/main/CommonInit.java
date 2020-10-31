@@ -62,6 +62,7 @@ public class CommonInit implements ModInitializer {
             public void onWorldLoad(MinecraftServer server, ServerWorld world) {
 
                 DungeonConfig.get().BLACKSTONE_TOWER.onWorldLoad(world);
+                DungeonConfig.get().STONE_BRICK_TOWER.onWorldLoad(world);
 
             }
         });
@@ -93,7 +94,7 @@ public class CommonInit implements ModInitializer {
                             .add(ModWorldGen.INSTANCE.DUNGEON);
                     }
                     list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                        .add(ModWorldGen.INSTANCE.TOWER);
+                        .add(ModWorldGen.INSTANCE.STONE_BRICK_TOWER);
                     list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
                         .add(ModWorldGen.INSTANCE.BLACKSTONE_TOWER);
 
@@ -104,7 +105,7 @@ public class CommonInit implements ModInitializer {
                     if (biome.getCategory() != Biome.Category.NETHER) {
                         setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_DUNGEON);
                     }
-                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_TOWER);
+                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_STONE_BRICK_TOWER);
                     setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER);
                     gen.setGSStructureFeatures(setlist);
 

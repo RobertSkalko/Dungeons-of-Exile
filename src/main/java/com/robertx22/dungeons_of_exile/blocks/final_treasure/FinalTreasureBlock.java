@@ -44,7 +44,7 @@ public class FinalTreasureBlock extends Block {
                     chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
 
                     // todo drop loot
-                    TowerDestroyer.list.add(new TowerDestroyer(pos, world));
+                    TowerDestroyer.list.add(new TowerDestroyer(pos, world, chest));
                 } else {
                     player.sendMessage(new LiteralText("Silver key required."), false);
                 }

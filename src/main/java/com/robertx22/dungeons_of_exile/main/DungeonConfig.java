@@ -1,6 +1,5 @@
 package com.robertx22.dungeons_of_exile.main;
 
-import com.robertx22.library_of_exile.config_utils.BlackOrWhiteList;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
@@ -20,10 +19,6 @@ public class DungeonConfig implements ConfigData {
     public boolean ENABLE_MOD = true;
 
     public boolean ENABLE_DUNGEON = true;
-    public boolean ENABLE_TOWER = true;
-
-    @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig TOWER_CONFIG = new FeatureConfig();
 
     @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 2, 2058146), ModStructures.BLACKSTONE_TOWER_ID);
@@ -36,10 +31,6 @@ public class DungeonConfig implements ConfigData {
         BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.SOUL_SAND_VALLEY.toString());
         STONE_BRICK_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
             .toString());
-
-        TOWER_CONFIG.PER_DIM.dimensions.add(DimensionType.OVERWORLD_ID.toString());
-        TOWER_CONFIG.PER_DIM.blackOrWhiteList = BlackOrWhiteList.WHITELIST;
-        TOWER_CONFIG.PER_BIOME.blackOrWhiteList = BlackOrWhiteList.BLACKLIST;
 
         if (ALLOWED_MOBS_FOR_SPAWNERS.isEmpty()) {
             addMob(EntityType.ZOMBIE);

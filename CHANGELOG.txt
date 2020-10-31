@@ -1,19 +1,7 @@
-v.1.1.2
-* possibly fix generation bug
-
-v.1.1.1
-* added tower separation config and made them a bit rarer by default
-* shouldn't spawn in oceans anymore
-
-v.1.1.0
-* added towers!
-Towers are very common across the world. But, they have unique functionality!
-If you can climb to the top and click the final block, the tower will disappear!
-That way you have the benefit of easy to see dungeons, and landscape won't be destroyed by ugly tall towers after you conquered them.
-Credit to AtomicStryker's Battle Towers mod for the idea.
-
-+ added Magma Golem, the guardian at the top of the tower
-+ added silver key, dropped by tower guadians and unlock the final treasure at the top
-
-* added configs that can disable the features
-* made dungeons a bit rarer
+v.1.2.0
+* Renamed mod to World of Exile
+This is because I decided to expand the scope of the mod, from just dungeons, to the whole world, and even dimensions!
+* Added Soul Sand Valley dimension
+* Added blackstone tower structure, found in soul sand valley dimension
+* Changed tower structure in overworld to jigsaw, won't ever float weirdly on mountains again.
+* Chest at top of tower will get destroyed at end of tower destruction so it doesn't just hang there in air.
