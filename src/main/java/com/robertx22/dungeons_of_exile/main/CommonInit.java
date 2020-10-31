@@ -1,7 +1,6 @@
 package com.robertx22.dungeons_of_exile.main;
 
 import com.robertx22.dungeons_of_exile.mixins.GenerationSettingsAccessor;
-import com.robertx22.dungeons_of_exile.mixins.StructuresConfigAccessor;
 import com.robertx22.dungeons_of_exile.mobs.ai.FireGolemEntity;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.big_tower.BigTowerPools;
 import com.robertx22.dungeons_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
@@ -16,12 +15,10 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.mixin.structure.BiomeAccessor;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.chunk.StructureConfig;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
 
@@ -61,26 +58,7 @@ public class CommonInit implements ModInitializer {
             @Override
             public void onWorldLoad(MinecraftServer server, ServerWorld world) {
 
-                Map<StructureFeature<?>, StructureConfig> tempMap = new HashMap<>(world.getChunkManager()
-                    .getChunkGenerator()
-                    .getStructuresConfig()
-                    .getStructures());
-
-                if (!world.getRegistryKey()
-                    .getValue()
-                    .toString()
-                    .equals(new Identifier(Ref.MODID, "blackstone_dim").toString())) {
-                    tempMap.remove(ModWorldGen.INSTANCE.BIGTOWER);
-                } else {
-                    tempMap.put(ModWorldGen.INSTANCE.BIGTOWER, new StructureConfig(8, 0, 578235));
-                }
-
-                StructuresConfigAccessor acc =
-                    (StructuresConfigAccessor) world.getChunkManager()
-                        .getChunkGenerator()
-                        .getStructuresConfig();
-
-                acc.setGSStructureFeatures(tempMap);
+                DungeonConfig.get().BLACKSTONE_TOWER.onWorldLoad(world);
 
             }
         });
@@ -111,7 +89,7 @@ public class CommonInit implements ModInitializer {
                     list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
                         .add(ModWorldGen.INSTANCE.TOWER);
                     list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                        .add(ModWorldGen.INSTANCE.BIGTOWER);
+                        .add(ModWorldGen.INSTANCE.BLACKSTONE_TOWER);
 
                     access.setStructureLists(list);
 
@@ -119,7 +97,7 @@ public class CommonInit implements ModInitializer {
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
                     setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_DUNGEON);
                     setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_TOWER);
-                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BIGTOWER);
+                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER);
                     gen.setGSStructureFeatures(setlist);
 
                 }

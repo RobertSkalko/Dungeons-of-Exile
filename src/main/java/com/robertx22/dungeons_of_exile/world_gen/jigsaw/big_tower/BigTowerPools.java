@@ -36,13 +36,13 @@ public class BigTowerPools {
 
         public PoolBuilder add(Identifier id) {
             crashIfAlreadyBuilt();
-            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.DEFAULT_PROCESSORS), 1000));
+            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.TOWER_PROCESORS), 1000));
             return this;
         }
 
         public PoolBuilder add(Identifier id, int weight) {
             crashIfAlreadyBuilt();
-            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.DEFAULT_PROCESSORS), weight));
+            elements.add(Pair.of(method_30435(id.toString(), ModWorldGen.INSTANCE.TOWER_PROCESORS), weight));
             return this;
         }
 

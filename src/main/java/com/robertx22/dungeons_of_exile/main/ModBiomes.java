@@ -52,7 +52,7 @@ public class ModBiomes {
         GenerationSettings.Builder builder = (new GenerationSettings.Builder()).surfaceBuilder(ConfiguredSurfaceBuilders.WARPED_FOREST)
             .structureFeature(ConfiguredStructureFeatures.FORTRESS)
             .structureFeature(ConfiguredStructureFeatures.BASTION_REMNANT)
-            .structureFeature(ModWorldGen.INSTANCE.CONFIG_BIGTOWER)
+            .structureFeature(ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER)
             //           .carver(GenerationStep.Carver.AIR, ConfiguredCarvers.NETHER_CAVE)
             .feature(GenerationStep.Feature.VEGETAL_DECORATION, ConfiguredFeatures.SPRING_LAVA);
         DefaultBiomeFeatures.addDefaultMushrooms(builder);

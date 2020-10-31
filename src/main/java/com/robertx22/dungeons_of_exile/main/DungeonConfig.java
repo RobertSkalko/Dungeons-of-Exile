@@ -25,9 +25,15 @@ public class DungeonConfig implements ConfigData {
     @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig TOWER_CONFIG = new FeatureConfig();
 
+    @ConfigEntry.Gui.CollapsibleObject
+    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 2, 2058146), ModStructures.BLACKSTONE_TOWER_ID);
+
     public int TOWER_SEPARATION = 8;
 
     DungeonConfig() {
+
+        BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.SOUL_SAND_VALLEY.toString());
+
         TOWER_CONFIG.PER_DIM.dimensions.add(DimensionType.OVERWORLD_ID.toString());
         TOWER_CONFIG.PER_DIM.blackOrWhiteList = BlackOrWhiteList.WHITELIST;
         TOWER_CONFIG.PER_BIOME.blackOrWhiteList = BlackOrWhiteList.BLACKLIST;

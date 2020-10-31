@@ -36,16 +36,20 @@ public class ModWorldGen {
         , new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.POLISHED_ANDESITE, 0.5F), AlwaysTrueRuleTest.INSTANCE, Blocks.ANDESITE.getDefaultState())))
 
     ));
+    public StructureProcessorList TOWER_PROCESORS = regProcs("tower_processors", ImmutableList.of(
+        new SignProcessor(),
+        new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.POLISHED_BLACKSTONE, 0.2F), AlwaysTrueRuleTest.INSTANCE, Blocks.AIR.getDefaultState())))
+    ));
 
     public StructureFeature<StructurePoolFeatureConfig> DUNGEON = new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
-    public StructureFeature<StructurePoolFeatureConfig> BIGTOWER = new BigTowerFeature(StructurePoolFeatureConfig.CODEC);
+    public StructureFeature<StructurePoolFeatureConfig> BLACKSTONE_TOWER = new BigTowerFeature(StructurePoolFeatureConfig.CODEC);
     public StructureFeature<DefaultFeatureConfig> TOWER = new TowerFeature(DefaultFeatureConfig.CODEC);
 
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_DUNGEON = DUNGEON.configure(new StructurePoolFeatureConfig(() -> {
         return DungeonPools.STARTPOOL;
     }, 6));
 
-    public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_BIGTOWER = BIGTOWER.configure(
+    public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_BLACKSTONE_TOWER = BLACKSTONE_TOWER.configure(
         new StructurePoolFeatureConfig(() -> {
             return BigTowerPools.STARTPOOL;
         }, 25));
@@ -64,10 +68,10 @@ public class ModWorldGen {
             .superflatFeature(CONFIG_DUNGEON)
             .register();
 
-        FabricStructureBuilder.create(new Identifier(Ref.MODID, "bigtower"), BIGTOWER)
+        FabricStructureBuilder.create(ModStructures.BLACKSTONE_TOWER_ID, BLACKSTONE_TOWER)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(8, 0, 578235)
-            .superflatFeature(CONFIG_BIGTOWER)
+            .defaultConfig(DungeonConfig.get().BLACKSTONE_TOWER.config.get())
+            .superflatFeature(CONFIG_BLACKSTONE_TOWER)
             .adjustsSurface()
             .register();
 

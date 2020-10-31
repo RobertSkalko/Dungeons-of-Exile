@@ -1,5 +1,5 @@
 {
-  "type": "dungeons_of_exile:blackstone_dim",
+  "type": "dungeons_of_exile:soul_sand_valley",
   "generator": {
 	"type": "minecraft:noise",
 	"seed": -778856046,
@@ -48,7 +48,7 @@
       ]
     },
 	 "settings": {
-          "name": "dungeons_of_exile:blackstone_dim",
+          "name": "dungeons_of_exile:soul_sand_valley",
           "bedrock_roof_position": -10,
           "bedrock_floor_position": 0,
           "sea_level": 63,
