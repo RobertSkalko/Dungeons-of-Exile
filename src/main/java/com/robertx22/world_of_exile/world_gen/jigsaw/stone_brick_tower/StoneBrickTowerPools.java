@@ -23,7 +23,7 @@ public class StoneBrickTowerPools {
 
         @Override
         public StructureProcessorList processorList() {
-            return ModProcessors.INSTANCE.TOWER_PROCESORS;
+            return ModProcessors.INSTANCE.STONE_BRICK_TOWER;
         }
 
     }

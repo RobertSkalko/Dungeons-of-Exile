@@ -1,0 +1,35 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "world_of_exile:groups/default_big"
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "world_of_exile:groups/must_haves"
+        }
+      ]
+    },
+    {
+      "rolls": 3,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "world_of_exile:groups/alchemy_mats"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "name": "world_of_exile:groups/enchanted_books"
+        }
+      ]
+    }
+  ]
+}

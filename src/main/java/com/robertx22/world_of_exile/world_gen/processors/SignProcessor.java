@@ -131,6 +131,9 @@ public class SignProcessor extends StructureProcessor {
                     if (str.contains("[final_treasure]")) {
                         return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
                     }
+                    if (str.contains("[lock_treasure]")) {
+                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.LOCKED_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
+                    }
 
                 }
 

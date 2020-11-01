@@ -5,3 +5,5 @@ This is because I decided to expand the scope of the mod, from just dungeons, to
 * Added blackstone tower structure, found in soul sand valley dimension
 * Changed tower structure in overworld to jigsaw, won't ever float weirdly on mountains again.
 * Chest at top of tower will get destroyed at end of tower destruction so it doesn't just hang there in air.
++ Added locked treasure block, same as final treasure block, but doesn't start a tower destroying sequence!
++ Locked and final treasure blocks now spawn a chest with a unique loot table

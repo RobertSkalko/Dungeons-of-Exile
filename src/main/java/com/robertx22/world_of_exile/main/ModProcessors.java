@@ -23,9 +23,14 @@ public class ModProcessors {
         , new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.POLISHED_ANDESITE, 0.5F), AlwaysTrueRuleTest.INSTANCE, Blocks.ANDESITE.getDefaultState())))
 
     ));
-    public StructureProcessorList TOWER_PROCESORS = regProcs("tower_processors", ImmutableList.of(
+    public StructureProcessorList BLACKSTONE_TOWER = regProcs("blackstone_tower", ImmutableList.of(
         new SignProcessor(),
         new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.POLISHED_BLACKSTONE, 0.2F), AlwaysTrueRuleTest.INSTANCE, Blocks.AIR.getDefaultState())))
+    ));
+
+    public StructureProcessorList STONE_BRICK_TOWER = regProcs("stone_brick_tower", ImmutableList.of(
+        new SignProcessor(),
+        new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.SMOOTH_STONE, 0.5F), AlwaysTrueRuleTest.INSTANCE, Blocks.AIR.getDefaultState())))
     ));
 
     private static StructureProcessorList regProcs(String id, ImmutableList<StructureProcessor> processorList) {
