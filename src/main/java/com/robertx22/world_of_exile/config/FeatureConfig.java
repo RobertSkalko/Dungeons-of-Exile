@@ -1,11 +1,13 @@
 package com.robertx22.world_of_exile.config;
 
+import com.robertx22.library_of_exile.config_utils.PerBiomeCategoryConfig;
 import com.robertx22.library_of_exile.config_utils.PerBiomeConfig;
 import com.robertx22.library_of_exile.config_utils.PerDimensionConfig;
 import com.robertx22.world_of_exile.mixins.StructuresConfigAccessor;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -24,6 +26,9 @@ public class FeatureConfig {
 
     @ConfigEntry.Gui.CollapsibleObject
     public PerBiomeConfig PER_BIOME = new PerBiomeConfig();
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public PerBiomeCategoryConfig PER_BIOME_CATEGORY = new PerBiomeCategoryConfig();
 
     public String registry_id;
     public MyStructureConfig config;
@@ -66,12 +71,21 @@ public class FeatureConfig {
     }
 
     public boolean isAllowedIn(DimensionType type, Biome biome, World world) {
-        if (!PER_DIM.isAllowedIn(type, world)) {
-            return false;
+        return this.isAllowedIn(type, biome, world.getRegistryManager());
+    }
+
+    public boolean isAllowedIn(DimensionType type, Biome biome, DynamicRegistryManager world) {
+        if (type != null) {
+            if (!PER_DIM.isAllowedIn(type, world)) {
+                return false;
+            }
         }
 
         if (biome != null) {
             if (!PER_BIOME.isAllowedIn(biome, world)) {
+                return false;
+            }
+            if (!PER_BIOME_CATEGORY.isAllowedIn(biome.getCategory(), world)) {
                 return false;
             }
         }

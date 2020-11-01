@@ -12,7 +12,6 @@ import com.robertx22.world_of_exile.world_gen.processors.SignProcessor;
 import com.robertx22.world_of_exile.world_gen.processors.biome_processor.BiomeProcessor;
 import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
 import net.minecraft.structure.processor.StructureProcessorType;
-import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
@@ -52,9 +51,9 @@ public class ModWorldGen {
 
     public ModWorldGen() {
 
-        FabricStructureBuilder.create(new Identifier(WOE.MODID, "dungeon"), DUNGEON)
+        FabricStructureBuilder.create(ModStructures.DUNGEON_ID, DUNGEON)
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
-            .defaultConfig(22, 0, 378235)
+            .defaultConfig(ModConfig.get().DUNGEON.config.get())
             .superflatFeature(CONFIG_DUNGEON)
             .register();
 

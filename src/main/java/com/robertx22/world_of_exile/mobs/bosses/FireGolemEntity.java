@@ -1,7 +1,8 @@
-package com.robertx22.world_of_exile.mobs.ai;
+package com.robertx22.world_of_exile.mobs.bosses;
 
 import com.robertx22.library_of_exile.packets.defaults.EntityPacket;
 import com.robertx22.world_of_exile.main.ModItems;
+import com.robertx22.world_of_exile.mobs.ai.ShootProjectileGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;

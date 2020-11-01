@@ -2,7 +2,8 @@ package com.robertx22.world_of_exile.main;
 
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
-import com.robertx22.world_of_exile.mobs.ai.FireGolemEntity;
+import com.robertx22.world_of_exile.mobs.bosses.FireGolemEntity;
+import com.robertx22.world_of_exile.mobs.entities.ChargingCrepeerEntity;
 import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerPools;
@@ -55,6 +56,7 @@ public class CommonInit implements ModInitializer {
         ModBiomes.INSTANCE = new ModBiomes();
 
         FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.FIRE_GOLEM, FireGolemEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.CHARGING_CREEPER, ChargingCrepeerEntity.createAttributes());
 
         ServerTickEvents.END_WORLD_TICK.register(x -> TowerDestroyer.tickAll(x));
 
@@ -70,44 +72,40 @@ public class CommonInit implements ModInitializer {
 
         ServerLifecycleEvents.SERVER_STARTING.register(x -> {
 
-            DynamicRegistryManager registryManager = x.getRegistryManager();
+            DynamicRegistryManager regManager = x.getRegistryManager();
 
             int num = 0;
 
-            if (registryManager.getOptional(Registry.BIOME_KEY)
+            if (regManager.getOptional(Registry.BIOME_KEY)
                 .isPresent()) {
 
-                for (Biome biome : registryManager.get(Registry.BIOME_KEY)) {
-
-                    if (biome.getCategory() == Biome.Category.NONE ||
-                        biome.getCategory() == Biome.Category.OCEAN ||
-                        biome.getCategory() == Biome.Category.THEEND) {
-                        continue;
-                    }
-                    num++;
+                for (Biome biome : regManager.get(Registry.BIOME_KEY)) {
 
                     BiomeAccessor access = (BiomeAccessor) (Object) biome;
                     Map<Integer, List<StructureFeature<?>>> list = access.getStructureLists();
                     list = new HashMap<>(list);
-
-                    if (biome.getCategory() != Biome.Category.NETHER) {
-                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                            .add(ModWorldGen.INSTANCE.DUNGEON);
-                    }
-                    list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                        .add(ModWorldGen.INSTANCE.STONE_BRICK_TOWER);
-                    list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                        .add(ModWorldGen.INSTANCE.BLACKSTONE_TOWER);
-
-                    access.setStructureLists(list);
-
                     GenerationSettingsAccessor gen = (GenerationSettingsAccessor) biome.getGenerationSettings();
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
-                    if (biome.getCategory() != Biome.Category.NETHER) {
+
+                    if (ModConfig.get().DUNGEON.isAllowedIn(null, biome, regManager)) {
+                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
+                            .add(ModWorldGen.INSTANCE.DUNGEON);
                         setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_DUNGEON);
                     }
-                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_STONE_BRICK_TOWER);
-                    setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER);
+
+                    if (ModConfig.get().STONE_BRICK_TOWER.isAllowedIn(null, biome, regManager)) {
+                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
+                            .add(ModWorldGen.INSTANCE.STONE_BRICK_TOWER);
+                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_STONE_BRICK_TOWER);
+
+                    }
+                    if (ModConfig.get().BLACKSTONE_TOWER.isAllowedIn(null, biome, regManager)) {
+                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
+                            .add(ModWorldGen.INSTANCE.BLACKSTONE_TOWER);
+                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER);
+                    }
+
+                    access.setStructureLists(list);
                     gen.setGSStructureFeatures(setlist);
 
                 }

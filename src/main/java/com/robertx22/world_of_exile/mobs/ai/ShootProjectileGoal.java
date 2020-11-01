@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.mobs.ai;
 
+import com.robertx22.world_of_exile.mobs.bosses.FireGolemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.attribute.EntityAttributes;

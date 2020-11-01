@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.config;
 
+import com.robertx22.library_of_exile.config_utils.PerBiomeCategoryConfig;
 import com.robertx22.world_of_exile.main.ModDimensions;
 import com.robertx22.world_of_exile.main.ModEntities;
 import com.robertx22.world_of_exile.main.ModStructures;
@@ -24,6 +25,9 @@ public class ModConfig implements ConfigData {
     public boolean ENABLE_DUNGEON = true;
 
     @ConfigEntry.Gui.CollapsibleObject
+    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 0, 378235), ModStructures.BLACKSTONE_TOWER_ID);
+
+    @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 2, 2058146), ModStructures.BLACKSTONE_TOWER_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
@@ -37,8 +41,15 @@ public class ModConfig implements ConfigData {
 
     ModConfig() {
 
+        BLACKSTONE_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
         BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.SOUL_SAND_VALLEY.toString());
+
+        STONE_BRICK_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
         STONE_BRICK_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
+            .toString());
+
+        DUNGEON.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
+        DUNGEON.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
             .toString());
 
         if (ALLOWED_MOBS_FOR_SPAWNERS.isEmpty()) {

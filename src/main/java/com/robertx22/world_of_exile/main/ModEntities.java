@@ -1,6 +1,7 @@
 package com.robertx22.world_of_exile.main;
 
-import com.robertx22.world_of_exile.mobs.ai.FireGolemEntity;
+import com.robertx22.world_of_exile.mobs.bosses.FireGolemEntity;
+import com.robertx22.world_of_exile.mobs.entities.ChargingCrepeerEntity;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.EntityDimensions;
@@ -16,6 +17,7 @@ public class ModEntities {
     public static ModEntities INSTANCE;
 
     public EntityType<FireGolemEntity> FIRE_GOLEM = mob(FireGolemEntity::new, "fire_golem", new EntityDimensions(1.4F, 2.7F, true));
+    public EntityType<ChargingCrepeerEntity> CHARGING_CREEPER = mob(ChargingCrepeerEntity::new, "charging_creepeer", new EntityDimensions(0.5F, 2, true));
 
     private <T extends MobEntity> EntityType<T> mob(EntityType.EntityFactory<T> factory,
                                                     String id, EntityDimensions size) {

@@ -31,16 +31,16 @@ public class StoneBrickTowerPools {
     static {
 
         Pool startBuilder = new Pool(new Identifier(WOE.MODID, "tower_start"));
-        startBuilder.add(new Identifier(WOE.MODID, "tower/start/start0"));
+        startBuilder.add(new Identifier(WOE.MODID, "stone_brick_tower/start/start0"));
         STARTPOOL = startBuilder.build();
 
         Pool middleBuilder = new Pool(new Identifier(WOE.MODID, "tower_middle"));
-        middleBuilder.add(new Identifier(WOE.MODID, "tower/middle/middle0"));
+        middleBuilder.add(new Identifier(WOE.MODID, "stone_brick_tower/middle/middle0"));
         middleBuilder.build();
 
         Pool topBuilder = new Pool(new Identifier(WOE.MODID, "tower_top"));
-        topBuilder.add(new Identifier(WOE.MODID, "tower/top/topbig"));
-        topBuilder.add(new Identifier(WOE.MODID, "tower/top/topsmall"));
+        topBuilder.add(new Identifier(WOE.MODID, "stone_brick_tower/top/topbig"));
+        topBuilder.add(new Identifier(WOE.MODID, "stone_brick_tower/top/topsmall"));
         topBuilder.build();
 
     }
