@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "world_of_exile:block/respawn_anchor_top",
+    "bottom": "world_of_exile:block/respawn_anchor_bottom",
+    "side": "world_of_exile:block/respawn_anchor_side"
+  }
+}

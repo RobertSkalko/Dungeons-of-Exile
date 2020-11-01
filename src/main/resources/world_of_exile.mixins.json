@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "com.robertx22.world_of_exile.mixins",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BuiltInBiomesAccessor",
+    "GenerationSettingsAccessor",
+    "MobSpawnerLogicMixin",
+    "SignMixin",
+    "StructuresConfigAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

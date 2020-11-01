@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/cube_bottom_top",
-  "textures": {
-    "top": "challenges_of_exile:block/respawn_anchor_top",
-    "bottom": "challenges_of_exile:block/respawn_anchor_bottom",
-    "side": "challenges_of_exile:block/respawn_anchor_side"
-  }
-}

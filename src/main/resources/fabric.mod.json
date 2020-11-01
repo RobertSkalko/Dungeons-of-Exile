@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "dungeons_of_exile",
-  "version": "1.1.2",
-  "name": "Dungeons of Exile",
+  "id": "world_of_exile",
+  "version": "1.2.0",
+  "name": "World of Exile",
   "description": "Conquer Dungeons and aquire Loot!",
   "authors": [
     "mcrobertx22"
@@ -16,23 +16,23 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.robertx22.dungeons_of_exile.main.CommonInit"
+      "com.robertx22.world_of_exile.main.CommonInit"
     ],
     "client": [
-      "com.robertx22.dungeons_of_exile.main.ClientInit"
+      "com.robertx22.world_of_exile.main.ClientInit"
     ],
     "modmenu": [
-      "com.robertx22.dungeons_of_exile.main.ModMenuIntegration"
+      "com.robertx22.world_of_exile.main.ModMenuIntegration"
     ]
   },
   "mixins": [
-    "dungeons_of_exile.mixins.json"
+    "world_of_exile.mixins.json"
   ],
   "depends": {
     "minecraft": ">=1.16.2",
     "fabricloader": ">=0.9.2",
     "fabric": ">=0.19.0",
-    "library_of_exile": ">=1.0.4"
+    "library_of_exile": ">=1.0.5"
   },
   "suggests": {
     "age_of_exile": "*"

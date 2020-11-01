@@ -115,9 +115,7 @@ curseforge {
             requiredDependency 'fabric-api'
             requiredDependency 'library-of-exile'
             requiredDependency 'cardinal-components'
-            requiredDependency 'auto-config-updated-api'
-
-            optionalDependency 'age-of-exile'
+            requiredDependency 'auto-config-updated-api'          
         }
         mainArtifact(remapJar)
 
