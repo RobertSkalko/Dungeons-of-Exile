@@ -18,7 +18,7 @@ public class LockedTreasureBlock extends AbstractLockedBlock {
 
     public LockedTreasureBlock() {
         super(AbstractBlock.Settings.of(Material.STONE)
-            .strength(500, 5000));
+            .strength(5000, 50000));
     }
 
     @Override

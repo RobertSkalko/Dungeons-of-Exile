@@ -23,6 +23,7 @@ public class FireGolemEntity extends IronGolemEntity {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
+            .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 100)
             .add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
             .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.27D)
             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)

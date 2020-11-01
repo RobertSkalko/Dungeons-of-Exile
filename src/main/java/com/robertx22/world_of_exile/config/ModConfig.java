@@ -25,7 +25,7 @@ public class ModConfig implements ConfigData {
     public boolean ENABLE_DUNGEON = true;
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 0, 378235), ModStructures.BLACKSTONE_TOWER_ID);
+    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 0, 378235), ModStructures.DUNGEON_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 2, 2058146), ModStructures.BLACKSTONE_TOWER_ID);

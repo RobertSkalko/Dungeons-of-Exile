@@ -33,6 +33,8 @@ import java.util.function.Supplier;
 
 public class CommonInit implements ModInitializer {
 
+    public static MinecraftServer server;
+
     @Override
     public void onInitialize() {
 
@@ -66,13 +68,36 @@ public class CommonInit implements ModInitializer {
 
                 ModConfig.get().BLACKSTONE_TOWER.onWorldLoad(world);
                 ModConfig.get().STONE_BRICK_TOWER.onWorldLoad(world);
+                ModConfig.get().DUNGEON.onWorldLoad(world);
 
             }
         });
 
-        ServerLifecycleEvents.SERVER_STARTING.register(x -> {
+        ServerLifecycleEvents.SERVER_STARTING.register(s -> {
+            //BiomeModifications can replace this but lambda hell
 
-            DynamicRegistryManager regManager = x.getRegistryManager();
+            server = s;
+
+            /*
+
+            BiomeModifications.addStructure(x -> {
+                return ModConfig.get().DUNGEON.isAllowedIn(null, x.getBiome(), server.getRegistryManager());
+            }, ModWorldGen.INSTANCE.DUNGEON_KEY);
+
+            BiomeModifications.addStructure(x -> {
+                return ModConfig.get().BLACKSTONE_TOWER.isAllowedIn(null, x.getBiome(), server.getRegistryManager());
+            }, ModWorldGen.INSTANCE.BLANKSTONE_TOWER_KEY);
+
+            BiomeModifications.addStructure(x -> {
+                return ModConfig.get().STONE_BRICK_TOWER.isAllowedIn(null, x.getBiome(), server.getRegistryManager());
+            }, ModWorldGen.INSTANCE.STONE_BRICK_TOWER_KEY);
+
+            BiomeModificationImpl.INSTANCE.modifyBiomes((DynamicRegistryManager.Impl) s.getRegistryManager());
+
+
+             */
+
+            DynamicRegistryManager regManager = s.getRegistryManager();
 
             int num = 0;
 
@@ -82,8 +107,7 @@ public class CommonInit implements ModInitializer {
                 for (Biome biome : regManager.get(Registry.BIOME_KEY)) {
 
                     BiomeAccessor access = (BiomeAccessor) (Object) biome;
-                    Map<Integer, List<StructureFeature<?>>> list = access.getStructureLists();
-                    list = new HashMap<>(list);
+                    Map<Integer, List<StructureFeature<?>>> list = new HashMap<>(access.getStructureLists());
                     GenerationSettingsAccessor gen = (GenerationSettingsAccessor) biome.getGenerationSettings();
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
 
