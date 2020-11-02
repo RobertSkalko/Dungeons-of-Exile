@@ -1,8 +1,8 @@
-package com.robertx22.world_of_exile.mobs.bosses;
+package com.robertx22.world_of_exile.entities.boss;
 
 import com.robertx22.library_of_exile.packets.defaults.EntityPacket;
+import com.robertx22.world_of_exile.entities.IShooter;
 import com.robertx22.world_of_exile.main.ModItems;
-import com.robertx22.world_of_exile.mobs.ai.ShootProjectileGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -19,7 +19,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
-public class FireGolemEntity extends IronGolemEntity {
+public abstract class BaseGolemEntity extends IronGolemEntity implements IShooter {
 
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
@@ -31,7 +31,7 @@ public class FireGolemEntity extends IronGolemEntity {
             .add(EntityAttributes.GENERIC_ARMOR, 1);
     }
 
-    public FireGolemEntity(EntityType<? extends FireGolemEntity> entityType, World world) {
+    public BaseGolemEntity(EntityType<? extends BaseGolemEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -54,12 +54,11 @@ public class FireGolemEntity extends IronGolemEntity {
 
     @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new ShootProjectileGoal(this));
+
+        addExtraGoals();
+
         this.goalSelector.add(2, new MeleeAttackGoal(this, 1, true));
         this.goalSelector.add(3, new WanderNearTargetGoal(this, 0.9D, 32.0F));
-
-        //this.goalSelector.add(2, new WanderAroundPointOfInterestGoal(this, 0.6D, false));
-        //this.goalSelector.add(4, new IronGolemWanderAroundGoal(this, 0.6D));
         this.goalSelector.add(5, new IronGolemLookGoal(this));
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 20));
         this.goalSelector.add(8, new LookAroundGoal(this));
@@ -67,6 +66,8 @@ public class FireGolemEntity extends IronGolemEntity {
         this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
 
     }
+
+    public abstract void addExtraGoals();
 
     @Override
     public void tick() {
@@ -91,11 +92,9 @@ public class FireGolemEntity extends IronGolemEntity {
 
     @Override
     public boolean damage(DamageSource source, float amount) {
-
         if (!(source.getAttacker() instanceof PlayerEntity)) {
             return false; // dont get damaged by non player attacks
         }
-
         return super.damage(source, amount);
     }
 
@@ -114,6 +113,16 @@ public class FireGolemEntity extends IronGolemEntity {
         return this.world.getDifficulty() == Difficulty.PEACEFUL;
     }
 
+    @Override
+    public int getShootDelay() {
+        return shootDelay;
+    }
+
+    @Override
+    public void setShootDelay(int delay) {
+        this.shootDelay = delay;
+
+    }
 }
 
 

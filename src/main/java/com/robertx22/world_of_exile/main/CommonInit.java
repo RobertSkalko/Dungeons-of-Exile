@@ -2,8 +2,6 @@ package com.robertx22.world_of_exile.main;
 
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
-import com.robertx22.world_of_exile.mobs.bosses.FireGolemEntity;
-import com.robertx22.world_of_exile.mobs.entities.ChargingCrepeerEntity;
 import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerPools;
@@ -14,7 +12,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.mixin.structure.BiomeAccessor;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
@@ -57,8 +54,9 @@ public class CommonInit implements ModInitializer {
 
         ModBiomes.INSTANCE = new ModBiomes();
 
-        FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.FIRE_GOLEM, FireGolemEntity.createAttributes());
-        FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.CHARGING_CREEPER, ChargingCrepeerEntity.createAttributes());
+        ModEntityAttributes.register();
+
+        MobSpawnsInit.register();
 
         ServerTickEvents.END_WORLD_TICK.register(x -> TowerDestroyer.tickAll(x));
 

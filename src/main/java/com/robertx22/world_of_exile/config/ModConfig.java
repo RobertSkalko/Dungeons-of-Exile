@@ -63,6 +63,7 @@ public class ModConfig implements ConfigData {
 
         if (ALLOWED_BOSSES.isEmpty()) {
             addBoss(ModEntities.INSTANCE.FIRE_GOLEM);
+            addBoss(ModEntities.INSTANCE.FROST_GOLEM);
         }
     }
 

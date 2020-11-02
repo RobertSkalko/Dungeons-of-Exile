@@ -1,4 +1,4 @@
-package com.robertx22.world_of_exile.mobs.renders;
+package com.robertx22.world_of_exile.entities.renders;
 
 import net.minecraft.client.render.entity.CreeperEntityRenderer;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;

@@ -7,4 +7,6 @@ This is because I decided to expand the scope of the mod, from just dungeons, to
 * Chest at top of tower will get destroyed at end of tower destruction so it doesn't just hang there in air.
 * Added locked treasure block, same as final treasure block, but doesn't start a tower destroying sequence!
 * Locked and final treasure blocks now spawn a chest with a unique loot table
+* added frost blaze
+* added frost golem boss
 * much better structure generation configs, now has a blacklist/whitelist of: dimensions, biomes and biome categories!
