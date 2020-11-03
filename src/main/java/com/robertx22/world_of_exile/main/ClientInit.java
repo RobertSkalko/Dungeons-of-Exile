@@ -1,8 +1,8 @@
 package com.robertx22.world_of_exile.main;
 
 import com.robertx22.library_of_exile.main.Packets;
-import com.robertx22.world_of_exile.blocks.stargate.OpenStargateScreenPacket;
-import com.robertx22.world_of_exile.blocks.stargate.StargateInfoPacket;
+import com.robertx22.world_of_exile.blocks.stargate.packets.OpenStargateScreenPacket;
+import com.robertx22.world_of_exile.blocks.stargate.packets.StargateInfoPacket;
 import com.robertx22.world_of_exile.entities.renders.GolemRenderer;
 import com.robertx22.world_of_exile.entities.renders.ModBlazeRenderer;
 import com.robertx22.world_of_exile.entities.renders.ModCreeperRenderer;

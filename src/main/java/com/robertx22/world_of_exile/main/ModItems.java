@@ -10,6 +10,7 @@ public class ModItems extends Packets {
     public static ModItems INSTANCE;
 
     public SilverKeyItem SILVER_KEY = item("silver_key", new SilverKeyItem());
+    public Item TELEPORT_RANDOMIZER = item("randomize_teleport", new Item(new Item.Settings().group(CreativeTabs.MAIN)));
 
     public BlockItem STARGATE = item("stargate", new BlockItem(ModBlocks.INSTANCE.STARGATE, new Item.Settings().group(CreativeTabs.MAIN)));
 

@@ -1,5 +1,7 @@
 package com.robertx22.world_of_exile.main;
 
+import com.robertx22.library_of_exile.main.Packets;
+import com.robertx22.world_of_exile.blocks.stargate.packets.RequestStargateTeleportPacket;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
@@ -34,6 +36,8 @@ public class CommonInit implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
+        Packets.registerClientToServerPacket(new RequestStargateTeleportPacket());
 
         ModProcessors.INSTANCE = new ModProcessors();
         ModBlocks.INSTANCE = new ModBlocks();
