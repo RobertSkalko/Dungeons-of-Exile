@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.blocks.stargate;
 
+import com.robertx22.library_of_exile.main.Packets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -31,7 +32,10 @@ public class StarGateBlock extends Block implements BlockEntityProvider {
 
                 ItemStack stack = player.getMainHandStack();
 
-                stack.decrement(1);
+                StargateBlockEntity tile = (StargateBlockEntity) world.getBlockEntity(pos);
+
+                Packets.sendToClient(player, new StargateInfoPacket(tile.tpPos, tile.dimensionId));
+                Packets.sendToClient(player, new OpenStargateScreenPacket());
 
             } catch (Exception e) {
                 e.printStackTrace();

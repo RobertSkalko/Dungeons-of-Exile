@@ -1,4 +1,11 @@
 {
 	"entity.world_of_exile.fire_golem": "Magma Golem",
+	"entity.world_of_exile.frost_golem": "Frost Golem",
+	
+	"entity.world_of_exile.frost_blaze": "Frost Blaze",
+	
+	"block.world_of_exile.stargate": "Stargate",
+	
 	"item.world_of_exile.silver_key": "Silver Key"
+	
 }
