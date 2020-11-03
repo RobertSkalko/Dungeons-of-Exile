@@ -14,7 +14,7 @@ public class GolemRenderer extends MobEntityRenderer<IronGolemEntity, IronGolemE
 
     public GolemRenderer(String id, EntityRenderDispatcher entityRenderDispatcher) {
         super(entityRenderDispatcher, new IronGolemEntityModel(), 0.7F);
-        TEXTURE = new Identifier(WOE.MODID, "textures/entity/golem/" + id + ".png");
+        TEXTURE = WOE.id("textures/entity/golem/" + id + ".png");
     }
 
     @Override

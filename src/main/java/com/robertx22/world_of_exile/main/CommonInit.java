@@ -72,6 +72,7 @@ public class CommonInit implements ModInitializer {
         });
 
         ServerLifecycleEvents.SERVER_STARTING.register(s -> {
+
             //BiomeModifications can replace this but lambda hell
 
             server = s;

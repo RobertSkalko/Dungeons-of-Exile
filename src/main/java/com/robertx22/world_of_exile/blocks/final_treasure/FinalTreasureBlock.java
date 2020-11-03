@@ -34,7 +34,7 @@ public class FinalTreasureBlock extends AbstractLockedBlock {
         world.setBlockState(pos, Blocks.AIR.getDefaultState());
 
         ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos.up());
-        chest.setLootTable(ModLoottables.BIG_TREASURE, RandomUtils.nextLong());
+        chest.setLootTable(ModLoottables.MEDIUM_TREASURE, RandomUtils.nextLong());
 
         TowerDestroyer.list.add(new TowerDestroyer(pos, world, chest));
     }

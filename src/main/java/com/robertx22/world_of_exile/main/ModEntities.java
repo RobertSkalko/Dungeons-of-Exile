@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
 
@@ -31,7 +30,7 @@ public class ModEntities {
             .trackedUpdateRate(1)
             .trackRangeChunks(4)
             .build();
-        Registry.register(Registry.ENTITY_TYPE, new Identifier(WOE.MODID, id), type);
+        Registry.register(Registry.ENTITY_TYPE, WOE.id(id), type);
 
         return type;
     }
@@ -42,7 +41,7 @@ public class ModEntities {
         EntityType<T> type = FabricEntityTypeBuilder.<T>create(SpawnGroup.MONSTER, factory).dimensions(size)
             .fireImmune()
             .build();
-        Registry.register(Registry.ENTITY_TYPE, new Identifier(WOE.MODID, id), type);
+        Registry.register(Registry.ENTITY_TYPE, WOE.id(id), type);
         //ENTITY_TYPES.add(type);
 
         SpawnRestrictionAccessor.callRegister(type, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canMobSpawn);

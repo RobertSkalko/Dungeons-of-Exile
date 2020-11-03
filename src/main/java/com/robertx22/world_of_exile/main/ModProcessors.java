@@ -34,7 +34,7 @@ public class ModProcessors {
     ));
 
     private static StructureProcessorList regProcs(String id, ImmutableList<StructureProcessor> processorList) {
-        Identifier identifier = new Identifier(WOE.MODID, id);
+        Identifier identifier = WOE.id(id);
 
         StructureProcessorList structureProcessorList = new StructureProcessorList(processorList);
 

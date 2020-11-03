@@ -1,8 +1,8 @@
 v.1.2.0
 * Renamed mod to World of Exile
 This is because I decided to expand the scope of the mod, from just dungeons, to the whole world, and even dimensions!
-* Added Soul Sand Valley dimension
-* Added blackstone tower structure, found in soul sand valley dimension
+* Added Abyss Dimension
+* Added blackstone tower structure, found in Abyss dimension
 * Changed tower structure in overworld to jigsaw, won't ever float weirdly on mountains again.
 * Chest at top of tower will get destroyed at end of tower destruction so it doesn't just hang there in air.
 * Added locked treasure block, same as final treasure block, but doesn't start a tower destroying sequence!

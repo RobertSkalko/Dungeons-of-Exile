@@ -30,19 +30,19 @@ public class BlackStoneTowerPools {
 
     static {
 
-        AbstractPool startBuilder = new Pool(new Identifier(WOE.MODID, "bigtower_start"));
-        startBuilder.add(new Identifier(WOE.MODID, "blackstone_tower/start/start0"));
+        AbstractPool startBuilder = new Pool(WOE.id("bigtower_start"));
+        startBuilder.add(WOE.id("blackstone_tower/start/start0"));
         STARTPOOL = startBuilder.build();
 
-        AbstractPool middleBuilder = new Pool(new Identifier(WOE.MODID, "bigtower_middle"));
-        middleBuilder.add(new Identifier(WOE.MODID, "blackstone_tower/middle/middle0"));
-        middleBuilder.add(new Identifier(WOE.MODID, "blackstone_tower/middle/top"), 1);
+        AbstractPool middleBuilder = new Pool(WOE.id("bigtower_middle"));
+        middleBuilder.add(WOE.id("blackstone_tower/middle/middle0"));
+        middleBuilder.add(WOE.id("blackstone_tower/middle/top"), 1);
         middleBuilder.build();
 
-        AbstractPool sideBuilder = new Pool(new Identifier(WOE.MODID, "bigtower_side"));
-        sideBuilder.add(new Identifier(WOE.MODID, "blackstone_tower/side/emptyside"));
-        sideBuilder.add(new Identifier(WOE.MODID, "blackstone_tower/side/bigside0"), 500);
-        sideBuilder.add(new Identifier(WOE.MODID, "blackstone_tower/side/side1"), 150);
+        AbstractPool sideBuilder = new Pool(WOE.id("bigtower_side"));
+        sideBuilder.add(WOE.id("blackstone_tower/side/emptyside"));
+        sideBuilder.add(WOE.id("blackstone_tower/side/bigside0"), 500);
+        sideBuilder.add(WOE.id("blackstone_tower/side/side1"), 150);
         sideBuilder.build();
 
     }

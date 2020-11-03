@@ -35,8 +35,8 @@ public class DungeonPools {
 
     static {
 
-        AbstractPool startBuilder = new Pool(new Identifier(WOE.MODID, "dungeon/starts"));
-        startBuilder.add(new Identifier(WOE.MODID, "dungeon/starts/start"));
+        AbstractPool startBuilder = new Pool(WOE.id("dungeon/starts"));
+        startBuilder.add(WOE.id("dungeon/starts/start"));
         STARTPOOL = startBuilder.build();
 
         ROOMS.add(new StrucInfo("dungeon/rooms/room1"));
@@ -44,15 +44,15 @@ public class DungeonPools {
         ROOMS.add(new StrucInfo("dungeon/rooms/room3"));
         ROOMS.add(new StrucInfo("dungeon/rooms/pool1"));
 
-        AbstractPool roomBuilder = new Pool(new Identifier(WOE.MODID, "dungeon/rooms"));
-        roomBuilder.add(new Identifier(WOE.MODID, "dungeon/halls/hall"), 3);
-        roomBuilder.add(new Identifier(WOE.MODID, "dungeon/near_start/triple_hall"));
+        AbstractPool roomBuilder = new Pool(WOE.id("dungeon/rooms"));
+        roomBuilder.add(WOE.id("dungeon/halls/hall"), 3);
+        roomBuilder.add(WOE.id("dungeon/near_start/triple_hall"));
 
         ROOMS.forEach(x -> roomBuilder.add(new Identifier(x.id)));
         roomBuilder.build();
 
-        AbstractPool stairsBuilder = new Pool(new Identifier(WOE.MODID, "dungeon/stairs"));
-        stairsBuilder.add(new Identifier(WOE.MODID, "dungeon/stairs/stairs"));
+        AbstractPool stairsBuilder = new Pool(WOE.id("dungeon/stairs"));
+        stairsBuilder.add(WOE.id("dungeon/stairs/stairs"));
         stairsBuilder.build();
 
     }

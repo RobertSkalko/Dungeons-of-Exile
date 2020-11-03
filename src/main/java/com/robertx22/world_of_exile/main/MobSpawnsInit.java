@@ -8,8 +8,9 @@ import net.minecraft.world.biome.BiomeKeys;
 public class MobSpawnsInit {
 
     public static void register() {
+
         BiomeModifications.addSpawn(
-            BiomeSelectors.includeByKey(BiomeKeys.SOUL_SAND_VALLEY),
+            BiomeSelectors.includeByKey(BiomeKeys.SOUL_SAND_VALLEY, BiomeKeys.SNOWY_MOUNTAINS),
             SpawnGroup.MONSTER,
             ModEntities.INSTANCE.FROST_BLAZE,
             10, 1, 1);
