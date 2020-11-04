@@ -1,42 +1,28 @@
 package com.robertx22.world_of_exile.main;
 
-import net.minecraft.client.sound.MusicType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.particle.ParticleTypes;
-import net.minecraft.sound.BiomeAdditionsSound;
-import net.minecraft.sound.BiomeMoodSound;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredFeatures;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeatures;
-import net.minecraft.world.gen.feature.DefaultBiomeFeatures;
-import net.minecraft.world.gen.surfacebuilder.ConfiguredSurfaceBuilders;
-
 public class ModBiomes {
 
     public static ModBiomes INSTANCE;
-
-    public static final RegistryKey<Biome> WARPED_KEY = RegistryKey.of(Registry.BIOME_KEY, WOE.id("mod_warped_forest"));
-
-    public Biome MOD_WARPED_FOREST = register(WARPED_KEY, createWarpedForest());
 
     public ModBiomes() {
 
     }
 
+    /*
+    public static final RegistryKey<Biome> WARPED_KEY = RegistryKey.of(Registry.BIOME_KEY, WOE.id("mod_warped_forest"));
+
+    public Biome MOD_WARPED_FOREST = register(WARPED_KEY, createWarpedForest());
+
+
+
     private Biome register(RegistryKey<Biome> registryKey, Biome biome) {
-        /*
+
 
         Registry.register(Registry.BIOME_KEY, registryKey.getValue(), biome);
         BuiltInBiomesAccessor.getRawIdMap()
             .put(BuiltinRegistries.BIOME.getRawId(biome), registryKey);
 
-         */
+
         return biome;
     }
 
@@ -90,4 +76,5 @@ public class ModBiomes {
         f = MathHelper.clamp(f, -1.0F, 1.0F);
         return MathHelper.hsvToRgb(0.62222224F - f * 0.05F, 0.5F + f * 0.1F, 1.0F);
     }
+    */
 }

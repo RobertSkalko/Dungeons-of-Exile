@@ -101,6 +101,8 @@ public class StargateScreen extends Screen {
         public TeleportButton(int xPos, int yPos) {
             super(xPos, yPos, BUTTON_SIZE_X, BUTTON_SIZE_Y, 0, 0, BUTTON_SIZE_Y, BUTTON_TEX, (button) -> {
                 Packets.sendToServer(new RequestStargateTeleportPacket(StargateClientInfo.SYNCED_INFO.tpPos, StargateClientInfo.SYNCED_INFO.dimensionId));
+                MinecraftClient.getInstance()
+                    .openScreen(null);
             });
         }
 

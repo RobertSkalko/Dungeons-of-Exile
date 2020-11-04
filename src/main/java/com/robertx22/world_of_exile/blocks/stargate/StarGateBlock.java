@@ -26,7 +26,7 @@ public class StarGateBlock extends Block implements BlockEntityProvider {
 
     public StarGateBlock() {
         super(Settings.of(Material.STONE)
-            .strength(500, 500));
+            .strength(50.0F, 1200.0F));
     }
 
     @Deprecated
@@ -44,6 +44,10 @@ public class StarGateBlock extends Block implements BlockEntityProvider {
 
             try {
                 StargateBlockEntity tile = (StargateBlockEntity) world.getBlockEntity(pos);
+
+                if (!tile.isDimensionAllowedToPlaceIn()) {
+                    return ActionResult.SUCCESS;
+                }
 
                 ItemStack stack = player.getMainHandStack();
 

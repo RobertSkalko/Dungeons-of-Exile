@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.main;
 
+import com.robertx22.world_of_exile.main.entities.ModEntities;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.entity.SpawnGroup;

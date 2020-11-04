@@ -26,8 +26,14 @@ public class ChargingCrepeerEntity extends CreeperEntity {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+
+    }
+
+    @Override
     public int getFuseSpeed() {
-        return super.getFuseSpeed() * 2;
+        return (int) (super.getFuseSpeed() * 1.5F);
     }
 
 }

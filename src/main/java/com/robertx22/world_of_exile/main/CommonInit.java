@@ -3,6 +3,9 @@ package com.robertx22.world_of_exile.main;
 import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.world_of_exile.blocks.stargate.packets.RequestStargateTeleportPacket;
 import com.robertx22.world_of_exile.config.ModConfig;
+import com.robertx22.world_of_exile.events.OnServerTick;
+import com.robertx22.world_of_exile.main.entities.ModEntities;
+import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
@@ -64,6 +67,8 @@ public class CommonInit implements ModInitializer {
 
         ServerTickEvents.END_WORLD_TICK.register(x -> TowerDestroyer.tickAll(x));
 
+        ServerTickEvents.END_SERVER_TICK.register(new OnServerTick());
+
         ServerWorldEvents.LOAD.register(new ServerWorldEvents.Load() {
             @Override
             public void onWorldLoad(MinecraftServer server, ServerWorld world) {
@@ -102,8 +107,6 @@ public class CommonInit implements ModInitializer {
 
             DynamicRegistryManager regManager = s.getRegistryManager();
 
-            int num = 0;
-
             if (regManager.getOptional(Registry.BIOME_KEY)
                 .isPresent()) {
 
@@ -138,11 +141,7 @@ public class CommonInit implements ModInitializer {
                 }
             }
 
-            if (num == 0) {
-                System.out.print("Didn't find any biomes to add Dungeons of Exile structures to, means mod is broken!");
-            }
-
-            System.out.println("Added DOE structures to " + num + " biomes");
+            System.out.println("Added DOE structures to biomes");
 
         });
 

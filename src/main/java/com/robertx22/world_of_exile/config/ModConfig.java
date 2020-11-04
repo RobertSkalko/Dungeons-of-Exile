@@ -2,8 +2,8 @@ package com.robertx22.world_of_exile.config;
 
 import com.robertx22.library_of_exile.config_utils.PerBiomeCategoryConfig;
 import com.robertx22.world_of_exile.main.ModDimensions;
-import com.robertx22.world_of_exile.main.ModEntities;
 import com.robertx22.world_of_exile.main.ModStructures;
+import com.robertx22.world_of_exile.main.entities.ModEntities;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;

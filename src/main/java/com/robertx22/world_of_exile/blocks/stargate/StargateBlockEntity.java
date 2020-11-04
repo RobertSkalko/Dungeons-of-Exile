@@ -32,12 +32,20 @@ public class StargateBlockEntity extends BlockEntity implements Tickable {
         ticks++;
 
         if (ticks % 20 == 0) {
-            if (this.world.getDimension() != world.getRegistryManager()
-                .getDimensionTypes()
-                .get(DimensionType.OVERWORLD_REGISTRY_KEY)) {
+            if (!isDimensionAllowedToPlaceIn()) {
                 this.world.breakBlock(pos, true);
             }
         }
+    }
+
+    public boolean isDimensionAllowedToPlaceIn() {
+        if (this.world.getDimension() != world.getRegistryManager()
+            .getDimensionTypes()
+            .get(DimensionType.OVERWORLD_REGISTRY_KEY)) {
+            return false;
+
+        }
+        return true;
     }
 
     public void randomizeTeleportLocation() {
@@ -50,7 +58,7 @@ public class StargateBlockEntity extends BlockEntity implements Tickable {
                 .getBoundSouth(), wb
                 .getBoundNorth()), Math.min(wb
                 .getBoundEast(), wb
-                .getBoundWest())) / 2);
+                .getBoundWest())) / 10);
 
             int x = world.random.nextInt(border);
             int z = world.random.nextInt(border);

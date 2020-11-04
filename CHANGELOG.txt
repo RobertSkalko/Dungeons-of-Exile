@@ -9,4 +9,7 @@ This is because I decided to expand the scope of the mod, from just dungeons, to
 * Locked and final treasure blocks now spawn a chest with a unique loot table
 * added frost blaze
 * added frost golem boss
+* added stargate, used to travel to the abyss (and other dimensions in the future)
+* added teleport back item, used to return from abyss
+* added teleport randomizer item, click on stargate to randomize the teleport position
 * much better structure generation configs, now has a blacklist/whitelist of: dimensions, biomes and biome categories!

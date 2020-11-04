@@ -2,7 +2,7 @@ package com.robertx22.world_of_exile.entities.projectile;
 
 import com.robertx22.library_of_exile.packets.defaults.EntityPacket;
 import com.robertx22.world_of_exile.entities.renders.IMyRendersAsItem;
-import com.robertx22.world_of_exile.main.ModEntities;
+import com.robertx22.world_of_exile.main.entities.ModEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;
@@ -49,7 +49,7 @@ public class FrostProjectileEntity extends ThrownItemEntity implements IMyRender
         if (this.age > 20 * 7) {
             this.remove();
         }
-        this.addVelocity(xvel * 0.001D, yvel * 0.001D, zvel * 0.001D);
+        this.addVelocity(xvel * 0.002D, yvel * 0.002D, zvel * 0.002D);
     }
 
     @Override

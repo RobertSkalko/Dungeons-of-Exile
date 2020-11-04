@@ -2,8 +2,10 @@ package com.robertx22.world_of_exile.blocks.stargate.packets;
 
 import com.robertx22.library_of_exile.main.MyPacket;
 import com.robertx22.library_of_exile.main.Ref;
+import com.robertx22.world_of_exile.util.CommandTeleportUtil;
 import net.fabricmc.fabric.api.network.PacketContext;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
@@ -40,17 +42,7 @@ public class RequestStargateTeleportPacket extends MyPacket<RequestStargateTelep
 
     @Override
     public void onReceived(PacketContext ctx) {
-
-        String command = "/execute in " + dim.toString() + " run tp " + ctx.getPlayer()
-            .getDisplayName()
-            .asString() + " " + pos.getX() + " " + pos.getY() + " " + pos.getZ();
-
-        ctx.getPlayer()
-            .getServer()
-            .getCommandManager()
-            .execute(ctx.getPlayer()
-                .getServer()
-                .getCommandSource(), command);
+        CommandTeleportUtil.teleport((ServerPlayerEntity) ctx.getPlayer(), pos, dim);
     }
 
     @Override

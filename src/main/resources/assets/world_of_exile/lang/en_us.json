@@ -7,6 +7,7 @@
 	"block.world_of_exile.stargate": "Stargate",
 	
 	"item.world_of_exile.silver_key": "Silver Key",
-	"item.world_of_exile.randomize_teleport": "Teleport Randomizer"
+	"item.world_of_exile.randomize_teleport": "Teleport Randomizer",
+	"item.world_of_exile.teleport_back": "Teleport Back"
 	
 }

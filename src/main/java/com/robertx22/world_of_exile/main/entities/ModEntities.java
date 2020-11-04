@@ -1,10 +1,10 @@
-package com.robertx22.world_of_exile.main;
+package com.robertx22.world_of_exile.main.entities;
 
 import com.robertx22.world_of_exile.entities.boss.FireGolemEntity;
 import com.robertx22.world_of_exile.entities.boss.FrostGolemEntity;
-import com.robertx22.world_of_exile.entities.mob.ChargingCrepeerEntity;
-import com.robertx22.world_of_exile.entities.mob.FrostBlazeEntity;
+import com.robertx22.world_of_exile.entities.mob.*;
 import com.robertx22.world_of_exile.entities.projectile.FrostProjectileEntity;
+import com.robertx22.world_of_exile.main.WOE;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.*;
@@ -19,6 +19,12 @@ public class ModEntities {
     public EntityType<FrostGolemEntity> FROST_GOLEM = mob(FrostGolemEntity::new, "frost_golem", new EntityDimensions(1.4F, 2.7F, true));
 
     public EntityType<ChargingCrepeerEntity> CHARGING_CREEPER = mob(ChargingCrepeerEntity::new, "charging_creepeer", new EntityDimensions(0.5F, 2, true));
+
+    public EntityType<InfernalScorpionEntity> INFERNO_SCORPION = mob(InfernalScorpionEntity::new, "inferno_scorpion", new EntityDimensions(1.2F, 1.2F, true));
+
+    public EntityType<InfernalBatEntity> INFERNO_BAT = mob(InfernalBatEntity::new, "infernal_bat", new EntityDimensions(3, 3, true));
+    public EntityType<FrostBatEntity> FROST_BAT = mob(FrostBatEntity::new, "frost_bat", new EntityDimensions(3, 3, true));
+
     public EntityType<FrostBlazeEntity> FROST_BLAZE = mob(FrostBlazeEntity::new, "frost_blaze", new EntityDimensions(0.5F, 2, true));
 
     public EntityType<FrostProjectileEntity> FROST_PROJECTILE = projectile(FrostProjectileEntity::new, "frost_projectile", new EntityDimensions(0.5F, 0.5F, true));
