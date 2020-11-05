@@ -9,8 +9,12 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.*;
 import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Heightmap;
+import net.minecraft.world.ServerWorldAccess;
+
+import java.util.Random;
 
 public class ModEntities {
     public static ModEntities INSTANCE;
@@ -21,6 +25,7 @@ public class ModEntities {
     public EntityType<ChargingCrepeerEntity> CHARGING_CREEPER = mob(ChargingCrepeerEntity::new, "charging_creepeer", new EntityDimensions(0.5F, 2, true));
 
     public EntityType<InfernalScorpionEntity> INFERNO_SCORPION = mob(InfernalScorpionEntity::new, "inferno_scorpion", new EntityDimensions(1.2F, 1.2F, true));
+    public EntityType<PoisonSpiderEntity> POISON_SPIDER = mob(PoisonSpiderEntity::new, "poison_spider", new EntityDimensions(1.2F, 1.2F, true));
 
     public EntityType<InfernalBatEntity> INFERNO_BAT = mob(InfernalBatEntity::new, "infernal_bat", new EntityDimensions(3, 3, true));
     public EntityType<FrostBatEntity> FROST_BAT = mob(FrostBatEntity::new, "frost_bat", new EntityDimensions(3, 3, true));
@@ -50,7 +55,27 @@ public class ModEntities {
         Registry.register(Registry.ENTITY_TYPE, WOE.id(id), type);
         //ENTITY_TYPES.add(type);
 
-        SpawnRestrictionAccessor.callRegister(type, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canMobSpawn);
+        SpawnRestrictionAccessor.callRegister(type, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, new SpawnRestriction.SpawnPredicate<T>() {
+            @Override
+            public boolean test(EntityType<T> type, ServerWorldAccess world, SpawnReason spawnReason, BlockPos pos, Random random) {
+
+                if (MobEntity.canMobSpawn(type, world, spawnReason, pos, random)) {
+
+                    if (spawnReason == SpawnReason.SPAWNER) {
+                        return true;
+                    }
+
+                    if (world.toServerWorld()
+                        .getRegistryKey()
+                        .getValue()
+                        .getNamespace()
+                        .equals(WOE.MODID)) {
+                        return true; // only spawn in my dimensions
+                    }
+                }
+                return false;
+            }
+        });
         return type;
     }
 }

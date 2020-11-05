@@ -12,7 +12,8 @@ public class ModEntityRenders {
         INSTANCE.register(ModEntities.INSTANCE.INFERNO_BAT, (d, ctx) -> new ModBatRender(d, "fire"));
         INSTANCE.register(ModEntities.INSTANCE.FROST_BAT, (d, ctx) -> new ModBatRender(d, "frost"));
 
-        INSTANCE.register(ModEntities.INSTANCE.INFERNO_SCORPION, (d, ctx) -> new ModSpiderRenderer(d, "scorpion"));
+        INSTANCE.register(ModEntities.INSTANCE.INFERNO_SCORPION, (d, ctx) -> new ModSpiderRenderer(d, "fire"));
+        INSTANCE.register(ModEntities.INSTANCE.POISON_SPIDER, (d, ctx) -> new ModSpiderRenderer(d, "poison"));
 
         INSTANCE.register(ModEntities.INSTANCE.FIRE_GOLEM, (d, ctx) -> new GolemRenderer("fire", d));
         INSTANCE.register(ModEntities.INSTANCE.FROST_GOLEM, (d, ctx) -> new GolemRenderer("frost", d));

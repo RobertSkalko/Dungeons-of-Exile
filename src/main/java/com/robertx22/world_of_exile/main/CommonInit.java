@@ -4,6 +4,7 @@ import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.world_of_exile.blocks.stargate.packets.RequestStargateTeleportPacket;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.events.OnServerTick;
+import com.robertx22.world_of_exile.main.entities.MobSpawnsInit;
 import com.robertx22.world_of_exile.main.entities.ModEntities;
 import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;

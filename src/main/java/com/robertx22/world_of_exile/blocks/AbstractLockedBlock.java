@@ -40,7 +40,7 @@ public abstract class AbstractLockedBlock extends Block {
                     onKeyUsed(world, pos, player, stack);
 
                 } else {
-                    player.sendMessage(new LiteralText("").append(getKey().getName())
+                    player.sendMessage(new LiteralText("").append(new ItemStack(getKey()).getName())
                         .append(" Required"), false);
                 }
             } catch (Exception e) {

@@ -12,6 +12,7 @@ public class ModEntityAttributes {
     public static void register() {
 
         FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.INFERNO_SCORPION, ModSpiderEntity.createAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.POISON_SPIDER, ModSpiderEntity.createAttributes());
 
         FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.INFERNO_BAT, ModBatEntity.createAttributes());
         FabricDefaultAttributeRegistry.register(ModEntities.INSTANCE.FROST_BAT, ModBatEntity.createAttributes());

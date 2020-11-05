@@ -3,7 +3,7 @@
   "generator": {
 	"type": "minecraft:noise",
 	"seed": -778856046,
-  "biome_source": {
+	"biome_source": {
           "type": "minecraft:multi_noise",
           "seed": 2037349440,
           "altitude_noise": {
