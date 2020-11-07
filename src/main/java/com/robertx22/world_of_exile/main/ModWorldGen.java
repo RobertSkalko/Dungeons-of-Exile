@@ -5,6 +5,8 @@ import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStone
 import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackstoneTowerStructure;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
+import com.robertx22.world_of_exile.world_gen.jigsaw.ladder_tower.LadderTowerPools;
+import com.robertx22.world_of_exile.world_gen.jigsaw.ladder_tower.LadderTowerStructure;
 import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerStructure;
 import com.robertx22.world_of_exile.world_gen.processors.BeaconProcessor;
@@ -30,6 +32,7 @@ public class ModWorldGen {
     public StructureFeature<StructurePoolFeatureConfig> DUNGEON = new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
     public StructureFeature<StructurePoolFeatureConfig> BLACKSTONE_TOWER = new BlackstoneTowerStructure(StructurePoolFeatureConfig.CODEC);
     public StructureFeature<StructurePoolFeatureConfig> STONE_BRICK_TOWER = new StoneBrickTowerStructure(StructurePoolFeatureConfig.CODEC);
+    public StructureFeature<StructurePoolFeatureConfig> LADDER_TOWER = new LadderTowerStructure(StructurePoolFeatureConfig.CODEC);
 
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_DUNGEON =
         DUNGEON.configure(new StructurePoolFeatureConfig(() -> {
@@ -41,6 +44,11 @@ public class ModWorldGen {
             return StoneBrickTowerPools.STARTPOOL;
         }, 6));
 
+    public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_LADDER_TOWER =
+        LADDER_TOWER.configure(new StructurePoolFeatureConfig(() -> {
+            return LadderTowerPools.STARTPOOL;
+        }, 15));
+
     public ConfiguredStructureFeature<StructurePoolFeatureConfig, ? extends StructureFeature<StructurePoolFeatureConfig>> CONFIG_BLACKSTONE_TOWER =
         BLACKSTONE_TOWER.configure(
             new StructurePoolFeatureConfig(() -> {
@@ -50,6 +58,7 @@ public class ModWorldGen {
     public RegistryKey<ConfiguredStructureFeature<?, ?>> STONE_BRICK_TOWER_KEY = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, ModStructures.STONE_BRICK_TOWER_ID);
     public RegistryKey<ConfiguredStructureFeature<?, ?>> BLANKSTONE_TOWER_KEY = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, ModStructures.BLACKSTONE_TOWER_ID);
     public RegistryKey<ConfiguredStructureFeature<?, ?>> DUNGEON_KEY = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, ModStructures.DUNGEON_ID);
+    public RegistryKey<ConfiguredStructureFeature<?, ?>> LADDER_TOWER_KEY = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, ModStructures.LADDER_TOWER_ID);
 
     public StructureProcessorType<BiomeProcessor> BIOME_PROCESSOR = StructureProcessorType.register(WOE.MODID + ":biome_processor", BiomeProcessor.CODEC);
     public StructureProcessorType<BeaconProcessor> BEACON_PROCESSOR = StructureProcessorType.register(WOE.MODID + ":mob_processor", BeaconProcessor.CODEC);
@@ -74,6 +83,13 @@ public class ModWorldGen {
             .step(GenerationStep.Feature.SURFACE_STRUCTURES)
             .defaultConfig(ModConfig.get().STONE_BRICK_TOWER.config.get())
             .superflatFeature(CONFIG_STONE_BRICK_TOWER)
+            .adjustsSurface()
+            .register();
+
+        FabricStructureBuilder.create(ModStructures.LADDER_TOWER_ID, LADDER_TOWER)
+            .step(GenerationStep.Feature.SURFACE_STRUCTURES)
+            .defaultConfig(ModConfig.get().LADDER_TOWER.config.get())
+            .superflatFeature(CONFIG_LADDER_TOWER)
             .adjustsSurface()
             .register();
 

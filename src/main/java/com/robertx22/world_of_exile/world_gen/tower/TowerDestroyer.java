@@ -57,7 +57,7 @@ public class TowerDestroyer {
     }
 
     static List<Tag.Identified<Block>> TAGS = Arrays.asList(BlockTags.SIGNS, BlockTags.STONE_BRICKS, BlockTags.STAIRS, BlockTags.SLABS, BlockTags.WALLS, BlockTags.FENCES);
-    static List<Block> BLOCKS = Arrays.asList(Blocks.SMOOTH_STONE, Blocks.SPAWNER, Blocks.CHEST);
+    static List<Block> BLOCKS = Arrays.asList(Blocks.SMOOTH_STONE, Blocks.SPAWNER, Blocks.CHEST, Blocks.LADDER, Blocks.OBSIDIAN);
 
     static boolean shouldDestroyBlock(Block block) {
 

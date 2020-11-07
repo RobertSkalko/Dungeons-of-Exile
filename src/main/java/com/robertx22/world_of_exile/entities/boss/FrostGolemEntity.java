@@ -26,7 +26,7 @@ public class FrostGolemEntity extends BaseGolemEntity {
 
         if (target instanceof LivingEntity) {
             LivingEntity en = (LivingEntity) target;
-            en.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20 * 100, 1));
+            en.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 20 * 60, 1));
         }
     }
 }

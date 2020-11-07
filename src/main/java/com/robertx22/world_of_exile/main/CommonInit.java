@@ -10,6 +10,7 @@ import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
+import com.robertx22.world_of_exile.world_gen.jigsaw.ladder_tower.LadderTowerPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerPools;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
@@ -59,6 +60,7 @@ public class CommonInit implements ModInitializer {
         DungeonPools.init();
         BlackStoneTowerPools.init();
         StoneBrickTowerPools.init();
+        LadderTowerPools.init();
 
         ModBiomes.INSTANCE = new ModBiomes();
 
@@ -77,6 +79,7 @@ public class CommonInit implements ModInitializer {
                 ModConfig.get().BLACKSTONE_TOWER.onWorldLoad(world);
                 ModConfig.get().STONE_BRICK_TOWER.onWorldLoad(world);
                 ModConfig.get().DUNGEON.onWorldLoad(world);
+                ModConfig.get().LADDER_TOWER.onWorldLoad(world);
 
             }
         });
@@ -134,6 +137,11 @@ public class CommonInit implements ModInitializer {
                         list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
                             .add(ModWorldGen.INSTANCE.BLACKSTONE_TOWER);
                         setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER);
+                    }
+                    if (ModConfig.get().LADDER_TOWER.isAllowedIn(null, biome, regManager)) {
+                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
+                            .add(ModWorldGen.INSTANCE.LADDER_TOWER);
+                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_LADDER_TOWER);
                     }
 
                     access.setStructureLists(list);

@@ -25,6 +25,8 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
         super(ModBlocks.INSTANCE.DELAY_ENTITY);
     }
 
+    TowerDeployer deployer;
+
     int ticks = 0;
 
     @Override
@@ -35,8 +37,26 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
             return;
         }
 
+        if (ticks % 5 == 0) {
+            if (deployer != null) {
+                if (deployer.isDone()) {
+                    world.setBlockState(pos, Blocks.AIR.getDefaultState());
+                    return;
+                } else {
+                    deployer.onTick();
+                    return;
+                }
+            }
+        }
+
         try {
-            if (executionString.contains("mob")) {
+
+            if (executionString.contains("deploy")) {
+                if (deployer == null) {
+                    deployer = new TowerDeployer(world, pos);
+                    return;
+                }
+            } else if (executionString.contains("mob")) {
                 List<EntityType> mobs = new ArrayList<>(ModConfig.get()
                     .getAllowedSpawnerMobs());
                 EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
@@ -54,8 +74,7 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
                 sw.spawnEntityAndPassengers(en);
                 world.setBlockState(pos, Blocks.AIR.getDefaultState());
 
-            }
-            if (executionString.equals("boss")) {
+            } else if (executionString.equals("boss")) {
                 List<EntityType> mobs = new ArrayList<>(ModConfig.get()
                     .getAllowedBosses());
                 EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));

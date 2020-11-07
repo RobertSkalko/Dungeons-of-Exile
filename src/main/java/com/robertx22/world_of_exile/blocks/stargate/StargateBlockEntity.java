@@ -31,10 +31,16 @@ public class StargateBlockEntity extends BlockEntity implements Tickable {
     public void tick() {
         ticks++;
 
-        if (ticks % 20 == 0) {
-            if (!isDimensionAllowedToPlaceIn()) {
-                this.world.breakBlock(pos, true);
+        try {
+            if (!world.isClient) {
+                if (ticks % 20 == 0) {
+                    if (!isDimensionAllowedToPlaceIn()) {
+                        this.world.breakBlock(pos, true);
+                    }
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -48,17 +54,31 @@ public class StargateBlockEntity extends BlockEntity implements Tickable {
         return true;
     }
 
-    public void randomizeTeleportLocation() {
+    static Integer MAX_DISTANCE = null;
 
-        try {
-
+    static int getMaxDistance(World world) {
+        // seems WORLD BORDER GETTING IS VERY LAGGY, SO CACHE IT
+        if (MAX_DISTANCE == null) {
             WorldBorder wb = world.getWorldBorder();
-
-            int border = Math.abs((int) Math.min(Math.min(wb
+            MAX_DISTANCE = Math.abs((int) Math.min(Math.min(wb
                 .getBoundSouth(), wb
                 .getBoundNorth()), Math.min(wb
                 .getBoundEast(), wb
                 .getBoundWest())) / 10);
+        }
+
+        if (MAX_DISTANCE == null) {
+            MAX_DISTANCE = 10000;
+            System.out.print("failed to get world border");
+        }
+        return MAX_DISTANCE;
+    }
+
+    public void randomizeTeleportLocation() {
+
+        try {
+
+            int border = getMaxDistance(world);
 
             int x = world.random.nextInt(border);
             int z = world.random.nextInt(border);
@@ -73,11 +93,25 @@ public class StargateBlockEntity extends BlockEntity implements Tickable {
 
             int y = dimworld.getTopY(Heightmap.Type.WORLD_SURFACE, x, z);
 
-            this.tpPos = new BlockPos(x, y, z);
+            if (!isPlaceValidForTp(world, new BlockPos(x, y, z))) {
+                randomizeTeleportLocation();
+                // if players would spawn in lava, randomize location again
+            } else {
+                this.tpPos = new BlockPos(x, y, z);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    static boolean isPlaceValidForTp(World world, BlockPos pos) {
+        return world.getBlockState(pos)
+            .getFluidState()
+            .isEmpty() && world.getBlockState(pos.down())
+            .getFluidState()
+            .isEmpty();
     }
 
     @Override

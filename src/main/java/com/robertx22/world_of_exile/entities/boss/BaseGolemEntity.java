@@ -24,11 +24,12 @@ public abstract class BaseGolemEntity extends IronGolemEntity implements IShoote
     public static DefaultAttributeContainer.Builder createAttributes() {
         return HostileEntity.createHostileAttributes()
             .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 100)
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 100)
+            .add(EntityAttributes.GENERIC_MAX_HEALTH, 125)
             .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.27D)
             .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)
             .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 60)
             .add(EntityAttributes.GENERIC_ARMOR, 1);
+
     }
 
     public BaseGolemEntity(EntityType<? extends BaseGolemEntity> entityType, World world) {

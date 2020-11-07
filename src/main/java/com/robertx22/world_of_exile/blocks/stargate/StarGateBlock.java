@@ -26,7 +26,8 @@ public class StarGateBlock extends Block implements BlockEntityProvider {
 
     public StarGateBlock() {
         super(Settings.of(Material.STONE)
-            .strength(50.0F, 1200.0F));
+            .strength(50.0F, 1200.0F)
+            .nonOpaque());
     }
 
     @Deprecated
@@ -34,6 +35,11 @@ public class StarGateBlock extends Block implements BlockEntityProvider {
         ArrayList<ItemStack> items = new ArrayList();
         items.add(new ItemStack(this));
         return items;
+    }
+
+    @Override
+    public boolean isTranslucent(BlockState state, BlockView reader, BlockPos pos) {
+        return true;
     }
 
     @Override

@@ -128,6 +128,13 @@ public class SignProcessor extends StructureProcessor {
                         delay.toTag(resultTag);
                         return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
                     }
+                    if (str.contains("[deployer]")) {
+                        CompoundTag resultTag = new CompoundTag();
+                        DelayedBlockEntity delay = new DelayedBlockEntity();
+                        delay.executionString = "deploy";
+                        delay.toTag(resultTag);
+                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
+                    }
                     if (str.contains("[final_treasure]")) {
                         return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
                     }

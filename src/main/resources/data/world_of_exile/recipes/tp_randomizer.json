@@ -2,11 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "O",
-    "B"
+    "B",
+	"G"
   ],
   "key": {  
 	"O": {
       "item": "minecraft:diamond"
+    }, 
+	"G": {
+      "item": "minecraft:gold_block"
     }, 
 	"B": {
       "item": "minecraft:ender_pearl"

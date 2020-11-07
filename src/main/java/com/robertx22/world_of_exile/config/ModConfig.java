@@ -31,7 +31,10 @@ public class ModConfig implements ConfigData {
     public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 6, 2058146), ModStructures.BLACKSTONE_TOWER_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(10, 5, 5240125), ModStructures.STONE_BRICK_TOWER_ID);
+    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(20, 5, 5240125), ModStructures.STONE_BRICK_TOWER_ID);
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(20, 5, 1240125), ModStructures.LADDER_TOWER_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
     Set<String> ALLOWED_MOBS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?
@@ -46,6 +49,10 @@ public class ModConfig implements ConfigData {
 
         STONE_BRICK_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
         STONE_BRICK_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
+            .toString());
+
+        LADDER_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
+        LADDER_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
             .toString());
 
         DUNGEON.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
