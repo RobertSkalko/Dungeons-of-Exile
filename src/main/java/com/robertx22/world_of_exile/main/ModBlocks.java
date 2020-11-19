@@ -7,9 +7,10 @@ import com.robertx22.world_of_exile.blocks.final_treasure.FinalTreasureBlock;
 import com.robertx22.world_of_exile.blocks.locked_treasure.LockedTreasureBlock;
 import com.robertx22.world_of_exile.blocks.stargate.StarGateBlock;
 import com.robertx22.world_of_exile.blocks.stargate.StargateBlockEntity;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.registry.Registry;
 
 import java.util.function.Supplier;
@@ -17,6 +18,19 @@ import java.util.function.Supplier;
 public class ModBlocks {
 
     public static ModBlocks INSTANCE;
+
+    public Block PURPLE_GRASS = of("purple_grass", new Block(AbstractBlock.Settings.of(Material.STONE)
+        .requiresTool()
+        .strength(0.4F)
+        .sounds(BlockSoundGroup.NYLIUM)));
+
+    public Block PURPLE_LEAVES = of("purple_leaves", new Block(AbstractBlock.Settings.of(Material.SOLID_ORGANIC, MaterialColor.PURPLE)
+        .strength(1.0F)
+        .sounds(BlockSoundGroup.WART_BLOCK)));
+
+    public Block PURPLE_LOG = of("purple_log", new PillarBlock(AbstractBlock.Settings.of(Material.NETHER_WOOD, MaterialColor.PURPLE)
+        .strength(2.0F)
+        .sounds(BlockSoundGroup.NETHER_STEM)));
 
     public DelayedBlock DELAY_BLOCK = of("delay", new DelayedBlock());
     public RandomBlock RANDOM_BLOCK = of("random_block", new RandomBlock());

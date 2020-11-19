@@ -22,7 +22,10 @@ public class ModEntities {
     public EntityType<FireGolemEntity> FIRE_GOLEM = mob(FireGolemEntity::new, "fire_golem", new EntityDimensions(1.4F, 2.7F, true));
     public EntityType<FrostGolemEntity> FROST_GOLEM = mob(FrostGolemEntity::new, "frost_golem", new EntityDimensions(1.4F, 2.7F, true));
 
-    public EntityType<ChargingCrepeerEntity> CHARGING_CREEPER = mob(ChargingCrepeerEntity::new, "charging_creepeer", new EntityDimensions(0.5F, 2, true));
+    public EntityType<ObsidianSkeleton> OBSIDIAN_SKELETON = mob(ObsidianSkeleton::new, "obsidian_skeleton", new EntityDimensions(0.5F, 2, true));
+    public EntityType<DemonSkeleton> DEMON_SKELETON = mob(DemonSkeleton::new, "demon_skeleton", new EntityDimensions(0.5F, 2, true));
+
+    public EntityType<ObsidianEnderman> OBSIDIAN_ENDERMAN = mob(ObsidianEnderman::new, "obsidian_enderman", new EntityDimensions(0.5F, 2, true));
 
     public EntityType<InfernalScorpionEntity> INFERNO_SCORPION = mob(InfernalScorpionEntity::new, "inferno_scorpion", new EntityDimensions(1.2F, 1.2F, true));
     public EntityType<PoisonSpiderEntity> POISON_SPIDER = mob(PoisonSpiderEntity::new, "poison_spider", new EntityDimensions(1.2F, 1.2F, true));

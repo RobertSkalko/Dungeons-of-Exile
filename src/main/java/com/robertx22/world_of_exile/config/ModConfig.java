@@ -2,7 +2,7 @@ package com.robertx22.world_of_exile.config;
 
 import com.robertx22.library_of_exile.config_utils.PerBiomeCategoryConfig;
 import com.robertx22.world_of_exile.main.ModDimensions;
-import com.robertx22.world_of_exile.main.ModStructures;
+import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.entities.ModEntities;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
@@ -25,16 +25,16 @@ public class ModConfig implements ConfigData {
     public boolean ENABLE_DUNGEON = true;
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 15, 378235), ModStructures.DUNGEON_ID);
+    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 15, 378235), ModWorldGenIds.DUNGEON_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 6, 2058146), ModStructures.BLACKSTONE_TOWER_ID);
+    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 6, 2058146), ModWorldGenIds.BLACKSTONE_TOWER_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(20, 5, 5240125), ModStructures.STONE_BRICK_TOWER_ID);
+    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 5, 5240125), ModWorldGenIds.STONE_BRICK_TOWER_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(20, 5, 1240125), ModStructures.LADDER_TOWER_ID);
+    public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(25, 15, 1092515512), ModWorldGenIds.LADDER_TOWER_ID);
 
     @ConfigEntry.Gui.CollapsibleObject
     Set<String> ALLOWED_MOBS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?

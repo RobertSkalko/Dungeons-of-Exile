@@ -1,6 +1,7 @@
 package com.robertx22.world_of_exile.main;
 
 import com.robertx22.library_of_exile.main.Packets;
+import com.robertx22.world_of_exile.biomes.AddCryingForestGen;
 import com.robertx22.world_of_exile.blocks.stargate.packets.RequestStargateTeleportPacket;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.events.OnServerTick;
@@ -84,11 +85,18 @@ public class CommonInit implements ModInitializer {
             }
         });
 
+        AddCryingForestGen.add();
+
         ServerLifecycleEvents.SERVER_STARTING.register(s -> {
 
-            //BiomeModifications can replace this but lambda hell
+            //BiomeModifications
+            // can replace this but lambda hell
 
             server = s;
+
+
+
+
 
             /*
 

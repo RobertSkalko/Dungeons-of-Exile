@@ -52,7 +52,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     
-    compile files("Library-Of-Exile-1.16.3-1.0.6-dev.jar")
+    compile files("Library-Of-Exile-1.16.3-1.0.7-dev.jar")
 
 }
 

@@ -93,6 +93,12 @@ public class TowerDeployer {
         int TOTAL_CHESTS = 0 + world.random.nextInt(MAX_CHESTS);
         int TOTAL_SPAWNERS = 1 + world.random.nextInt(MAX_SPAWNERS);
 
+        if (floorType == FloorType.BOSS) {
+            if (TOTAL_CHESTS == 0) {
+                TOTAL_CHESTS++;
+            }
+        }
+
         int chests = 0;
         int spawners = 0;
 

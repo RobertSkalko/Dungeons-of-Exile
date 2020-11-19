@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "world_of_exile:block/purple_log_top",
+    "side": "world_of_exile:block/purple_log"
+  }
+}

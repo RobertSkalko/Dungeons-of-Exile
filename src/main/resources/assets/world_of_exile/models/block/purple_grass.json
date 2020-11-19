@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "world_of_exile:block/purple_grass",
+    "bottom": "minecraft:block/netherrack",
+    "side": "world_of_exile:block/purple_grass_side"
+  }
+}

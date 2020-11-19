@@ -57,7 +57,7 @@ public class TowerDestroyer {
     }
 
     static List<Tag.Identified<Block>> TAGS = Arrays.asList(BlockTags.SIGNS, BlockTags.STONE_BRICKS, BlockTags.STAIRS, BlockTags.SLABS, BlockTags.WALLS, BlockTags.FENCES);
-    static List<Block> BLOCKS = Arrays.asList(Blocks.SMOOTH_STONE, Blocks.SPAWNER, Blocks.CHEST, Blocks.LADDER, Blocks.OBSIDIAN);
+    static List<Block> BLOCKS = Arrays.asList(Blocks.COBWEB, Blocks.LAVA, Blocks.WATER, Blocks.SMOOTH_STONE, Blocks.SPAWNER, Blocks.CHEST, Blocks.LADDER, Blocks.OBSIDIAN);
 
     static boolean shouldDestroyBlock(Block block) {
 
@@ -107,7 +107,7 @@ public class TowerDestroyer {
         if (!started && tick % 20 == 0) {
             world.playSound(null, pos, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
         }
-        if (!started && tick > 100) {
+        if (!started && tick > 140) {
             started = true;
             return;
         }
@@ -136,6 +136,7 @@ public class TowerDestroyer {
                         if (shouldDestroyBlock(block)) {
                             destroyed = true;
                             world.breakBlock(p, shouldKeepDrops(world, block));
+                            world.setBlockState(p, Blocks.AIR.getDefaultState());
                         }
                     }
                 }
