@@ -1,6 +1,7 @@
 package com.robertx22.world_of_exile.entities.boss;
 
 import com.robertx22.world_of_exile.entities.ai.FrostProjectileShooterGoal;
+import com.robertx22.world_of_exile.entities.mob.base.BaseGolem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -8,9 +9,9 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.world.World;
 
-public class FrostGolemEntity extends BaseGolemEntity {
+public class FrostGolemEntity extends BaseGolem {
 
-    public FrostGolemEntity(EntityType<? extends BaseGolemEntity> entityType, World world) {
+    public FrostGolemEntity(EntityType<? extends BaseGolem> entityType, World world) {
         super(entityType, world);
     }
 

@@ -12,14 +12,23 @@ import net.minecraft.util.Identifier;
 public class GolemRenderer extends MobEntityRenderer<IronGolemEntity, IronGolemEntityModel<IronGolemEntity>> {
     private Identifier TEXTURE;
 
-    public GolemRenderer(String id, EntityRenderDispatcher entityRenderDispatcher) {
+    float scale = 1;
+
+    public GolemRenderer(String id, EntityRenderDispatcher entityRenderDispatcher, float scale) {
         super(entityRenderDispatcher, new IronGolemEntityModel(), 0.7F);
         TEXTURE = WOE.id("textures/entity/golem/" + id + ".png");
+        this.scale = scale;
     }
 
     @Override
     public Identifier getTexture(IronGolemEntity ironGolemEntity) {
         return TEXTURE;
+
+    }
+
+    @Override
+    protected void scale(IronGolemEntity entity, MatrixStack matrices, float amount) {
+        matrices.scale(scale, scale, scale);
     }
 
     @Override

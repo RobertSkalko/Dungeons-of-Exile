@@ -21,6 +21,7 @@ public class ModEntities {
 
     public EntityType<FireGolemEntity> FIRE_GOLEM = mob(FireGolemEntity::new, "fire_golem", new EntityDimensions(1.4F, 2.7F, true));
     public EntityType<FrostGolemEntity> FROST_GOLEM = mob(FrostGolemEntity::new, "frost_golem", new EntityDimensions(1.4F, 2.7F, true));
+    public EntityType<RedstoneGolemEntity> REDSTONE_GOLEM = mob(RedstoneGolemEntity::new, "redstone_golem", new EntityDimensions(0.9F, 0.9F, true));
 
     public EntityType<ObsidianSkeleton> OBSIDIAN_SKELETON = mob(ObsidianSkeleton::new, "obsidian_skeleton", new EntityDimensions(0.5F, 2, true));
     public EntityType<DemonSkeleton> DEMON_SKELETON = mob(DemonSkeleton::new, "demon_skeleton", new EntityDimensions(0.5F, 2, true));

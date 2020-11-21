@@ -16,8 +16,9 @@ public class ModEntityRenders {
         INSTANCE.register(ModEntities.INSTANCE.INFERNO_SCORPION, (d, ctx) -> new ModSpiderRenderer(d, "fire"));
         INSTANCE.register(ModEntities.INSTANCE.POISON_SPIDER, (d, ctx) -> new ModSpiderRenderer(d, "poison"));
 
-        INSTANCE.register(ModEntities.INSTANCE.FIRE_GOLEM, (d, ctx) -> new GolemRenderer("fire", d));
-        INSTANCE.register(ModEntities.INSTANCE.FROST_GOLEM, (d, ctx) -> new GolemRenderer("frost", d));
+        INSTANCE.register(ModEntities.INSTANCE.FIRE_GOLEM, (d, ctx) -> new GolemRenderer("fire", d, 1));
+        INSTANCE.register(ModEntities.INSTANCE.FROST_GOLEM, (d, ctx) -> new GolemRenderer("frost", d, 1));
+        INSTANCE.register(ModEntities.INSTANCE.REDSTONE_GOLEM, (d, ctx) -> new GolemRenderer("redstone", d, 0.5F));
 
         INSTANCE.register(ModEntities.INSTANCE.OBSIDIAN_SKELETON, (d, ctx) -> new ModSkeletonRenderer(d, "obsidian"));
         INSTANCE.register(ModEntities.INSTANCE.DEMON_SKELETON, (d, ctx) -> new ModSkeletonRenderer(d, "demon"));
