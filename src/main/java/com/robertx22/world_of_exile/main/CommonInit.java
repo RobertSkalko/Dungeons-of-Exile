@@ -5,6 +5,7 @@ import com.robertx22.world_of_exile.biomes.AddCryingForestGen;
 import com.robertx22.world_of_exile.blocks.stargate.packets.RequestStargateTeleportPacket;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.events.OnServerTick;
+import com.robertx22.world_of_exile.main.entities.MobEvents;
 import com.robertx22.world_of_exile.main.entities.MobSpawnsInit;
 import com.robertx22.world_of_exile.main.entities.ModEntities;
 import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
@@ -50,6 +51,7 @@ public class CommonInit implements ModInitializer {
         ModItems.INSTANCE = new ModItems();
 
         ModEntities.INSTANCE = new ModEntities();
+        ModEntityAttributes.register();
 
         AutoConfig.register(ModConfig.class, JanksonConfigSerializer::new);
         if (!ModConfig.get().ENABLE_MOD) {
@@ -64,8 +66,6 @@ public class CommonInit implements ModInitializer {
         LadderTowerPools.init();
 
         ModBiomes.INSTANCE = new ModBiomes();
-
-        ModEntityAttributes.register();
 
         MobSpawnsInit.register();
 
@@ -86,6 +86,7 @@ public class CommonInit implements ModInitializer {
         });
 
         AddCryingForestGen.add();
+        MobEvents.register();
 
         ServerLifecycleEvents.SERVER_STARTING.register(s -> {
 

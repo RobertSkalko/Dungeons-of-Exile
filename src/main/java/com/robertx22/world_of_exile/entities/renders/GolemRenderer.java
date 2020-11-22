@@ -1,38 +1,38 @@
 package com.robertx22.world_of_exile.entities.renders;
 
+import com.robertx22.world_of_exile.entities.mob.base.GolemMob;
+import com.robertx22.world_of_exile.entities.renders.models.ModGolemModel;
 import com.robertx22.world_of_exile.main.WOE;
+import com.robertx22.world_of_exile.main.entities.MobRenderInfo;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.model.IronGolemEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.client.util.math.Vector3f;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.util.Identifier;
 
-public class GolemRenderer extends MobEntityRenderer<IronGolemEntity, IronGolemEntityModel<IronGolemEntity>> {
+public class GolemRenderer<T extends GolemMob> extends MobEntityRenderer<T, ModGolemModel<T>> {
     private Identifier TEXTURE;
 
     float scale = 1;
 
-    public GolemRenderer(String id, EntityRenderDispatcher entityRenderDispatcher, float scale) {
-        super(entityRenderDispatcher, new IronGolemEntityModel(), 0.7F);
-        TEXTURE = WOE.id("textures/entity/golem/" + id + ".png");
-        this.scale = scale;
+    public GolemRenderer(MobRenderInfo info, EntityRenderDispatcher entityRenderDispatcher) {
+        super(entityRenderDispatcher, new ModGolemModel(), 0.7F);
+        TEXTURE = WOE.id("textures/entity/golem/" + info.texture + ".png");
+        this.scale = info.scale;
     }
 
     @Override
-    public Identifier getTexture(IronGolemEntity ironGolemEntity) {
+    public Identifier getTexture(T ironGolemEntity) {
         return TEXTURE;
-
     }
 
     @Override
-    protected void scale(IronGolemEntity entity, MatrixStack matrices, float amount) {
+    protected void scale(T entity, MatrixStack matrices, float amount) {
         matrices.scale(scale, scale, scale);
     }
 
     @Override
-    protected void setupTransforms(IronGolemEntity ironGolemEntity, MatrixStack matrixStack, float f, float g, float h) {
+    protected void setupTransforms(T ironGolemEntity, MatrixStack matrixStack, float f, float g, float h) {
         super.setupTransforms(ironGolemEntity, matrixStack, f, g, h);
         if ((double) ironGolemEntity.limbDistance >= 0.01D) {
             float i = 13.0F;

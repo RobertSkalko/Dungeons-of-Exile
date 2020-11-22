@@ -2,19 +2,15 @@ package com.robertx22.world_of_exile.entities.mob.base;
 
 import com.robertx22.library_of_exile.packets.defaults.EntityPacket;
 import com.robertx22.world_of_exile.entities.IShooter;
+import com.robertx22.world_of_exile.main.entities.MobManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.mob.HostileEntity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.GolemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
@@ -30,34 +26,23 @@ import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldView;
 
-import java.util.UUID;
-
-public abstract class BaseGolem extends GolemEntity implements IShooter {
+public class GolemMob extends GolemEntity implements IShooter {
 
     private int attackTicksLeft;
     private int lookingAtVillagerTicksLeft;
-    private int angerTime;
-    private UUID angryAt;
 
-    public BaseGolem(EntityType<? extends BaseGolem> entityType, World world) {
+    public GolemMob(EntityType<? extends GolemMob> entityType, World world) {
         super(entityType, world);
         this.stepHeight = 1.0F;
     }
 
+    @Override
     protected void initGoals() {
-        this.goalSelector.add(1, new MeleeAttackGoal(this, 1.0D, true));
-        this.targetSelector.add(2, new FollowTargetGoal<>(this, PlayerEntity.class, true));
-        this.goalSelector.add(2, new WanderAroundPointOfInterestGoal(this, 0.6D, false));
-        this.goalSelector.add(4, new IronGolemWanderAroundGoal(this, 0.6D));
-        this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
-        this.goalSelector.add(8, new LookAroundGoal(this));
-        this.targetSelector.add(2, new RevengeGoal(this, new Class[0]));
-        this.targetSelector.add(4, new UniversalAngerGoal(this, false));
 
-        addExtraGoals();
+        MobManager.get(this)
+            .addGoals(this, goalSelector, targetSelector);
+
     }
-
-    public abstract void addExtraGoals();
 
     @Override
     protected void initDataTracker() {
@@ -71,38 +56,13 @@ public abstract class BaseGolem extends GolemEntity implements IShooter {
         super.tick();
 
         if (!world.isClient) {
-            if (this.age % 20 == 0) {
-                float max = getMaxHealth();
-                this.heal(max * 0.0001F);
-            }
-
             shootDelay--;
-
         }
     }
 
     @Override
     public Packet<?> createSpawnPacket() {
         return EntityPacket.createPacket(this);
-    }
-
-    public static DefaultAttributeContainer.Builder createBossAttributes() {
-        return HostileEntity.createHostileAttributes()
-            .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 100)
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 125)
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.27D)
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 5)
-            .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 60)
-            .add(EntityAttributes.GENERIC_ARMOR, 1);
-
-    }
-
-    public static DefaultAttributeContainer.Builder createBabyIronGolemAttributes() {
-        return MobEntity.createMobAttributes()
-            .add(EntityAttributes.GENERIC_MAX_HEALTH, 25)
-            .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25D)
-            .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 1.0D)
-            .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 7);
     }
 
     @Override
@@ -184,17 +144,6 @@ public abstract class BaseGolem extends GolemEntity implements IShooter {
     @Environment(EnvType.CLIENT)
     public int getAttackTicksLeft() {
         return this.attackTicksLeft;
-    }
-
-    public void setLookingAtVillager(boolean lookingAtVillager) {
-        if (lookingAtVillager) {
-            this.lookingAtVillagerTicksLeft = 400;
-            this.world.sendEntityStatus(this, (byte) 11);
-        } else {
-            this.lookingAtVillagerTicksLeft = 0;
-            this.world.sendEntityStatus(this, (byte) 34);
-        }
-
     }
 
     @Override
