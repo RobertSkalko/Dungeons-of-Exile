@@ -8,7 +8,8 @@ public class AttributeBuilder {
 
     double health, moveSpeed, damage;
 
-    double knockbackResist, followRange = 25;
+    double knockbackResist = 0;
+    double followRange = 25;
 
     public AttributeBuilder(double health, double moveSpeed, double damage) {
         this.health = health;

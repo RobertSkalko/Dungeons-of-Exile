@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BuiltInBiomesAccessor",
+    "FluidBlockMixin",
     "GenerationSettingsAccessor",
     "MobSpawnerLogicMixin",
     "SignMixin",

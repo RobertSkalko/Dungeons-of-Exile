@@ -13,7 +13,7 @@ public enum DefaultAttributes {
     SMALL_GOLEM {
         @Override
         public AttributeBuilder getDefault() {
-            return new AttributeBuilder(40, 0.3F, 5).knockbackResist(1);
+            return new AttributeBuilder(40, 0.3F, 5).knockbackResist(0.8F);
         }
     };
 
