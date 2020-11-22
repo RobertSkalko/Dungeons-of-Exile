@@ -1,6 +1,7 @@
 package com.robertx22.world_of_exile.entities.test;
 
 import com.google.common.collect.ImmutableSet;
+import com.robertx22.world_of_exile.entities.on_special_spawns.OnSpecialOreGolemSpawn;
 import com.robertx22.world_of_exile.main.entities.*;
 import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
 import com.robertx22.world_of_exile.util.AttributeBuilder;
@@ -13,7 +14,8 @@ public class RedstoneGolem extends MobData {
     public RedstoneGolem() {
         super("redstone_ore_golem");
 
-        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(50, ImmutableSet.of(), ImmutableSet.of(Blocks.REDSTONE_ORE)));
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(2, ImmutableSet.of(), ImmutableSet.of(Blocks.REDSTONE_ORE)));
+        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn());
 
     }
 

@@ -1,7 +1,8 @@
-package com.robertx22.world_of_exile.main.entities;
+package com.robertx22.world_of_exile.main.entities.registration;
 
 import com.robertx22.world_of_exile.entities.projectile.FrostProjectileEntity;
 import com.robertx22.world_of_exile.main.WOE;
+import com.robertx22.world_of_exile.main.entities.MobData;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
 import net.minecraft.entity.*;
@@ -20,7 +21,7 @@ public class ModEntities {
     public EntityType<FrostProjectileEntity> FROST_PROJECTILE = projectile(FrostProjectileEntity::new, "frost_projectile", new EntityDimensions(0.5F, 0.5F, true));
 
     public ModEntities() {
-        MobManager.LIST.forEach(x -> {
+        MobManager.SET.forEach(x -> {
             mob(x.getMobType().factory, x);
         });
     }
@@ -37,8 +38,8 @@ public class ModEntities {
         return type;
     }
 
-    private <T extends MobEntity> EntityType<T> mob(EntityType.EntityFactory<T> factory,
-                                                    MobData data) {
+    public <T extends MobEntity> EntityType<T> mob(EntityType.EntityFactory<T> factory,
+                                                   MobData data) {
 
         EntityType<T> type = FabricEntityTypeBuilder.<T>create(SpawnGroup.MONSTER, factory).dimensions(data.getSizeDimensions().dimensions)
             .fireImmune()

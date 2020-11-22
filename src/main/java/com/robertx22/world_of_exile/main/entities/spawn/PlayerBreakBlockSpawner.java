@@ -19,14 +19,18 @@ public class PlayerBreakBlockSpawner extends BaseSpawner {
         this.blocksIncluded = blocksIncluded;
     }
 
+    public boolean blockMatches(Block block) {
+        if (blocksIncluded.contains(block) || blockTagsIncluded.stream()
+            .anyMatch(x -> block.isIn(x))) {
+            return true;
+        }
+        return false;
+    }
+
     public boolean canSpawn(Block block, PlayerEntity player) {
 
         if (chance > RandomUtils.nextInt(0, 101)) {
-
-            if (blocksIncluded.contains(block) || blockTagsIncluded.stream()
-                .anyMatch(x -> block.isIn(x))) {
-                return true;
-            }
+            return blockMatches(block);
 
         }
         return false;

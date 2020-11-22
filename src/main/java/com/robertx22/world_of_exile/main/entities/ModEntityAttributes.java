@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.main.entities;
 
+import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 
 public class ModEntityAttributes {

@@ -6,9 +6,9 @@ import com.robertx22.world_of_exile.blocks.stargate.packets.RequestStargateTelep
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.events.OnServerTick;
 import com.robertx22.world_of_exile.main.entities.MobEvents;
-import com.robertx22.world_of_exile.main.entities.MobSpawnsInit;
-import com.robertx22.world_of_exile.main.entities.ModEntities;
 import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
+import com.robertx22.world_of_exile.main.entities.registration.MobSpawnsInit;
+import com.robertx22.world_of_exile.main.entities.registration.ModEntities;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.DungeonPools;

@@ -2,7 +2,7 @@ package com.robertx22.world_of_exile.entities.projectile;
 
 import com.robertx22.library_of_exile.packets.defaults.EntityPacket;
 import com.robertx22.world_of_exile.entities.renders.IMyRendersAsItem;
-import com.robertx22.world_of_exile.main.entities.ModEntities;
+import com.robertx22.world_of_exile.main.entities.registration.ModEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Entity;

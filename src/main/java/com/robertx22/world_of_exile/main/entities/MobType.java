@@ -12,5 +12,5 @@ public enum MobType {
         this.factory = factory;
     }
 
-    EntityType.EntityFactory factory;
+    public EntityType.EntityFactory factory;
 }

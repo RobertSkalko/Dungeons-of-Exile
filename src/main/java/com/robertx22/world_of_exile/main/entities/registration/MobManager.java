@@ -1,28 +1,29 @@
-package com.robertx22.world_of_exile.main.entities;
+package com.robertx22.world_of_exile.main.entities.registration;
 
 import com.robertx22.world_of_exile.entities.test.FireGolem;
 import com.robertx22.world_of_exile.entities.test.FrostGolem;
 import com.robertx22.world_of_exile.entities.test.IronOreGolem;
 import com.robertx22.world_of_exile.entities.test.RedstoneGolem;
+import com.robertx22.world_of_exile.main.entities.MobData;
 import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MobManager {
 
     public static HashMap<EntityType, MobData> MAP = new HashMap<>();
 
-    public static List<MobData> LIST = new ArrayList<>();
+    public static Set<MobData> SET = new HashSet<>();
 
     static {
-        LIST.add(new FireGolem());
-        LIST.add(new FrostGolem());
-        LIST.add(new IronOreGolem());
-        LIST.add(new RedstoneGolem());
+        SET.add(new FireGolem());
+        SET.add(new FrostGolem());
+        SET.add(new IronOreGolem());
+        SET.add(new RedstoneGolem());
     }
 
     @Nullable

@@ -1,4 +1,4 @@
-package com.robertx22.world_of_exile.main.entities;
+package com.robertx22.world_of_exile.main.entities.registration;
 
 import com.robertx22.world_of_exile.entities.renders.MySpriteRenderer;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;

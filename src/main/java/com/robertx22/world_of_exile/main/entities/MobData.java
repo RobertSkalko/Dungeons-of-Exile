@@ -2,8 +2,12 @@ package com.robertx22.world_of_exile.main.entities;
 
 import com.robertx22.library_of_exile.events.base.ExileEvents;
 import com.robertx22.world_of_exile.main.WOE;
+import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import com.robertx22.world_of_exile.util.AttributeBuilder;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityDimensions;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
@@ -46,7 +50,7 @@ public abstract class MobData<T extends LivingEntity> {
 
     public abstract Goals getDefaultGoals();
 
-    public void spawn(World world, BlockPos pos) {
+    public LivingEntity spawn(World world, BlockPos pos) {
 
         try {
             EntityType type = MobManager.MAP.entrySet()
@@ -57,7 +61,7 @@ public abstract class MobData<T extends LivingEntity> {
                 .get()
                 .getKey();
 
-            Entity en = type.create(world);
+            LivingEntity en = (LivingEntity) type.create(world);
 
             en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
             ServerWorld sw = (ServerWorld) world;
@@ -68,9 +72,12 @@ public abstract class MobData<T extends LivingEntity> {
             }
 
             sw.spawnEntityAndPassengers(en);
+
+            return en;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Deprecated
@@ -90,7 +97,7 @@ public abstract class MobData<T extends LivingEntity> {
                 goalSelector.add(1, new MeleeAttackGoal(en, 1.0D, true));
                 targetSelector.add(2, new FollowTargetGoal<>(en, PlayerEntity.class, true));
                 goalSelector.add(4, new WanderAroundGoal(en, 0.6D));
-                goalSelector.add(7, new LookAtEntityGoal(en, PlayerEntity.class, 12));
+                goalSelector.add(7, new LookAtEntityGoal(en, PlayerEntity.class, 16));
                 goalSelector.add(8, new LookAroundGoal(en));
                 targetSelector.add(2, new RevengeGoal(en, new Class[0]));
                 targetSelector.add(4, new UniversalAngerGoal(en, false));

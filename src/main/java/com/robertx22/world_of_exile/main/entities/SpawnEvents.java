@@ -7,6 +7,8 @@ import java.util.Set;
 
 public class SpawnEvents {
 
+    public Set<OnMobSpecialSpawn> onSpecialSpawn = new HashSet<>();
+
     public Set<PlayerBreakBlockSpawner> breakBlock = new HashSet<>();
 
 }

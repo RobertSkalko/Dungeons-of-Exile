@@ -2,7 +2,7 @@ package com.robertx22.world_of_exile.entities.mob.base;
 
 import com.robertx22.library_of_exile.packets.defaults.EntityPacket;
 import com.robertx22.world_of_exile.entities.IShooter;
-import com.robertx22.world_of_exile.main.entities.MobManager;
+import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
