@@ -1,11 +1,13 @@
-package com.robertx22.world_of_exile.entities.test;
+package com.robertx22.world_of_exile.entities.mob_data;
 
 import com.google.common.collect.ImmutableSet;
+import com.robertx22.world_of_exile.entities.on_attack.EffectOnAttack;
 import com.robertx22.world_of_exile.entities.on_special_spawns.OnSpecialOreGolemSpawn;
 import com.robertx22.world_of_exile.main.entities.*;
 import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
 import com.robertx22.world_of_exile.util.AttributeBuilder;
 import net.minecraft.entity.ai.goal.GoalSelector;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.tag.BlockTags;
 
@@ -16,6 +18,8 @@ public class WoodGolem extends MobData {
 
         this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(2, ImmutableSet.of(BlockTags.LOGS), ImmutableSet.of()));
         this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(10));
+
+        this.onAttackSomeoneEvents.add(new EffectOnAttack(StatusEffects.POISON, 20, 20 * 10));
     }
 
     @Override

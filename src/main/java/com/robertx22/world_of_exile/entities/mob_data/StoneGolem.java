@@ -1,21 +1,21 @@
-package com.robertx22.world_of_exile.entities.test;
+package com.robertx22.world_of_exile.entities.mob_data;
 
 import com.google.common.collect.ImmutableSet;
 import com.robertx22.world_of_exile.entities.on_special_spawns.OnSpecialOreGolemSpawn;
 import com.robertx22.world_of_exile.main.entities.*;
 import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
 import com.robertx22.world_of_exile.util.AttributeBuilder;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.tag.BlockTags;
 
-public class IronOreGolem extends MobData {
+public class StoneGolem extends MobData {
 
-    public IronOreGolem() {
-        super("iron_ore_golem");
+    public StoneGolem() {
+        super("stone_golem");
 
-        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(3, ImmutableSet.of(), ImmutableSet.of(Blocks.IRON_ORE)));
-        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(20));
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(1, ImmutableSet.of(BlockTags.BASE_STONE_OVERWORLD), ImmutableSet.of()));
+        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(3));
     }
 
     @Override
@@ -25,7 +25,7 @@ public class IronOreGolem extends MobData {
 
     @Override
     public MobRenderInfo getRenderInfo() {
-        return new MobRenderInfo(0.5F, "iron");
+        return new MobRenderInfo(0.5F, "stone");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class IronOreGolem extends MobData {
     }
 
     @Override
-    public Size getSizeDimensions() {
+    public MobData.Size getSizeDimensions() {
         return Size.SMALL_GOLEM;
     }
 

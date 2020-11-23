@@ -1,7 +1,6 @@
-package com.robertx22.world_of_exile.entities.test;
+package com.robertx22.world_of_exile.entities.mob_data;
 
 import com.google.common.collect.ImmutableSet;
-import com.robertx22.world_of_exile.entities.ai.GriefLightSourceGoal;
 import com.robertx22.world_of_exile.entities.on_special_spawns.OnSpecialOreGolemSpawn;
 import com.robertx22.world_of_exile.main.entities.*;
 import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
@@ -10,14 +9,13 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.PathAwareEntity;
 
-public class RedstoneGolem extends MobData {
+public class IronOreGolem extends MobData {
 
-    public RedstoneGolem() {
-        super("redstone_ore_golem");
+    public IronOreGolem() {
+        super("iron_ore_golem");
 
-        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(2, ImmutableSet.of(), ImmutableSet.of(Blocks.REDSTONE_ORE)));
-        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(25));
-
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(3, ImmutableSet.of(), ImmutableSet.of(Blocks.IRON_ORE)));
+        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(20));
     }
 
     @Override
@@ -27,7 +25,7 @@ public class RedstoneGolem extends MobData {
 
     @Override
     public MobRenderInfo getRenderInfo() {
-        return new MobRenderInfo(0.5F, "redstone");
+        return new MobRenderInfo(0.5F, "iron");
     }
 
     @Override
@@ -37,12 +35,11 @@ public class RedstoneGolem extends MobData {
 
     @Override
     public AttributeBuilder getAttributes() {
-        return DefaultAttributes.SMALL_GOLEM.getDefault()
-            .knockbackResist(0.5F);
+        return DefaultAttributes.SMALL_GOLEM.getDefault();
     }
 
     @Override
-    public MobData.Size getSizeDimensions() {
+    public Size getSizeDimensions() {
         return Size.SMALL_GOLEM;
     }
 
@@ -53,7 +50,7 @@ public class RedstoneGolem extends MobData {
 
     @Override
     public void addCustomGoals(PathAwareEntity en, GoalSelector goalSelector, GoalSelector targetSelector) {
-        goalSelector.add(3, new GriefLightSourceGoal(en, 1, 16));
+
     }
 
 }

@@ -1,8 +1,6 @@
 package com.robertx22.world_of_exile.main;
 
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.world_of_exile.biomes.AddCryingForestGen;
-import com.robertx22.world_of_exile.blocks.stargate.packets.RequestStargateTeleportPacket;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.events.OnServerTick;
 import com.robertx22.world_of_exile.main.entities.MobEvents;
@@ -43,8 +41,6 @@ public class CommonInit implements ModInitializer {
 
     @Override
     public void onInitialize() {
-
-        Packets.registerClientToServerPacket(new RequestStargateTeleportPacket());
 
         ModProcessors.INSTANCE = new ModProcessors();
         ModBlocks.INSTANCE = new ModBlocks();

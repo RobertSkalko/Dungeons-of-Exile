@@ -1,4 +1,4 @@
-package com.robertx22.world_of_exile.entities.test;
+package com.robertx22.world_of_exile.entities.on_attack;
 
 import com.robertx22.world_of_exile.main.entities.OnAttackSomeoneEvent;
 import net.minecraft.entity.effect.StatusEffect;

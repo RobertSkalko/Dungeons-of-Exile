@@ -11,6 +11,6 @@ public class CreativeTabs {
     public static ItemGroup MAIN = FabricItemGroupBuilder.build(
         new Identifier(Ref.MODID, "main")
         ,
-        () -> new ItemStack(ModItems.INSTANCE.STARGATE));
+        () -> new ItemStack(ModItems.INSTANCE.SILVER_KEY));
 
 }
