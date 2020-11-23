@@ -1,20 +1,21 @@
 package com.robertx22.world_of_exile.entities.test;
 
-import com.robertx22.world_of_exile.entities.IShooter;
-import com.robertx22.world_of_exile.entities.ai.FrostProjectileShooterGoal;
+import com.google.common.collect.ImmutableSet;
+import com.robertx22.world_of_exile.entities.on_special_spawns.OnSpecialOreGolemSpawn;
 import com.robertx22.world_of_exile.main.entities.*;
+import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
 import com.robertx22.world_of_exile.util.AttributeBuilder;
 import net.minecraft.entity.ai.goal.GoalSelector;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.tag.BlockTags;
 
-public class FrostGolem extends MobData {
+public class WoodGolem extends MobData {
 
-    public FrostGolem() {
-        super("frost_golem");
+    public WoodGolem() {
+        super("wood_golem");
 
-        this.tags.add(MobTags.RANDOM_TOWER_BOSS);
-        this.onAttackSomeoneEvents.add(new EffectOnAttack(StatusEffects.SLOWNESS, 25, 20 * 6));
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(2, ImmutableSet.of(BlockTags.LOGS), ImmutableSet.of()));
+        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(10));
     }
 
     @Override
@@ -24,7 +25,7 @@ public class FrostGolem extends MobData {
 
     @Override
     public MobRenderInfo getRenderInfo() {
-        return new MobRenderInfo("frost");
+        return new MobRenderInfo(0.5F, "wood");
     }
 
     @Override
@@ -34,12 +35,12 @@ public class FrostGolem extends MobData {
 
     @Override
     public AttributeBuilder getAttributes() {
-        return DefaultAttributes.GOLEM_BOSS.getDefault();
+        return DefaultAttributes.SMALL_GOLEM.getDefault();
     }
 
     @Override
     public MobData.Size getSizeDimensions() {
-        return Size.BIG_GOLEM;
+        return Size.SMALL_GOLEM;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class FrostGolem extends MobData {
 
     @Override
     public void addCustomGoals(PathAwareEntity en, GoalSelector goalSelector, GoalSelector targetSelector) {
-        goalSelector.add(1, new FrostProjectileShooterGoal(en, (IShooter) en));
+
     }
 
 }

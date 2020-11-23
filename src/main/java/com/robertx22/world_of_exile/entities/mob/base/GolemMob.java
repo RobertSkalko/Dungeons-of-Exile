@@ -34,6 +34,7 @@ public class GolemMob extends GolemEntity implements IShooter {
     public GolemMob(EntityType<? extends GolemMob> entityType, World world) {
         super(entityType, world);
         this.stepHeight = 1.0F;
+
     }
 
     @Override
@@ -42,6 +43,11 @@ public class GolemMob extends GolemEntity implements IShooter {
         MobManager.get(this)
             .addGoals(this, goalSelector, targetSelector);
 
+    }
+
+    @Override
+    public float getPathfindingFavor(BlockPos pos, WorldView world) {
+        return 0.5F - world.getBrightness(pos);
     }
 
     @Override

@@ -93,13 +93,14 @@ public abstract class MobData<T extends LivingEntity> {
         MELEE {
             @Override
             public void addDefaultGoals(PathAwareEntity en, GoalSelector goalSelector, GoalSelector targetSelector) {
-                goalSelector.add(0, new SwimGoal(en));
+
                 goalSelector.add(1, new MeleeAttackGoal(en, 1.0D, true));
-                targetSelector.add(2, new FollowTargetGoal<>(en, PlayerEntity.class, true));
-                goalSelector.add(4, new WanderAroundGoal(en, 0.6D));
+                goalSelector.add(4, new WanderAroundGoal(en, 0.6D, 40));
                 goalSelector.add(7, new LookAtEntityGoal(en, PlayerEntity.class, 16));
                 goalSelector.add(8, new LookAroundGoal(en));
-                targetSelector.add(2, new RevengeGoal(en, new Class[0]));
+
+                targetSelector.add(2, new FollowTargetGoal<>(en, PlayerEntity.class, true));
+                targetSelector.add(1, new RevengeGoal(en, new Class[0]));
                 targetSelector.add(4, new UniversalAngerGoal(en, false));
             }
         };
@@ -110,7 +111,7 @@ public abstract class MobData<T extends LivingEntity> {
 
     public enum Size {
 
-        BIG_GOLEM(new EntityDimensions(1.4F, 2.7F, true)),
+        BIG_GOLEM(new EntityDimensions(1.4F, 1.95F, true)),
         SMALL_GOLEM(new EntityDimensions(0.9F, 0.9F, true)),
         HUMAN(new EntityDimensions(0.5F, 1.9F, true));
 

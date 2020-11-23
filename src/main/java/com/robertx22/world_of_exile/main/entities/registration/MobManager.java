@@ -17,11 +17,13 @@ public class MobManager {
     public static Set<MobData> SET = new HashSet<>();
 
     static {
-        SET.add(new FireGolem());
-        SET.add(new FrostGolem());
+        SET.add(new StoneGolem());
+        SET.add(new WoodGolem());
+        SET.add(new SnowGolem());
         SET.add(new IronOreGolem());
         SET.add(new RedstoneGolem());
         SET.add(new ObsidianGolem());
+        SET.add(new SmallObsidianGolem());
     }
 
     @Nullable

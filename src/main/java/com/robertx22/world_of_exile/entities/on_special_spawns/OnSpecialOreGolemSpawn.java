@@ -10,7 +10,11 @@ import org.apache.commons.lang3.RandomUtils;
 
 public class OnSpecialOreGolemSpawn extends OnMobSpecialSpawn {
 
-    public float chance = 20;
+    public float chance;
+
+    public OnSpecialOreGolemSpawn(float chance) {
+        this.chance = chance;
+    }
 
     @Override
     public void onSpecialSpawn(LivingEntity en, MobData data) {

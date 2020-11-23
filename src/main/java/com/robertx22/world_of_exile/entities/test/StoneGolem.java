@@ -1,18 +1,21 @@
 package com.robertx22.world_of_exile.entities.test;
 
-import com.robertx22.world_of_exile.entities.IShooter;
-import com.robertx22.world_of_exile.entities.ai.FireballShooterGoal;
+import com.google.common.collect.ImmutableSet;
+import com.robertx22.world_of_exile.entities.on_special_spawns.OnSpecialOreGolemSpawn;
 import com.robertx22.world_of_exile.main.entities.*;
+import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
 import com.robertx22.world_of_exile.util.AttributeBuilder;
 import net.minecraft.entity.ai.goal.GoalSelector;
 import net.minecraft.entity.mob.PathAwareEntity;
+import net.minecraft.tag.BlockTags;
 
-public class FireGolem extends MobData {
+public class StoneGolem extends MobData {
 
-    public FireGolem() {
-        super("fire_golem");
+    public StoneGolem() {
+        super("stone_golem");
 
-        this.tags.add(MobTags.RANDOM_TOWER_BOSS);
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(1, ImmutableSet.of(BlockTags.BASE_STONE_OVERWORLD), ImmutableSet.of()));
+        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(3));
     }
 
     @Override
@@ -22,7 +25,7 @@ public class FireGolem extends MobData {
 
     @Override
     public MobRenderInfo getRenderInfo() {
-        return new MobRenderInfo("fire");
+        return new MobRenderInfo(0.5F, "stone");
     }
 
     @Override
@@ -32,12 +35,12 @@ public class FireGolem extends MobData {
 
     @Override
     public AttributeBuilder getAttributes() {
-        return DefaultAttributes.GOLEM_BOSS.getDefault();
+        return DefaultAttributes.SMALL_GOLEM.getDefault();
     }
 
     @Override
     public MobData.Size getSizeDimensions() {
-        return Size.BIG_GOLEM;
+        return Size.SMALL_GOLEM;
     }
 
     @Override
@@ -47,7 +50,7 @@ public class FireGolem extends MobData {
 
     @Override
     public void addCustomGoals(PathAwareEntity en, GoalSelector goalSelector, GoalSelector targetSelector) {
-        goalSelector.add(1, new FireballShooterGoal(en, (IShooter) en));
+
     }
 
 }

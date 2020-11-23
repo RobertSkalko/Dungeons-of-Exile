@@ -23,7 +23,7 @@ public class OnLavaTurnToObsidian {
                 if (player != null) {
                     for (MobData data : MobManager.SET) {
                         for (LavaTurnToObsidianSpawner spawner : data.spawnEvents.lavaTurnToObsidian) {
-                            if (spawner.chance > world.random.nextInt(100)) {
+                            if (spawner.chance > world.random.nextFloat() * 100F) {
                                 LivingEntity en = data.spawn(world, pos.up());
                                 for (OnMobSpecialSpawn specialspawn : data.spawnEvents.onSpecialSpawn) {
                                     specialspawn.onSpecialSpawn(en, data);

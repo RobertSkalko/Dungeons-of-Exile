@@ -15,7 +15,7 @@ public class IronOreGolem extends MobData {
         super("iron_ore_golem");
 
         this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(3, ImmutableSet.of(), ImmutableSet.of(Blocks.IRON_ORE)));
-        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn());
+        this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(20));
     }
 
     @Override
