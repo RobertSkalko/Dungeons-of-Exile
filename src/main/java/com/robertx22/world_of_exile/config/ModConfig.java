@@ -28,7 +28,7 @@ public class ModConfig implements ConfigData {
     public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 15, 378235));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 6, 2058146));
+    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 6, 2058146));
 
     @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 5, 5240125));
@@ -48,6 +48,7 @@ public class ModConfig implements ConfigData {
         BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.HELL1.toString());
 
         STONE_BRICK_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
+
         STONE_BRICK_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
             .toString());
 

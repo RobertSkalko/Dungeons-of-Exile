@@ -1,6 +1,6 @@
 {
   "ultrawarm": true,
-  "coordinate_scale": 1,
+  "coordinate_scale": 0.1,
   "natural": false,
   "shrunk": false,
   "ambient_light": 0.1,

@@ -1,6 +1,5 @@
 package com.robertx22.world_of_exile.main;
 
-import com.robertx22.world_of_exile.biomes.AddCryingForestGen;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.events.OnServerTick;
 import com.robertx22.world_of_exile.main.entities.MobEvents;
@@ -21,8 +20,11 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.mixin.structure.BiomeAccessor;
+import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
+import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -55,6 +57,8 @@ public class CommonInit implements ModInitializer {
 
     @Override
     public void onInitialize() {
+
+        CustomPortalApiRegistry.addPortal(Blocks.IRON_BLOCK, ModDimensions.HELL1, Formatting.GRAY.getColorIndex());
 
         ModProcessors.INSTANCE = new ModProcessors();
         ModBlocks.INSTANCE = new ModBlocks();
@@ -89,7 +93,6 @@ public class CommonInit implements ModInitializer {
             }
         });
 
-        AddCryingForestGen.add();
         MobEvents.register();
 
         ServerLifecycleEvents.SERVER_STARTING.register(s -> {
