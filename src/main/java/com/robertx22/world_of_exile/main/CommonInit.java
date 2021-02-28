@@ -7,11 +7,12 @@ import com.robertx22.world_of_exile.main.entities.MobEvents;
 import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
 import com.robertx22.world_of_exile.main.entities.registration.MobSpawnsInit;
 import com.robertx22.world_of_exile.main.entities.registration.ModEntities;
+import com.robertx22.world_of_exile.main.structures.BlackStoneTower;
+import com.robertx22.world_of_exile.main.structures.Dungeon;
+import com.robertx22.world_of_exile.main.structures.LadderTower;
+import com.robertx22.world_of_exile.main.structures.StoneBrickTower;
+import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
-import com.robertx22.world_of_exile.world_gen.jigsaw.blackstone_tower.BlackStoneTowerPools;
-import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.DungeonPools;
-import com.robertx22.world_of_exile.world_gen.jigsaw.ladder_tower.LadderTowerPools;
-import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerPools;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
@@ -25,7 +26,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
 
@@ -38,6 +38,20 @@ import java.util.function.Supplier;
 public class CommonInit implements ModInitializer {
 
     public static MinecraftServer server;
+
+    static List<StructureWrapper> FEATURES = new ArrayList<>();
+
+    static void registerFeatures() {
+        FEATURES = new ArrayList<>();
+
+        FEATURES.add(new Dungeon());
+        FEATURES.add(new BlackStoneTower());
+        FEATURES.add(new LadderTower());
+        FEATURES.add(new StoneBrickTower());
+
+        FEATURES.forEach(x -> x.init());
+        FEATURES.forEach(x -> x.register());
+    }
 
     @Override
     public void onInitialize() {
@@ -56,10 +70,6 @@ public class CommonInit implements ModInitializer {
 
         ModStructurePieces.init();
         ModWorldGen.init();
-        DungeonPools.init();
-        BlackStoneTowerPools.init();
-        StoneBrickTowerPools.init();
-        LadderTowerPools.init();
 
         ModBiomes.INSTANCE = new ModBiomes();
 
@@ -69,14 +79,12 @@ public class CommonInit implements ModInitializer {
 
         ServerTickEvents.END_SERVER_TICK.register(new OnServerTick());
 
+        registerFeatures();
+
         ServerWorldEvents.LOAD.register(new ServerWorldEvents.Load() {
             @Override
             public void onWorldLoad(MinecraftServer server, ServerWorld world) {
-
-                ModConfig.get().BLACKSTONE_TOWER.onWorldLoad(world);
-                ModConfig.get().STONE_BRICK_TOWER.onWorldLoad(world);
-                ModConfig.get().DUNGEON.onWorldLoad(world);
-                ModConfig.get().LADDER_TOWER.onWorldLoad(world);
+                FEATURES.forEach(x -> x.config.onWorldLoad(world, x.feature));
 
             }
         });
@@ -126,28 +134,13 @@ public class CommonInit implements ModInitializer {
                     GenerationSettingsAccessor gen = (GenerationSettingsAccessor) biome.getGenerationSettings();
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
 
-                    if (ModConfig.get().DUNGEON.isAllowedIn(null, biome, regManager)) {
-                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                            .add(ModWorldGen.INSTANCE.DUNGEON);
-                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_DUNGEON);
-                    }
-
-                    if (ModConfig.get().STONE_BRICK_TOWER.isAllowedIn(null, biome, regManager)) {
-                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                            .add(ModWorldGen.INSTANCE.STONE_BRICK_TOWER);
-                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_STONE_BRICK_TOWER);
-
-                    }
-                    if (ModConfig.get().BLACKSTONE_TOWER.isAllowedIn(null, biome, regManager)) {
-                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                            .add(ModWorldGen.INSTANCE.BLACKSTONE_TOWER);
-                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_BLACKSTONE_TOWER);
-                    }
-                    if (ModConfig.get().LADDER_TOWER.isAllowedIn(null, biome, regManager)) {
-                        list.get(GenerationStep.Feature.SURFACE_STRUCTURES.ordinal())
-                            .add(ModWorldGen.INSTANCE.LADDER_TOWER);
-                        setlist.add(() -> ModWorldGen.INSTANCE.CONFIG_LADDER_TOWER);
-                    }
+                    FEATURES.forEach(x -> {
+                        if (x.config.isAllowedIn(null, biome, regManager)) {
+                            list.get(x.genStep.ordinal())
+                                .add(x.feature);
+                            setlist.add(() -> x.configuredFeature);
+                        }
+                    });
 
                     access.setStructureLists(list);
                     gen.setGSStructureFeatures(setlist);

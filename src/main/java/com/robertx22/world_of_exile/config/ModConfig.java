@@ -2,7 +2,6 @@ package com.robertx22.world_of_exile.config;
 
 import com.robertx22.library_of_exile.config_utils.PerBiomeCategoryConfig;
 import com.robertx22.world_of_exile.main.ModDimensions;
-import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.entities.MobTags;
 import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
@@ -26,16 +25,16 @@ public class ModConfig implements ConfigData {
     public boolean ENABLE_DUNGEON = true;
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 15, 378235), ModWorldGenIds.DUNGEON_ID);
+    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 15, 378235));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 6, 2058146), ModWorldGenIds.BLACKSTONE_TOWER_ID);
+    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(8, 6, 2058146));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 5, 5240125), ModWorldGenIds.STONE_BRICK_TOWER_ID);
+    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 5, 5240125));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(25, 15, 1092515512), ModWorldGenIds.LADDER_TOWER_ID);
+    public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(25, 15, 1092515512));
 
     @ConfigEntry.Gui.CollapsibleObject
     Set<String> ALLOWED_MOBS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?
@@ -46,7 +45,7 @@ public class ModConfig implements ConfigData {
     ModConfig() {
 
         BLACKSTONE_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-        BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.ABYSS.toString());
+        BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.HELL1.toString());
 
         STONE_BRICK_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
         STONE_BRICK_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()

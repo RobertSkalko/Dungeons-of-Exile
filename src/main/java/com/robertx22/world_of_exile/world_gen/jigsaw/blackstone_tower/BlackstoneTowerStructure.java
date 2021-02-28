@@ -17,6 +17,11 @@ public class BlackstoneTowerStructure extends JigsawFeature {
 
     @Override
     protected boolean shouldStartAt(ChunkGenerator chunkGen, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos cpos, StructurePoolFeatureConfig structurePoolFeatureConfig) {
+
+        if (true) {
+            return true;
+        }
+
         int start = chunkGen.getHeightOnGround(cpos.getStartX(), cpos.getStartZ(), Heightmap.Type.WORLD_SURFACE_WG);
         int end = chunkGen.getHeightOnGround(cpos.getEndX(), cpos.getEndZ(), Heightmap.Type.WORLD_SURFACE_WG);
 

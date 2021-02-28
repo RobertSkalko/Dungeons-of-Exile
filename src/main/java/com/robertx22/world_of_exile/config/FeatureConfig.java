@@ -6,9 +6,7 @@ import com.robertx22.library_of_exile.config_utils.PerDimensionConfig;
 import com.robertx22.world_of_exile.mixins.StructuresConfigAccessor;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DynamicRegistryManager;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
@@ -30,17 +28,13 @@ public class FeatureConfig {
     @ConfigEntry.Gui.CollapsibleObject
     public PerBiomeCategoryConfig PER_BIOME_CATEGORY = new PerBiomeCategoryConfig();
 
-    public String registry_id;
     public MyStructureConfig config;
 
-    public FeatureConfig(MyStructureConfig config, Identifier id) {
+    public FeatureConfig(MyStructureConfig config) {
         this.config = config;
-        this.registry_id = id.toString();
     }
 
-    public void onWorldLoad(ServerWorld world) {
-
-        StructureFeature<?> structure = getFeature();
+    public void onWorldLoad(ServerWorld world, StructureFeature<?> structure) {
 
         Objects.requireNonNull(structure);
 
@@ -61,10 +55,6 @@ public class FeatureConfig {
                 .getStructuresConfig();
 
         acc.setGSStructureFeatures(tempMap);
-    }
-
-    public StructureFeature<?> getFeature() {
-        return Registry.STRUCTURE_FEATURE.get(new Identifier(registry_id));
     }
 
     public FeatureConfig() {
