@@ -45,7 +45,7 @@ public class ModConfig implements ConfigData {
     ModConfig() {
 
         BLACKSTONE_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-        BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.HELL1.toString());
+        BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.HELL2.toString());
 
         STONE_BRICK_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
 

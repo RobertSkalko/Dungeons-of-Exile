@@ -12,6 +12,6 @@
   "respawn_anchor_works": true,
   "bed_works" : false,
   "piglin_safe" : false,
-  "fixed_time" : 6000,
+  "fixed_time" : 18000,
   "effects": "minecraft:overworld"
 }

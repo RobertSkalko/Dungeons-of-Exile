@@ -58,7 +58,9 @@ public class CommonInit implements ModInitializer {
     @Override
     public void onInitialize() {
 
-        CustomPortalApiRegistry.addPortal(Blocks.IRON_BLOCK, ModDimensions.HELL1, Formatting.GRAY.getColorIndex());
+        CustomPortalApiRegistry.addPortal(Blocks.CRIMSON_PLANKS, ModDimensions.HELL1, Formatting.RED.getColorIndex());
+        CustomPortalApiRegistry.addPortal(Blocks.WARPED_PLANKS, ModDimensions.HELL2, Formatting.AQUA.getColorIndex());
+        CustomPortalApiRegistry.addPortal(Blocks.SOUL_SOIL, ModDimensions.HELL3, Formatting.DARK_GRAY.getColorIndex());
 
         ModProcessors.INSTANCE = new ModProcessors();
         ModBlocks.INSTANCE = new ModBlocks();
