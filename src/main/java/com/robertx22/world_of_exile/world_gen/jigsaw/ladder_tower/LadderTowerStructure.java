@@ -17,6 +17,7 @@ public class LadderTowerStructure extends JigsawFeature {
 
     @Override
     protected boolean shouldStartAt(ChunkGenerator chunkGen, BiomeSource biomeSource, long l, ChunkRandom chunkRandom, int i, int j, Biome biome, ChunkPos cpos, StructurePoolFeatureConfig structurePoolFeatureConfig) {
+
         return true;
     }
 }

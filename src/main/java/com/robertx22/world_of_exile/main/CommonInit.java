@@ -6,10 +6,7 @@ import com.robertx22.world_of_exile.main.entities.MobEvents;
 import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
 import com.robertx22.world_of_exile.main.entities.registration.MobSpawnsInit;
 import com.robertx22.world_of_exile.main.entities.registration.ModEntities;
-import com.robertx22.world_of_exile.main.structures.BlackStoneTower;
-import com.robertx22.world_of_exile.main.structures.Dungeon;
-import com.robertx22.world_of_exile.main.structures.LadderTower;
-import com.robertx22.world_of_exile.main.structures.StoneBrickTower;
+import com.robertx22.world_of_exile.main.structures.*;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
@@ -38,8 +35,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public class CommonInit implements ModInitializer {
-
-    public static MinecraftServer server;
+    public static MinecraftServer SERVER;
 
     static List<StructureWrapper> FEATURES = new ArrayList<>();
 
@@ -50,6 +46,7 @@ public class CommonInit implements ModInitializer {
         FEATURES.add(new BlackStoneTower());
         FEATURES.add(new LadderTower());
         FEATURES.add(new StoneBrickTower());
+        FEATURES.add(new OnePieceSurfaceJigsaw());
 
         FEATURES.forEach(x -> x.init());
         FEATURES.forEach(x -> x.register());
@@ -62,7 +59,7 @@ public class CommonInit implements ModInitializer {
         CustomPortalApiRegistry.addPortal(Blocks.WARPED_PLANKS, ModDimensions.HELL2, Formatting.AQUA.getColorIndex());
         CustomPortalApiRegistry.addPortal(Blocks.SOUL_SOIL, ModDimensions.HELL3, Formatting.DARK_GRAY.getColorIndex());
 
-        ModProcessors.INSTANCE = new ModProcessors();
+        ModProcessorLists.INSTANCE = new ModProcessorLists();
         ModBlocks.INSTANCE = new ModBlocks();
         ModItems.INSTANCE = new ModItems();
 
@@ -99,10 +96,10 @@ public class CommonInit implements ModInitializer {
 
         ServerLifecycleEvents.SERVER_STARTING.register(s -> {
 
+            CommonInit.SERVER = s;
+
             //BiomeModifications
             // can replace this but lambda hell
-
-            server = s;
 
 
 

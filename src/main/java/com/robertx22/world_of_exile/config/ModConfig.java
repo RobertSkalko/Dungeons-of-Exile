@@ -1,6 +1,7 @@
 package com.robertx22.world_of_exile.config;
 
 import com.robertx22.library_of_exile.config_utils.PerBiomeCategoryConfig;
+import com.robertx22.library_of_exile.config_utils.PerDimensionConfig;
 import com.robertx22.world_of_exile.main.ModDimensions;
 import com.robertx22.world_of_exile.main.entities.MobTags;
 import com.robertx22.world_of_exile.main.entities.registration.MobManager;
@@ -31,7 +32,10 @@ public class ModConfig implements ConfigData {
     public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 6, 2058146));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 5, 5240125));
+    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 5, 270951955));
+
+    @ConfigEntry.Gui.CollapsibleObject
+    public FeatureConfig ONE_PIECE_SURFACE = new FeatureConfig(new FeatureConfig.MyStructureConfig(10, 6, 447023887));
 
     @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(25, 15, 1092515512));
@@ -44,17 +48,21 @@ public class ModConfig implements ConfigData {
 
     ModConfig() {
 
+        ONE_PIECE_SURFACE.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
+        ONE_PIECE_SURFACE.PER_DIM.dimensions.add(ModDimensions.HELL3.toString());
+
         BLACKSTONE_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
         BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.HELL2.toString());
 
         STONE_BRICK_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-
         STONE_BRICK_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
             .toString());
+        addHellDimensions(STONE_BRICK_TOWER.PER_DIM);
 
         LADDER_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
         LADDER_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
             .toString());
+        addHellDimensions(LADDER_TOWER.PER_DIM);
 
         DUNGEON.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
         DUNGEON.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
@@ -76,6 +84,12 @@ public class ModConfig implements ConfigData {
                 .filter(x -> x.getValue().tags.contains(MobTags.RANDOM_TOWER_BOSS))
                 .forEach(b -> addBoss(b.getKey()));
         }
+    }
+
+    public static void addHellDimensions(PerDimensionConfig c) {
+        c.dimensions.add(ModDimensions.HELL1.toString());
+        c.dimensions.add(ModDimensions.HELL2.toString());
+        c.dimensions.add(ModDimensions.HELL3.toString());
     }
 
     void addMob(EntityType type) {

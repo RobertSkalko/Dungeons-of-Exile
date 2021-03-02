@@ -1,7 +1,7 @@
 package com.robertx22.world_of_exile.main.structures;
 
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModProcessors;
+import com.robertx22.world_of_exile.main.ModProcessorLists;
 import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.WOE;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
@@ -59,7 +59,7 @@ public class StoneBrickTower extends StructureWrapper {
 
         @Override
         public StructureProcessorList processorList() {
-            return ModProcessors.INSTANCE.STONE_BRICK_TOWER;
+            return ModProcessorLists.INSTANCE.STONE_BRICK_TOWER;
         }
 
     }

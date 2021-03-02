@@ -29,6 +29,10 @@ public class BiomeProcessor extends StructureProcessor {
         reg(SandstoneProc.getInstance());
     }
 
+    public HashMap<String, BiomeProcessorType> getMap() {
+        return MAP;
+    }
+
     static void reg(BiomeProcessorType proc) {
         MAP.put(proc.id(), proc);
     }
@@ -42,7 +46,8 @@ public class BiomeProcessor extends StructureProcessor {
 
         Biome biome = worldView.getBiome(pos);
 
-        for (BiomeProcessorType t : BiomeProcessor.MAP.values()) {
+        for (BiomeProcessorType t : this.getMap()
+            .values()) {
             if (t.isBiomeGood(biome) && !t.isDefault()) {
                 type = t;
                 break;

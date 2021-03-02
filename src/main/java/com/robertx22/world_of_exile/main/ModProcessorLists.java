@@ -3,6 +3,7 @@ package com.robertx22.world_of_exile.main;
 import com.google.common.collect.ImmutableList;
 import com.robertx22.world_of_exile.world_gen.processors.BeaconProcessor;
 import com.robertx22.world_of_exile.world_gen.processors.SignProcessor;
+import com.robertx22.world_of_exile.world_gen.processors.biome_processor.HellOnlyBiomeProcessor;
 import net.minecraft.block.Blocks;
 import net.minecraft.structure.processor.RuleStructureProcessor;
 import net.minecraft.structure.processor.StructureProcessor;
@@ -13,9 +14,9 @@ import net.minecraft.structure.rule.RandomBlockMatchRuleTest;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.BuiltinRegistries;
 
-public class ModProcessors {
+public class ModProcessorLists {
 
-    public static ModProcessors INSTANCE;
+    public static ModProcessorLists INSTANCE;
 
     public StructureProcessorList DEFAULT_PROCESSORS = regProcs("my_processors", ImmutableList.of(
         new BeaconProcessor(),
@@ -30,6 +31,7 @@ public class ModProcessors {
 
     public StructureProcessorList STONE_BRICK_TOWER = regProcs("stone_brick_tower", ImmutableList.of(
         new SignProcessor(),
+        new HellOnlyBiomeProcessor(),
         new RuleStructureProcessor(ImmutableList.of(new StructureProcessorRule(new RandomBlockMatchRuleTest(Blocks.SMOOTH_STONE, 0.3F), AlwaysTrueRuleTest.INSTANCE, Blocks.AIR.getDefaultState())))
     ));
 
