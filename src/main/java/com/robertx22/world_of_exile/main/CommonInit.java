@@ -6,7 +6,10 @@ import com.robertx22.world_of_exile.main.entities.MobEvents;
 import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
 import com.robertx22.world_of_exile.main.entities.registration.MobSpawnsInit;
 import com.robertx22.world_of_exile.main.entities.registration.ModEntities;
-import com.robertx22.world_of_exile.main.structures.*;
+import com.robertx22.world_of_exile.main.structures.BlackStoneTower;
+import com.robertx22.world_of_exile.main.structures.LadderTower;
+import com.robertx22.world_of_exile.main.structures.OnePieceSurfaceJigsaw;
+import com.robertx22.world_of_exile.main.structures.StoneBrickTower;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
@@ -18,10 +21,14 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.mixin.structure.BiomeAccessor;
 import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
+import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
+import net.kyrptonaught.customportalapi.util.PortalLink;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -37,27 +44,45 @@ import java.util.function.Supplier;
 public class CommonInit implements ModInitializer {
     public static MinecraftServer SERVER;
 
-    static List<StructureWrapper> FEATURES = new ArrayList<>();
+    private static List<StructureWrapper> STRUCTURES = new ArrayList<>();
 
     static void registerFeatures() {
-        FEATURES = new ArrayList<>();
+        //  FEATURES = new ArrayList<>();
 
-        FEATURES.add(new Dungeon());
-        FEATURES.add(new BlackStoneTower());
-        FEATURES.add(new LadderTower());
-        FEATURES.add(new StoneBrickTower());
-        FEATURES.add(new OnePieceSurfaceJigsaw());
+        // TODO  FEATURES.add(new Dungeon());
+        STRUCTURES.add(new BlackStoneTower());
+        STRUCTURES.add(new LadderTower());
+        STRUCTURES.add(new StoneBrickTower());
+        STRUCTURES.add(new OnePieceSurfaceJigsaw());
 
-        FEATURES.forEach(x -> x.init());
-        FEATURES.forEach(x -> x.register());
+        STRUCTURES.forEach(x -> {
+            x.init();
+            x.register();
+        });
+
+    }
+
+    public static void registerStructure(StructureWrapper wrap) {
+        STRUCTURES.add(wrap);
+    }
+
+    // use this later to make it so only lvl 20 can enter lvl 20 dimension.
+    // need to interface with AOE mod too.. a bit of work
+    // i copy pasted this from the portal api, could become outdated fast
+    // the api's method overloads are bullshit to deal with
+    @Deprecated
+    public static void addPortal(Block frameBlock, PortalIgnitionSource ignitionSource, Identifier dimID, int color) {
+        PortalLink link = new PortalLink(Registry.BLOCK.getId(frameBlock), dimID, color);
+        link.portalIgnitionSource = ignitionSource;
+        CustomPortalApiRegistry.addPortal(frameBlock, link);
     }
 
     @Override
     public void onInitialize() {
 
-        CustomPortalApiRegistry.addPortal(Blocks.CRIMSON_PLANKS, ModDimensions.HELL1, Formatting.RED.getColorIndex());
-        CustomPortalApiRegistry.addPortal(Blocks.WARPED_PLANKS, ModDimensions.HELL2, Formatting.AQUA.getColorIndex());
-        CustomPortalApiRegistry.addPortal(Blocks.SOUL_SOIL, ModDimensions.HELL3, Formatting.DARK_GRAY.getColorIndex());
+        // i use stone cus portals give you infinite blocks by spawning another portal at the destination
+        // so definitely can't use diamond and stuff!
+        CustomPortalApiRegistry.addPortal(Blocks.NETHER_BRICKS, ModDimensions.HELL1, Formatting.RED.getColorIndex());
 
         ModProcessorLists.INSTANCE = new ModProcessorLists();
         ModBlocks.INSTANCE = new ModBlocks();
@@ -87,8 +112,7 @@ public class CommonInit implements ModInitializer {
         ServerWorldEvents.LOAD.register(new ServerWorldEvents.Load() {
             @Override
             public void onWorldLoad(MinecraftServer server, ServerWorld world) {
-                FEATURES.forEach(x -> x.config.onWorldLoad(world, x.feature));
-
+                STRUCTURES.forEach(x -> x.config.onWorldLoad(world, x.feature));
             }
         });
 
@@ -136,7 +160,7 @@ public class CommonInit implements ModInitializer {
                     GenerationSettingsAccessor gen = (GenerationSettingsAccessor) biome.getGenerationSettings();
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
 
-                    FEATURES.forEach(x -> {
+                    STRUCTURES.forEach(x -> {
                         if (x.config.isAllowedIn(null, biome, regManager)) {
                             list.get(x.genStep.ordinal())
                                 .add(x.feature);
@@ -150,11 +174,11 @@ public class CommonInit implements ModInitializer {
                 }
             }
 
-            System.out.println("Added DOE structures to biomes");
+            System.out.println("Added World of Exile structures to biomes");
 
         });
 
-        System.out.println("Dungeons of Exile initialized.");
+        System.out.println("World of Exile initialized.");
     }
 
 }

@@ -10,6 +10,4 @@ public class ModWorldGenIds {
     public static Identifier DUNGEON_ID = WOE.id("dungeon");
     public static Identifier LADDER_TOWER_ID = WOE.id("ladder_tower");
 
-    public static Identifier PURPLE_TREE_ID = WOE.id("purple_tree");
-
 }

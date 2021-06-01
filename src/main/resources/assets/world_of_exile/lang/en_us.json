@@ -1,6 +1,7 @@
 {
 	"entity.world_of_exile.fire_golem": "Magma Golem",
-	"entity.world_of_exile.frost_golem": "Frost Golem",
+	"entity.world_of_exile.snow_golem": "Frost Golem",
+	"entity.world_of_exile.obsidian_golem": "Obsidian Golem",
 	
 	"entity.world_of_exile.frost_blaze": "Frost Blaze",
 	

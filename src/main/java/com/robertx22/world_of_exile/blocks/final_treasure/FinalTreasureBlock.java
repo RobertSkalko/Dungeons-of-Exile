@@ -1,6 +1,7 @@
 package com.robertx22.world_of_exile.blocks.final_treasure;
 
 import com.robertx22.world_of_exile.blocks.AbstractLockedBlock;
+import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModItems;
 import com.robertx22.world_of_exile.main.ModLoottables;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
@@ -36,7 +37,9 @@ public class FinalTreasureBlock extends AbstractLockedBlock {
         ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos.up());
         chest.setLootTable(ModLoottables.MEDIUM_TREASURE, RandomUtils.nextLong());
 
-        TowerDestroyer.list.add(new TowerDestroyer(pos, world, chest));
+        if (ModConfig.get().AUTO_DESTROY_TOWERS) {
+            TowerDestroyer.list.add(new TowerDestroyer(pos, world, chest));
+        }
     }
 }
 

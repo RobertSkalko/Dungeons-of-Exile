@@ -2,6 +2,7 @@ package com.robertx22.world_of_exile.entities.mob_data;
 
 import com.robertx22.world_of_exile.entities.IShooter;
 import com.robertx22.world_of_exile.entities.ai.FrostProjectileShooterGoal;
+import com.robertx22.world_of_exile.entities.mob.OnDeathDropKey;
 import com.robertx22.world_of_exile.entities.on_attack.EffectOnAttack;
 import com.robertx22.world_of_exile.main.entities.*;
 import com.robertx22.world_of_exile.util.AttributeBuilder;
@@ -16,6 +17,8 @@ public class SnowGolem extends MobData {
 
         this.tags.add(MobTags.RANDOM_TOWER_BOSS);
         this.onAttackSomeoneEvents.add(new EffectOnAttack(StatusEffects.SLOWNESS, 25, 20 * 6));
+
+        this.onDeathEvents.add(new OnDeathDropKey());
     }
 
     @Override

@@ -24,6 +24,8 @@ public class MobManager {
         SET.add(new RedstoneGolem());
         SET.add(new ObsidianGolem());
         SET.add(new SmallObsidianGolem());
+
+        SET.add(new FireSlimeMob());
     }
 
     @Nullable

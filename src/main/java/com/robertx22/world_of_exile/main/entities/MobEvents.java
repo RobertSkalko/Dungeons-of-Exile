@@ -37,6 +37,17 @@ public class MobEvents {
             }
         });
 
+        ExileEvents.MOB_DEATH.register(new EventConsumer<ExileEvents.OnMobDeath>() {
+            @Override
+            public void accept(ExileEvents.OnMobDeath event) {
+
+                if (MobManager.get(event.mob) != null) {
+                    MobManager.get(event.mob).onDeathEvents.forEach(x -> x.accept(event));
+                }
+
+            }
+        });
+
         ExileEvents.DAMAGE_AFTER_CALC.register(new EventConsumer<ExileEvents.OnDamageEntity>() {
             @Override
             public void accept(ExileEvents.OnDamageEntity event) {

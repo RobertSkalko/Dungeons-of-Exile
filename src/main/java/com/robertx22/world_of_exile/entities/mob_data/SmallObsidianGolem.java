@@ -15,7 +15,7 @@ public class SmallObsidianGolem extends MobData {
     public SmallObsidianGolem() {
         super("small_obsidian_golem");
 
-        this.spawnEvents.lavaTurnToObsidian.add(new LavaTurnToObsidianSpawner(2));
+        this.spawnEvents.lavaTurnToObsidian.add(new LavaTurnToObsidianSpawner(1));
 
         this.onAttackSomeoneEvents.add(new EffectOnAttack(StatusEffects.SLOWNESS, 25, 20 * 6));
     }

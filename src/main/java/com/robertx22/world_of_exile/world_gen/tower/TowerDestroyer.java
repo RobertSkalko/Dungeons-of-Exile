@@ -98,60 +98,64 @@ public class TowerDestroyer {
 
     public void onTick(World world) {
 
-        if (!this.world.equals(world)) {
-            return;
-        }
+        try {
+            if (!this.world.equals(world)) {
+                return;
+            }
 
-        tick++;
+            tick++;
 
-        if (!started && tick % 20 == 0) {
-            world.playSound(null, pos, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
-        }
-        if (!started && tick > 140) {
-            started = true;
-            return;
-        }
+            if (!started && tick % 20 == 0) {
+                world.playSound(null, pos, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
+            }
+            if (!started && tick > 160) {
+                started = true;
+                return;
+            }
 
-        if (started && tick % 20 == 0) {
+            if (started && tick % 20 == 0) {
 
-            boolean destroyed = false;
+                boolean destroyed = false;
 
-            for (int x = -9; x < 9; x++) {
-                for (int z = -9; z < 9; z++) {
-                    BlockPos p = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
+                for (int x = -9; x < 9; x++) {
+                    for (int z = -9; z < 9; z++) {
+                        BlockPos p = new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z);
 
-                    Block block = world.getBlockState(p)
-                        .getBlock();
+                        Block block = world.getBlockState(p)
+                            .getBlock();
 
-                    if (block == Blocks.CHEST) {
-                        try {
-                            // set table to null so players arent rewarded for going straight to top
-                            ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(p);
-                            chest.setLootTable(null, 0);
-                            world.setBlockState(p, Blocks.AIR.getDefaultState());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        if (shouldDestroyBlock(block)) {
-                            destroyed = true;
-                            world.breakBlock(p, shouldKeepDrops(world, block));
-                            world.setBlockState(p, Blocks.AIR.getDefaultState());
+                        if (block == Blocks.CHEST) {
+                            try {
+                                // set table to null so players arent rewarded for going straight to top
+                                ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(p);
+                                chest.setLootTable(null, 0);
+                                world.setBlockState(p, Blocks.AIR.getDefaultState());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            if (shouldDestroyBlock(block)) {
+                                destroyed = true;
+                                world.breakBlock(p, shouldKeepDrops(world, block));
+                                world.setBlockState(p, Blocks.AIR.getDefaultState());
+                            }
                         }
                     }
+
                 }
 
-            }
+                if (!destroyed) {
+                    timesDidntDestroy++;
+                }
 
-            if (!destroyed) {
-                timesDidntDestroy++;
-            }
+                pos = pos.down(1);
 
-            pos = pos.down(1);
-
-            if (isDone(world)) {
-                world.breakBlock(this.chestPos, true);
+                if (isDone(world)) {
+                    world.breakBlock(this.chestPos, true);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

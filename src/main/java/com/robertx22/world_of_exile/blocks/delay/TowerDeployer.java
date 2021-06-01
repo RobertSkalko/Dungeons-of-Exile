@@ -69,11 +69,15 @@ public class TowerDeployer {
 
     public void onTick() {
 
-        placeLaddersForFloor();
+        try {
+            placeLaddersForFloor();
 
-        placeSpawnersAndChests(currentHeight == deployBlockPos.getY() ? FloorType.BOSS : FloorType.NORMAL);
+            placeSpawnersAndChests(currentHeight == deployBlockPos.getY() ? FloorType.BOSS : FloorType.NORMAL);
 
-        currentHeight -= LADDERS_NEEDED;
+            currentHeight -= LADDERS_NEEDED;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

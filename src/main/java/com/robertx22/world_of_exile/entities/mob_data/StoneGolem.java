@@ -14,7 +14,7 @@ public class StoneGolem extends MobData {
     public StoneGolem() {
         super("stone_golem");
 
-        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(1, ImmutableSet.of(BlockTags.BASE_STONE_OVERWORLD), ImmutableSet.of()));
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(0.2F, ImmutableSet.of(BlockTags.BASE_STONE_OVERWORLD), ImmutableSet.of()));
         this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(3));
     }
 

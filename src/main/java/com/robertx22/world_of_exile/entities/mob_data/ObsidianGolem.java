@@ -2,6 +2,7 @@ package com.robertx22.world_of_exile.entities.mob_data;
 
 import com.robertx22.world_of_exile.entities.IShooter;
 import com.robertx22.world_of_exile.entities.ai.FireballShooterGoal;
+import com.robertx22.world_of_exile.entities.mob.OnDeathDropKey;
 import com.robertx22.world_of_exile.entities.on_attack.EffectOnAttack;
 import com.robertx22.world_of_exile.entities.on_special_spawns.OnBigMobSpawnRemoveBlocksAround;
 import com.robertx22.world_of_exile.main.entities.*;
@@ -16,10 +17,13 @@ public class ObsidianGolem extends MobData {
     public ObsidianGolem() {
         super("obsidian_golem");
 
-        this.spawnEvents.lavaTurnToObsidian.add(new LavaTurnToObsidianSpawner(0.1F));
+        this.tags.add(MobTags.RANDOM_TOWER_BOSS);
+
+        this.spawnEvents.lavaTurnToObsidian.add(new LavaTurnToObsidianSpawner(0.025F));
         this.spawnEvents.onSpecialSpawn.add(new OnBigMobSpawnRemoveBlocksAround());
 
         this.onAttackSomeoneEvents.add(new EffectOnAttack(StatusEffects.MINING_FATIGUE, 25, 20 * 6));
+        this.onDeathEvents.add(new OnDeathDropKey());
 
     }
 

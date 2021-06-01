@@ -41,7 +41,7 @@ public abstract class StructureWrapper {
 
     }
 
-    public final void register() {
+    public void register() {
         FabricStructureBuilder b = FabricStructureBuilder.create(id, feature)
             .step(this.genStep)
             .defaultConfig(this.config.config.get())

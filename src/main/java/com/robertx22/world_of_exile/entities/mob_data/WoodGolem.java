@@ -16,7 +16,7 @@ public class WoodGolem extends MobData {
     public WoodGolem() {
         super("wood_golem");
 
-        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(2, ImmutableSet.of(BlockTags.LOGS), ImmutableSet.of()));
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(1, ImmutableSet.of(BlockTags.LOGS), ImmutableSet.of()));
         this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(10));
 
         this.onAttackSomeoneEvents.add(new EffectOnAttack(StatusEffects.POISON, 20, 20 * 10));

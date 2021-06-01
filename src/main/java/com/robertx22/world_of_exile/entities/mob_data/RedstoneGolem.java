@@ -15,7 +15,7 @@ public class RedstoneGolem extends MobData {
     public RedstoneGolem() {
         super("redstone_ore_golem");
 
-        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(2, ImmutableSet.of(), ImmutableSet.of(Blocks.REDSTONE_ORE)));
+        this.spawnEvents.breakBlock.add(new PlayerBreakBlockSpawner(1, ImmutableSet.of(), ImmutableSet.of(Blocks.REDSTONE_ORE)));
         this.spawnEvents.onSpecialSpawn.add(new OnSpecialOreGolemSpawn(25));
 
     }
