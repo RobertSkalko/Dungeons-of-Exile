@@ -11,5 +11,5 @@ public abstract class SignMixin implements SignDuck {
 
     @Accessor
     @Override
-    public abstract Text[] getText();
+    public abstract Text[] getTexts();
 }

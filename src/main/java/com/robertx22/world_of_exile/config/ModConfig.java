@@ -27,6 +27,8 @@ public class ModConfig implements ConfigData {
 
     public boolean AUTO_DESTROY_TOWERS = true;
 
+    public boolean ENABLE_BLOCK_BREAK_GOLEM_SPAWNS = true;
+
     @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 15, 378235));
 

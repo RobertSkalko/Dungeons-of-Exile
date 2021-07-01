@@ -11,7 +11,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.processor.StructureProcessor;
@@ -39,23 +39,23 @@ public class BeaconProcessor extends StructureProcessor {
             if (currentState.getBlock() == Blocks.BEACON) {
 
                 if (worldView.isClient()) {
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), new CompoundTag());
+                    return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), new NbtCompound());
                 }
                 Random random = data.getRandom(info.pos);
 
                 if (random.nextFloat() < 0.5F) {
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), new CompoundTag());
+                    return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), new NbtCompound());
                 }
 
                 if (random.nextFloat() > 0.95F) {
-                    return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.RANDOM_BLOCK.getDefaultState(), new CompoundTag());
+                    return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.RANDOM_BLOCK.getDefaultState(), new NbtCompound());
                 }
 
                 if (random.nextFloat() > 0.85F) {
-                    CompoundTag resultTag = new CompoundTag();
+                    NbtCompound resultTag = new NbtCompound();
                     ChestBlockEntity chest = new ChestBlockEntity();
                     chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
-                    chest.toTag(resultTag);
+                    chest.writeNbt(resultTag);
                     return new Structure.StructureBlockInfo(info.pos, Blocks.CHEST.getDefaultState(), resultTag);
 
                 } else {
@@ -71,7 +71,7 @@ public class BeaconProcessor extends StructureProcessor {
                     type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
                     MobSpawnerEntry entry = new MobSpawnerEntry();
-                    entry.getEntityTag()
+                    entry.getEntityNbt()
                         .putString("id", Registry.ENTITY_TYPE.getId(type)
                             .toString());
 
@@ -80,8 +80,8 @@ public class BeaconProcessor extends StructureProcessor {
                     spawner.getLogic()
                         .setSpawnEntry(entry);
 
-                    CompoundTag resultTag = new CompoundTag();
-                    spawner.toTag(resultTag);
+                    NbtCompound resultTag = new NbtCompound();
+                    spawner.writeNbt(resultTag);
 
                     return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), resultTag);
                 }

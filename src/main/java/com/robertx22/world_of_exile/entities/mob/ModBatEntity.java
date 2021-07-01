@@ -42,8 +42,8 @@ public abstract class ModBatEntity extends VexEntity {
     protected void initGoals() {
 
         this.goalSelector.add(0, new SwimGoal(this));
-        this.goalSelector.add(4, new ChargeTargetGoal());
-        this.goalSelector.add(8, new LookAtTargetGoal());
+        this.goalSelector.add(4, new com.robertx22.world_of_exile.entities.mob.ModBatEntity.ChargeTargetGoal());
+        this.goalSelector.add(8, new com.robertx22.world_of_exile.entities.mob.ModBatEntity.LookAtTargetGoal());
         this.goalSelector.add(9, new LookAtEntityGoal(this, PlayerEntity.class, 3.0F, 1.0F));
         this.goalSelector.add(10, new LookAtEntityGoal(this, MobEntity.class, 8.0F));
         this.targetSelector.add(3, new FollowTargetGoal(this, PlayerEntity.class, true));

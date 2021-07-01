@@ -15,7 +15,7 @@ public class FrostProjectileShooterGoal extends ShootProjectileGoal {
     public void shootProjectile(World world, MobEntity mob, double e, double f, double g, float h) {
         FrostProjectileEntity projectile = new FrostProjectileEntity(mob.world, mob, e * h, f, g * h);
 
-        projectile.updatePosition(projectile.getX(), mob.getBodyY(0.5D) + 0.5D, projectile.getZ());
+        projectile.setPosition(projectile.getX(), mob.getBodyY(0.5D) + 0.5D, projectile.getZ());
         mob.world.spawnEntity(projectile);
     }
 

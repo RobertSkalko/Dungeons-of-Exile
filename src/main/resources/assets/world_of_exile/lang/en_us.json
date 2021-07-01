@@ -2,12 +2,18 @@
 	"entity.world_of_exile.fire_golem": "Magma Golem",
 	"entity.world_of_exile.snow_golem": "Frost Golem",
 	"entity.world_of_exile.obsidian_golem": "Obsidian Golem",
+	"entity.world_of_exile.obsidian_golem": "Obsidian Golem",
+	"entity.world_of_exile.stone_golem": "Stone Golem",
+	"entity.world_of_exile.wood_golem": "Tree Gremlin",
+	"entity.world_of_exile.iron_ore_golem": "Iron Ore Golem",
 	
 	"entity.world_of_exile.frost_blaze": "Frost Blaze",
 	
-	"block.world_of_exile.stargate": "Stargate",
+	"block.world_of_exile.hell_portal": "Hell Portal",
 	
 	"item.world_of_exile.silver_key": "Silver Key",
+	"item.world_of_exile.hell_portal": "Hell Portal",
+	"item.world_of_exile.hell_stone": "Hell Stone",
 	"item.world_of_exile.randomize_teleport": "Teleport Randomizer",
 	"item.world_of_exile.teleport_back": "Teleport Back"
 	

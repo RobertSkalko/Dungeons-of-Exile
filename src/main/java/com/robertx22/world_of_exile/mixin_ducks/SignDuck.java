@@ -4,5 +4,5 @@ import net.minecraft.text.Text;
 
 public interface SignDuck {
 
-    Text[] getText();
+    Text[] getTexts();
 }

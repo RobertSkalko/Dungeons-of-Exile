@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.blocks.delay;
 
+import com.robertx22.world_of_exile.blocks.delay.TowerDeployer.FloorType;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModLoottables;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
@@ -131,7 +132,7 @@ public class TowerDeployer {
                     type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
                     MobSpawnerEntry entry = new MobSpawnerEntry();
-                    entry.getEntityTag()
+                    entry.getEntityNbt()
                         .putString("id", Registry.ENTITY_TYPE.getId(type)
                             .toString());
 

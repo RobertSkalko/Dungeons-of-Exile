@@ -2,6 +2,9 @@ package com.robertx22.world_of_exile.main.entities;
 
 import com.robertx22.library_of_exile.events.base.EventConsumer;
 import com.robertx22.library_of_exile.events.base.ExileEvents;
+import com.robertx22.world_of_exile.config.ModConfig;
+import com.robertx22.world_of_exile.main.ModDimensions;
+import com.robertx22.world_of_exile.main.ModItems;
 import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -9,8 +12,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.commons.lang3.RandomUtils;
 
 import java.util.function.Consumer;
 
@@ -18,16 +23,38 @@ public class MobEvents {
 
     public static void register() {
 
+        ExileEvents.MOB_DEATH.register(new EventConsumer<ExileEvents.OnMobDeath>() {
+            @Override
+            public void accept(ExileEvents.OnMobDeath event) {
+                if (!(event.killer instanceof PlayerEntity)) {
+                    return;
+                }
+                if (!event.mob.world.getRegistryManager()
+                    .getDimensionTypes()
+                    .getId(event.mob.world.getDimension())
+                    .equals(ModDimensions.HELL1)) {
+                    return;
+                }
+
+                if (RandomUtils.nextFloat() > 0.95F) {
+                    ItemStack stack = new ItemStack(ModItems.INSTANCE.HELL_STONE);
+                    event.mob.dropStack(stack);
+                }
+            }
+        });
+
         PlayerBlockBreakEvents.AFTER.register(new PlayerBlockBreakEvents.After() {
 
             @Override
             public void afterBlockBreak(World world, PlayerEntity player, BlockPos pos, BlockState state, BlockEntity blockEntity) {
                 try {
-                    for (MobData data : MobManager.SET) {
-                        for (PlayerBreakBlockSpawner spawner : data.spawnEvents.breakBlock) {
-                            if (spawner.canSpawn(state.getBlock(), player)) {
-                                LivingEntity en = data.spawn(world, pos);
-                                data.spawnEvents.onSpecialSpawn.forEach(x -> x.onSpecialSpawn(en, data));
+                    if (ModConfig.get().ENABLE_BLOCK_BREAK_GOLEM_SPAWNS) {
+                        for (MobData data : MobManager.SET) {
+                            for (PlayerBreakBlockSpawner spawner : data.spawnEvents.breakBlock) {
+                                if (spawner.canSpawn(state.getBlock(), player)) {
+                                    LivingEntity en = data.spawn(world, pos);
+                                    data.spawnEvents.onSpecialSpawn.forEach(x -> x.onSpecialSpawn(en, data));
+                                }
                             }
                         }
                     }

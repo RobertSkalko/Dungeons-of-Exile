@@ -18,7 +18,7 @@ public class FireballShooterGoal extends ShootProjectileGoal {
             .nextGaussian() * (double) h);
 
         fireball.explosionPower = 2;
-        fireball.updatePosition(fireball.getX(), mob.getBodyY(0.5D) + 0.5D, fireball.getZ());
+        fireball.setPosition(fireball.getX(), mob.getBodyY(0.5D) + 0.5D, fireball.getZ());
         mob.world.spawnEntity(fireball);
     }
 }

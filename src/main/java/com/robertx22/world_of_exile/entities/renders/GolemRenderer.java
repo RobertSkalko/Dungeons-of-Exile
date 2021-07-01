@@ -7,8 +7,8 @@ import com.robertx22.world_of_exile.main.entities.MobRenderInfo;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3f;
 
 public class GolemRenderer<T extends GolemMob> extends MobEntityRenderer<T, ModGolemModel<T>> {
     private Identifier TEXTURE;
@@ -38,7 +38,7 @@ public class GolemRenderer<T extends GolemMob> extends MobEntityRenderer<T, ModG
             float i = 13.0F;
             float j = ironGolemEntity.limbAngle - ironGolemEntity.limbDistance * (1.0F - h) + 6.0F;
             float k = (Math.abs(j % 13.0F - 6.5F) - 3.25F) / 3.25F;
-            matrixStack.multiply(Vector3f.POSITIVE_Z.getDegreesQuaternion(6.5F * k));
+            matrixStack.multiply(Vec3f.POSITIVE_Z.getDegreesQuaternion(6.5F * k));
         }
     }
 }

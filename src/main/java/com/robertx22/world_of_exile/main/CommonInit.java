@@ -11,6 +11,7 @@ import com.robertx22.world_of_exile.main.structures.LadderTower;
 import com.robertx22.world_of_exile.main.structures.OnePieceSurfaceJigsaw;
 import com.robertx22.world_of_exile.main.structures.StoneBrickTower;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
+import com.robertx22.world_of_exile.mixins.BiomeAccessor;
 import com.robertx22.world_of_exile.mixins.GenerationSettingsAccessor;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
@@ -19,16 +20,8 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
-import net.fabricmc.fabric.mixin.structure.BiomeAccessor;
-import net.kyrptonaught.customportalapi.CustomPortalApiRegistry;
-import net.kyrptonaught.customportalapi.portal.PortalIgnitionSource;
-import net.kyrptonaught.customportalapi.util.PortalLink;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -66,23 +59,8 @@ public class CommonInit implements ModInitializer {
         STRUCTURES.add(wrap);
     }
 
-    // use this later to make it so only lvl 20 can enter lvl 20 dimension.
-    // need to interface with AOE mod too.. a bit of work
-    // i copy pasted this from the portal api, could become outdated fast
-    // the api's method overloads are bullshit to deal with
-    @Deprecated
-    public static void addPortal(Block frameBlock, PortalIgnitionSource ignitionSource, Identifier dimID, int color) {
-        PortalLink link = new PortalLink(Registry.BLOCK.getId(frameBlock), dimID, color);
-        link.portalIgnitionSource = ignitionSource;
-        CustomPortalApiRegistry.addPortal(frameBlock, link);
-    }
-
     @Override
     public void onInitialize() {
-
-        // i use stone cus portals give you infinite blocks by spawning another portal at the destination
-        // so definitely can't use diamond and stuff!
-        CustomPortalApiRegistry.addPortal(Blocks.NETHER_BRICKS, ModDimensions.HELL1, Formatting.RED.getColorIndex());
 
         ModProcessorLists.INSTANCE = new ModProcessorLists();
         ModBlocks.INSTANCE = new ModBlocks();
@@ -150,13 +128,13 @@ public class CommonInit implements ModInitializer {
 
             DynamicRegistryManager regManager = s.getRegistryManager();
 
-            if (regManager.getOptional(Registry.BIOME_KEY)
+            if (regManager.getOptionalMutable(Registry.BIOME_KEY)
                 .isPresent()) {
 
                 for (Biome biome : regManager.get(Registry.BIOME_KEY)) {
 
                     BiomeAccessor access = (BiomeAccessor) (Object) biome;
-                    Map<Integer, List<StructureFeature<?>>> list = new HashMap<>(access.getStructureLists());
+                    Map<Integer, List<StructureFeature<?>>> list = new HashMap<>(access.getStructures());
                     GenerationSettingsAccessor gen = (GenerationSettingsAccessor) biome.getGenerationSettings();
                     List<Supplier<ConfiguredStructureFeature<?, ?>>> setlist = new ArrayList<>(gen.getGSStructureFeatures());
 
@@ -168,7 +146,7 @@ public class CommonInit implements ModInitializer {
                         }
                     });
 
-                    access.setStructureLists(list);
+                    access.setStructures(list);
                     gen.setGSStructureFeatures(setlist);
 
                 }

@@ -14,7 +14,7 @@ import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.structure.Structure;
 import net.minecraft.structure.StructurePlacementData;
 import net.minecraft.structure.processor.StructureProcessor;
@@ -45,7 +45,7 @@ public class SignProcessor extends StructureProcessor {
                 .isIn(BlockTags.SIGNS)) {
 
                 if (worldView.isClient()) {
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), new CompoundTag());
+                    return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), new NbtCompound());
                 }
 
                 SignBlockEntity sign = new SignBlockEntity();
@@ -54,7 +54,7 @@ public class SignProcessor extends StructureProcessor {
                 SignDuck duck = (SignDuck) sign;
 
                 List<String> texts = new ArrayList<>();
-                for (Text x : duck.getText()) {
+                for (Text x : duck.getTexts()) {
                     if (x != null) {
                         String s = x.asString();
                         texts.add(s);
@@ -77,7 +77,7 @@ public class SignProcessor extends StructureProcessor {
                         float chance = Float.parseFloat(number);
 
                         if (chance < random.nextFloat() * 100F) {
-                            return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), new CompoundTag());
+                            return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), new NbtCompound());
                         }
 
                     }
@@ -98,7 +98,7 @@ public class SignProcessor extends StructureProcessor {
                         type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
                         MobSpawnerEntry entry = new MobSpawnerEntry();
-                        entry.getEntityTag()
+                        entry.getEntityNbt()
                             .putString("id", Registry.ENTITY_TYPE.getId(type)
                                 .toString());
 
@@ -107,39 +107,39 @@ public class SignProcessor extends StructureProcessor {
                         spawner.getLogic()
                             .setSpawnEntry(entry);
 
-                        CompoundTag resultTag = new CompoundTag();
-                        spawner.toTag(resultTag);
+                        NbtCompound resultTag = new NbtCompound();
+                        spawner.writeNbt(resultTag);
 
                         return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), resultTag);
 
                     }
 
                     if (str.contains("[treasure]")) {
-                        CompoundTag resultTag = new CompoundTag();
+                        NbtCompound resultTag = new NbtCompound();
                         ChestBlockEntity chest = new ChestBlockEntity();
                         chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
-                        chest.toTag(resultTag);
+                        chest.writeNbt(resultTag);
                         return new Structure.StructureBlockInfo(info.pos, Blocks.CHEST.getDefaultState(), resultTag);
                     }
                     if (str.contains("[boss]")) {
-                        CompoundTag resultTag = new CompoundTag();
+                        NbtCompound resultTag = new NbtCompound();
                         DelayedBlockEntity delay = new DelayedBlockEntity();
                         delay.executionString = "boss";
-                        delay.toTag(resultTag);
+                        delay.writeNbt(resultTag);
                         return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
                     }
                     if (str.contains("[deployer]")) {
-                        CompoundTag resultTag = new CompoundTag();
+                        NbtCompound resultTag = new NbtCompound();
                         DelayedBlockEntity delay = new DelayedBlockEntity();
                         delay.executionString = "deploy";
-                        delay.toTag(resultTag);
+                        delay.writeNbt(resultTag);
                         return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
                     }
                     if (str.contains("[final_treasure]")) {
-                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
+                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new NbtCompound());
                     }
                     if (str.contains("[lock_treasure]")) {
-                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.LOCKED_TREASURE_BLOCK.getDefaultState(), new CompoundTag());
+                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.LOCKED_TREASURE_BLOCK.getDefaultState(), new NbtCompound());
                     }
 
                 }

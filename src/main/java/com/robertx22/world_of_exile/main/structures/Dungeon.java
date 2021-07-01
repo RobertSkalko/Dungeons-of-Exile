@@ -4,6 +4,7 @@ import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModProcessorLists;
 import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.WOE;
+import com.robertx22.world_of_exile.main.structures.Dungeon.Pool;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.AbstractPool;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;

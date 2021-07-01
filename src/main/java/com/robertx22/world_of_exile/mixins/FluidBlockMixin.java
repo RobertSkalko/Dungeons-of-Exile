@@ -14,16 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FluidBlock.class)
 public class FluidBlockMixin {
 
-    /*
-    // modifyvar is called multiple times, not useful for a hook...
-    @ModifyVariable(method = "receiveNeighborFluids", at = @At(value = "INVOKE"), argsOnly = false, ordinal = 0)
-    public Block onTurnToObsidian(Block block, World world, BlockPos pos, BlockState state) {
-        FluidBlock fluid = (FluidBlock) (Object) this;
-        return OnLavaTurnToObsidian.onTurnToObsidian(fluid, block, world, pos, state);
-    }
-
-     */
-
     @Inject(method = "receiveNeighborFluids", at = @At(value = "RETURN", target = "Lnet/minecraft/world/World;setBlockState(Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;)Z"))
     public void on$setBlockState(World world, BlockPos pos, BlockState state, CallbackInfoReturnable<Boolean> ci) {
         Block block = world.getBlockState(pos)

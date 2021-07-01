@@ -1,13 +1,5 @@
-v.1.2.0
-* Renamed mod to World of Exile
-This is because I decided to expand the scope of the mod, from just dungeons, to the whole world, and even dimensions!
-* Changed tower structure in overworld to jigsaw, won't ever float weirdly on mountains again.
-* Chest at top of tower will get destroyed at end of tower destruction so it doesn't just hang there in air.
-* Added locked treasure block, same as final treasure block, but doesn't start a tower destroying sequence!
-* Locked and final treasure blocks now spawn a chest with a unique loot table
-* much better structure generation configs, now has a blacklist/whitelist of: dimensions, biomes and biome categories!
+v.1.2.3
 
-Added golem mobs!
-These usually small but durable things will spawn randomly when you break blocks they are made of, like iron or stone.
-Obsidian golems spawn when obsidian is created, and they are more tricky to deal with.
-Most of them have special powers or things they do. Wood golems apply poison for example.
+added config to disable golem spawns
+
+updated so new FAPI version works
