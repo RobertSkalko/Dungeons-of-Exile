@@ -1,7 +1,6 @@
 package com.robertx22.world_of_exile.entities.mob_data;
 
 import com.google.common.collect.ImmutableSet;
-import com.robertx22.world_of_exile.entities.ai.GriefLightSourceGoal;
 import com.robertx22.world_of_exile.entities.on_special_spawns.OnSpecialOreGolemSpawn;
 import com.robertx22.world_of_exile.main.entities.*;
 import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
@@ -53,7 +52,6 @@ public class RedstoneGolem extends MobData {
 
     @Override
     public void addCustomGoals(PathAwareEntity en, GoalSelector goalSelector, GoalSelector targetSelector) {
-        goalSelector.add(3, new GriefLightSourceGoal(en, 1, 16));
     }
 
 }

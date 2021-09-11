@@ -3,7 +3,6 @@ package com.robertx22.world_of_exile.main.entities;
 import com.robertx22.library_of_exile.events.base.EventConsumer;
 import com.robertx22.library_of_exile.events.base.ExileEvents;
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModDimensions;
 import com.robertx22.world_of_exile.main.ModItems;
 import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import com.robertx22.world_of_exile.main.entities.spawn.PlayerBreakBlockSpawner;
@@ -15,33 +14,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.RandomUtils;
 
 import java.util.function.Consumer;
 
 public class MobEvents {
 
     public static void register() {
-
-        ExileEvents.MOB_DEATH.register(new EventConsumer<ExileEvents.OnMobDeath>() {
-            @Override
-            public void accept(ExileEvents.OnMobDeath event) {
-                if (!(event.killer instanceof PlayerEntity)) {
-                    return;
-                }
-                if (!event.mob.world.getRegistryManager()
-                    .getDimensionTypes()
-                    .getId(event.mob.world.getDimension())
-                    .equals(ModDimensions.HELL1)) {
-                    return;
-                }
-
-                if (RandomUtils.nextFloat() > 0.95F) {
-                    ItemStack stack = new ItemStack(ModItems.INSTANCE.HELL_STONE);
-                    event.mob.dropStack(stack);
-                }
-            }
-        });
 
         PlayerBlockBreakEvents.AFTER.register(new PlayerBlockBreakEvents.After() {
 
@@ -68,7 +46,15 @@ public class MobEvents {
             @Override
             public void accept(ExileEvents.OnMobDeath event) {
 
+                if (ModConfig.get()
+                    .getAllowedBosses()
+                    .contains(event.mob.getType())) {
+                    ItemStack stack = new ItemStack(ModItems.INSTANCE.SILVER_KEY);
+                    event.mob.dropStack(stack);
+                }
+
                 if (MobManager.get(event.mob) != null) {
+
                     MobManager.get(event.mob).onDeathEvents.forEach(x -> x.accept(event));
                 }
 

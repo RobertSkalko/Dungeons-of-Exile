@@ -11,7 +11,7 @@
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/dungeons-of-exile",
     "sources": "https://github.com/RobertSkalko/Dungeons-of-Exile"
   },
-  "license": "",
+  "license": "All Rights Reserved",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {

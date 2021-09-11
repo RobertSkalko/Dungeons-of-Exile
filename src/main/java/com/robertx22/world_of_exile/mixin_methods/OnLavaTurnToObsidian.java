@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.mixin_methods;
 
+import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.entities.MobData;
 import com.robertx22.world_of_exile.main.entities.OnMobSpecialSpawn;
 import com.robertx22.world_of_exile.main.entities.registration.MobManager;
@@ -18,17 +19,20 @@ public class OnLavaTurnToObsidian {
     public static Block onTurnToObsidian(FluidBlock fluid, Block block, World world, BlockPos pos, BlockState state) {
         if (fluid.is(Blocks.LAVA)) {
             if (block == Blocks.OBSIDIAN) {
-                PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 50, x -> true);
+                if (ModConfig.get().ENABLE_WATERED_LAVA_GOLEM_SPAWNS) {
 
-                if (player != null) {
-                    for (MobData data : MobManager.SET) {
-                        for (LavaTurnToObsidianSpawner spawner : data.spawnEvents.lavaTurnToObsidian) {
-                            if (spawner.chance > world.random.nextFloat() * 100F) {
-                                LivingEntity en = data.spawn(world, pos.up());
-                                for (OnMobSpecialSpawn specialspawn : data.spawnEvents.onSpecialSpawn) {
-                                    specialspawn.onSpecialSpawn(en, data);
+                    PlayerEntity player = world.getClosestPlayer(pos.getX(), pos.getY(), pos.getZ(), 50, x -> true);
+
+                    if (player != null) {
+                        for (MobData data : MobManager.SET) {
+                            for (LavaTurnToObsidianSpawner spawner : data.spawnEvents.lavaTurnToObsidian) {
+                                if (spawner.chance > world.random.nextFloat() * 100F) {
+                                    LivingEntity en = data.spawn(world, pos.up());
+                                    for (OnMobSpecialSpawn specialspawn : data.spawnEvents.onSpecialSpawn) {
+                                        specialspawn.onSpecialSpawn(en, data);
+                                    }
+                                    return block;
                                 }
-                                return block;
                             }
                         }
                     }

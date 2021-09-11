@@ -4,10 +4,10 @@ import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModProcessorLists;
 import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.WOE;
-import com.robertx22.world_of_exile.main.structures.Dungeon.Pool;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.AbstractPool;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.structure.pool.StructurePool;
 import net.minecraft.structure.processor.StructureProcessorList;
 import net.minecraft.util.Identifier;
@@ -19,7 +19,7 @@ import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 public class Dungeon extends StructureWrapper {
 
     public Dungeon() {
-        super(ModWorldGenIds.DUNGEON_ID, true, ModConfig.get().DUNGEON, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+        super(BiomeSelectors.foundInOverworld(), ModWorldGenIds.DUNGEON_ID, true, ModConfig.get().DUNGEON, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
     }
 
     @Override

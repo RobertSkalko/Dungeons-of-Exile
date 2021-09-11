@@ -1,10 +1,10 @@
 package com.robertx22.world_of_exile.main.structures;
 
+import com.robertx22.world_of_exile.MyBiomeSelectors;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModProcessorLists;
 import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.WOE;
-import com.robertx22.world_of_exile.main.structures.LadderTower.Pool;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.AbstractPool;
 import com.robertx22.world_of_exile.world_gen.jigsaw.ladder_tower.LadderTowerStructure;
@@ -16,17 +16,18 @@ import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 
+// this doesnt work cus it needs very big pool size to make the TOP piece, but when i increase the size game crashes and says cant find structure registry
 public class LadderTower extends StructureWrapper {
 
     public LadderTower() {
-        super(ModWorldGenIds.LADDER_TOWER_ID, true, ModConfig.get().LADDER_TOWER, GenerationStep.Feature.SURFACE_STRUCTURES);
+        super(MyBiomeSelectors.OVERWORLD_LAND, ModWorldGenIds.LADDER_TOWER_ID, true, ModConfig.get().LADDER_TOWER, GenerationStep.Feature.SURFACE_STRUCTURES);
     }
 
     @Override
     public ConfiguredStructureFeature createConfiguredFeature() {
         return feature.configure(new StructurePoolFeatureConfig(() -> {
             return this.startPool;
-        }, 15));
+        }, 7));
     }
 
     @Override

@@ -1,10 +1,10 @@
 package com.robertx22.world_of_exile.main.structures;
 
+import com.robertx22.world_of_exile.MyBiomeSelectors;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModProcessorLists;
 import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.WOE;
-import com.robertx22.world_of_exile.main.structures.StoneBrickTower.Pool;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.AbstractPool;
 import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerStructure;
@@ -19,7 +19,7 @@ import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
 public class StoneBrickTower extends StructureWrapper {
 
     public StoneBrickTower() {
-        super(ModWorldGenIds.STONE_BRICK_TOWER_ID, true, ModConfig.get().STONE_BRICK_TOWER, GenerationStep.Feature.SURFACE_STRUCTURES);
+        super(MyBiomeSelectors.OVERWORLD_LAND, ModWorldGenIds.STONE_BRICK_TOWER_ID, true, ModConfig.get().STONE_BRICK_TOWER, GenerationStep.Feature.SURFACE_STRUCTURES);
     }
 
     @Override

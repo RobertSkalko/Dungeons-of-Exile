@@ -1,8 +1,5 @@
 package com.robertx22.world_of_exile.config;
 
-import com.robertx22.library_of_exile.config_utils.PerBiomeCategoryConfig;
-import com.robertx22.library_of_exile.config_utils.PerDimensionConfig;
-import com.robertx22.world_of_exile.main.ModDimensions;
 import com.robertx22.world_of_exile.main.entities.MobTags;
 import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
@@ -12,9 +9,9 @@ import me.sargunvohra.mcmods.autoconfig1u.annotation.ConfigEntry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.dimension.DimensionType;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,79 +25,55 @@ public class ModConfig implements ConfigData {
     public boolean AUTO_DESTROY_TOWERS = true;
 
     public boolean ENABLE_BLOCK_BREAK_GOLEM_SPAWNS = true;
+    public boolean ENABLE_WATERED_LAVA_GOLEM_SPAWNS = true;
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(22, 15, 378235));
+    public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(50, 25, 378235));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig BLACKSTONE_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 6, 2058146));
+    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(20, 7, 270951955));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig STONE_BRICK_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(15, 5, 270951955));
+    public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(30, 6, 1092515512));
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig ONE_PIECE_SURFACE = new FeatureConfig(new FeatureConfig.MyStructureConfig(20, 15, 447023887));
+    List<String> ALLOWED_MOBS_FOR_SPAWNERS = defaultMobs();
 
     @ConfigEntry.Gui.CollapsibleObject
-    public FeatureConfig LADDER_TOWER = new FeatureConfig(new FeatureConfig.MyStructureConfig(25, 15, 1092515512));
+    List<String> ALLOWED_BOSSES = defaultBosses();
 
-    @ConfigEntry.Gui.CollapsibleObject
-    Set<String> ALLOWED_MOBS_FOR_SPAWNERS = new HashSet<>(); // todo turn into tag?
+    static List<String> defaultBosses() {
+        List<String> list = new ArrayList<>();
 
-    @ConfigEntry.Gui.CollapsibleObject
-    Set<String> ALLOWED_BOSSES = new HashSet<>(); // todo turn into tag?
+        MobManager.MAP.entrySet()
+            .stream()
+            .filter(x -> x.getValue().tags.contains(MobTags.RANDOM_TOWER_BOSS))
+            .forEach(b -> addBoss(list, b.getKey()));
+        return list;
+
+    }
+
+    static List<String> defaultMobs() {
+        List<String> list = new ArrayList<>();
+        addMob(list, EntityType.ZOMBIE);
+        addMob(list, EntityType.ZOMBIE_VILLAGER);
+        addMob(list, EntityType.SKELETON);
+        addMob(list, EntityType.STRAY);
+        addMob(list, EntityType.HUSK);
+        return list;
+    }
 
     ModConfig() {
 
-        ONE_PIECE_SURFACE.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-        ONE_PIECE_SURFACE.PER_DIM.dimensions.add(ModDimensions.HELL1.toString());
-
-        BLACKSTONE_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-        BLACKSTONE_TOWER.PER_DIM.dimensions.add(ModDimensions.HELL1.toString());
-
-        STONE_BRICK_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-        STONE_BRICK_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
-            .toString());
-        addHellDimensions(STONE_BRICK_TOWER.PER_DIM);
-
-        LADDER_TOWER.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-        LADDER_TOWER.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
-            .toString());
-        addHellDimensions(LADDER_TOWER.PER_DIM);
-
-        DUNGEON.PER_BIOME_CATEGORY = PerBiomeCategoryConfig.ofDefaultGroundStructure();
-        DUNGEON.PER_DIM.dimensions.add(DimensionType.OVERWORLD_REGISTRY_KEY.getValue()
-            .toString());
-
-        if (ALLOWED_MOBS_FOR_SPAWNERS.isEmpty()) {
-            addMob(EntityType.ZOMBIE);
-            addMob(EntityType.ZOMBIE_VILLAGER);
-            addMob(EntityType.SPIDER);
-            addMob(EntityType.CAVE_SPIDER);
-            addMob(EntityType.SKELETON);
-            addMob(EntityType.HUSK);
-        }
-
-        if (ALLOWED_BOSSES.isEmpty()) {
-
-            MobManager.MAP.entrySet()
-                .stream()
-                .filter(x -> x.getValue().tags.contains(MobTags.RANDOM_TOWER_BOSS))
-                .forEach(b -> addBoss(b.getKey()));
-        }
     }
 
-    public static void addHellDimensions(PerDimensionConfig c) {
-        c.dimensions.add(ModDimensions.HELL1.toString());
-    }
-
-    void addMob(EntityType type) {
-        ALLOWED_MOBS_FOR_SPAWNERS.add(Registry.ENTITY_TYPE.getId(type)
+    static void addMob(List<String> list, EntityType type) {
+        list.add(Registry.ENTITY_TYPE.getId(type)
             .toString());
     }
 
-    void addBoss(EntityType type) {
-        ALLOWED_BOSSES.add(Registry.ENTITY_TYPE.getId(type)
+    static void addBoss(List<String> list, EntityType type) {
+        list.add(Registry.ENTITY_TYPE.getId(type)
             .toString());
     }
 

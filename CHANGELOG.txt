@@ -1,5 +1,5 @@
-v.1.2.3
+v.1.3.0
 
-added config to disable golem spawns
-
-updated so new FAPI version works
+Removed hell dimension
+Made towers less common
+Disable mod config should now work
