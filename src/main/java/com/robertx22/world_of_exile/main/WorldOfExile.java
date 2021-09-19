@@ -79,6 +79,7 @@ public class WorldOfExile {
         System.out.println("Dungeons of Exile initialized.");
     }
 
+    // STRUCTURE REGISTRATION STUFF
     public void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             setupStructures();
@@ -200,4 +201,5 @@ public class WorldOfExile {
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
     }
+    // STRUCTURE REGISTRATION STUFF
 }
