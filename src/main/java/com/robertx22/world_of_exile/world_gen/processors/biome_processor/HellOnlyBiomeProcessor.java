@@ -4,12 +4,12 @@ import com.mojang.serialization.Codec;
 import com.robertx22.world_of_exile.main.CommonInit;
 import com.robertx22.world_of_exile.main.ModWorldGen;
 import com.robertx22.world_of_exile.main.WOE;
-import net.minecraft.structure.Structure;
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.processor.StructureProcessorType;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.gen.feature.template.IStructureProcessorType;
+import net.minecraft.world.gen.feature.template.PlacementSettings;
+import net.minecraft.world.gen.feature.template.Template;
 
 import java.util.HashMap;
 
@@ -33,15 +33,15 @@ public class HellOnlyBiomeProcessor extends BiomeProcessor {
     }
 
     @Override
-    public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo blockinfo2, StructurePlacementData structurePlacementData) {
+    public Template.BlockInfo processBlock(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfo, Template.BlockInfo blockinfo2, PlacementSettings structurePlacementData) {
 
-        Identifier id = CommonInit.SERVER.getRegistryManager()
-            .getDimensionTypes()
-            .getId(worldView.getDimension());
+        ResourceLocation id = CommonInit.SERVER.registryAccess()
+            .dimensionTypes()
+            .getKey(worldView.dimensionType());
 
         if (id.getNamespace()
             .equals(WOE.MODID)) {
-            return super.process(worldView, pos, blockPos, structureBlockInfo, blockinfo2, structurePlacementData);
+            return super.processBlock(worldView, pos, blockPos, structureBlockInfo, blockinfo2, structurePlacementData);
 
         } else {
             return blockinfo2;
@@ -50,7 +50,7 @@ public class HellOnlyBiomeProcessor extends BiomeProcessor {
     }
 
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected IStructureProcessorType<?> getType() {
         return ModWorldGen.INSTANCE.HELL_ONLY_BIOME_PROCESSOR;
     }
 }

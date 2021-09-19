@@ -10,21 +10,21 @@ import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import com.robertx22.world_of_exile.mixin_ducks.SignDuck;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
-import net.minecraft.block.entity.SignBlockEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.Structure;
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.processor.StructureProcessor;
-import net.minecraft.structure.processor.StructureProcessorType;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.text.Text;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
+import net.minecraft.tileentity.SignTileEntity;
+import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.MobSpawnerEntry;
-import net.minecraft.world.WorldView;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.gen.feature.template.IStructureProcessorType;
+import net.minecraft.world.gen.feature.template.PlacementSettings;
+import net.minecraft.world.gen.feature.template.StructureProcessor;
+import net.minecraft.world.gen.feature.template.Template;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
@@ -36,37 +36,30 @@ public class SignProcessor extends StructureProcessor {
     public static final Codec<SignProcessor> CODEC = Codec.unit(SignProcessor::new);
 
     @Override
-    public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo info, StructurePlacementData data) {
+    public Template.BlockInfo processBlock(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfo, Template.BlockInfo info, PlacementSettings data) {
         BlockState currentState = info.state;
         BlockState resultState = info.state;
 
         try {
             if (currentState.getBlock()
-                .isIn(BlockTags.SIGNS)) {
+                .is(BlockTags.SIGNS)) {
 
-                if (worldView.isClient()) {
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), new NbtCompound());
+                if (worldView.isClientSide()) {
+                    return new Template.BlockInfo(info.pos, Blocks.SPAWNER.defaultBlockState(), new CompoundNBT());
                 }
 
-                SignBlockEntity sign = new SignBlockEntity();
-                sign.fromTag(currentState, info.tag);
+                SignTileEntity sign = new SignTileEntity();
+                sign.load(currentState, info.nbt);
 
                 SignDuck duck = (SignDuck) sign;
 
                 List<String> texts = new ArrayList<>();
-                for (Text x : duck.getTexts()) {
+                for (ITextComponent x : duck.getMessages()) {
                     if (x != null) {
-                        String s = x.asString();
+                        String s = x.getContents();
                         texts.add(s);
                     }
                 }
-
-                /*
-                String text = "";
-                for (Text txt : duck.getText()) {
-                    text += txt.asString();
-                }
-                 */
 
                 Random random = data.getRandom(info.pos);
 
@@ -77,7 +70,7 @@ public class SignProcessor extends StructureProcessor {
                         float chance = Float.parseFloat(number);
 
                         if (chance < random.nextFloat() * 100F) {
-                            return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), new NbtCompound());
+                            return new Template.BlockInfo(info.pos, Blocks.AIR.defaultBlockState(), new CompoundNBT());
                         }
 
                     }
@@ -86,8 +79,8 @@ public class SignProcessor extends StructureProcessor {
                 for (String str : texts) {
 
                     if (str.contains("[spawner]")) {
-                        MobSpawnerBlockEntity spawner = new MobSpawnerBlockEntity();
-                        MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getLogic();
+                        MobSpawnerTileEntity spawner = new MobSpawnerTileEntity();
+                        MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getSpawner();
                         saccess.getspawnPotentials()
                             .clear();
 
@@ -97,49 +90,49 @@ public class SignProcessor extends StructureProcessor {
                             .getAllowedSpawnerMobs());
                         type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
-                        MobSpawnerEntry entry = new MobSpawnerEntry();
-                        entry.getEntityNbt()
-                            .putString("id", Registry.ENTITY_TYPE.getId(type)
+                        WeightedSpawnerEntity entry = new WeightedSpawnerEntity();
+                        entry.getTag()
+                            .putString("id", Registry.ENTITY_TYPE.getKey(type)
                                 .toString());
 
                         saccess.getspawnPotentials()
                             .add(entry);
-                        spawner.getLogic()
-                            .setSpawnEntry(entry);
+                        spawner.getSpawner()
+                            .setNextSpawnData(entry);
 
-                        NbtCompound resultTag = new NbtCompound();
-                        spawner.writeNbt(resultTag);
+                        CompoundNBT resultTag = new CompoundNBT();
+                        spawner.save(resultTag);
 
-                        return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), resultTag);
+                        return new Template.BlockInfo(info.pos, Blocks.SPAWNER.defaultBlockState(), resultTag);
 
                     }
 
                     if (str.contains("[treasure]")) {
-                        NbtCompound resultTag = new NbtCompound();
-                        ChestBlockEntity chest = new ChestBlockEntity();
+                        CompoundNBT resultTag = new CompoundNBT();
+                        ChestTileEntity chest = new ChestTileEntity();
                         chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
-                        chest.writeNbt(resultTag);
-                        return new Structure.StructureBlockInfo(info.pos, Blocks.CHEST.getDefaultState(), resultTag);
+                        chest.save(resultTag);
+                        return new Template.BlockInfo(info.pos, Blocks.CHEST.defaultBlockState(), resultTag);
                     }
                     if (str.contains("[boss]")) {
-                        NbtCompound resultTag = new NbtCompound();
+                        CompoundNBT resultTag = new CompoundNBT();
                         DelayedBlockEntity delay = new DelayedBlockEntity();
                         delay.executionString = "boss";
-                        delay.writeNbt(resultTag);
-                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
+                        delay.save(resultTag);
+                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.defaultBlockState(), resultTag);
                     }
                     if (str.contains("[deployer]")) {
-                        NbtCompound resultTag = new NbtCompound();
+                        CompoundNBT resultTag = new CompoundNBT();
                         DelayedBlockEntity delay = new DelayedBlockEntity();
                         delay.executionString = "deploy";
-                        delay.writeNbt(resultTag);
-                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.getDefaultState(), resultTag);
+                        delay.save(resultTag);
+                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.defaultBlockState(), resultTag);
                     }
                     if (str.contains("[final_treasure]")) {
-                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.getDefaultState(), new NbtCompound());
+                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.defaultBlockState(), new CompoundNBT());
                     }
                     if (str.contains("[lock_treasure]")) {
-                        return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.LOCKED_TREASURE_BLOCK.getDefaultState(), new NbtCompound());
+                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.LOCKED_TREASURE_BLOCK.defaultBlockState(), new CompoundNBT());
                     }
 
                 }
@@ -149,11 +142,11 @@ public class SignProcessor extends StructureProcessor {
             e.printStackTrace();
         }
 
-        return new Structure.StructureBlockInfo(info.pos, resultState, info.tag);
+        return new Template.BlockInfo(info.pos, resultState, info.nbt);
     }
 
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected IStructureProcessorType<?> getType() {
         return ModWorldGen.INSTANCE.SIGN_PROCESSOR;
     }
 }

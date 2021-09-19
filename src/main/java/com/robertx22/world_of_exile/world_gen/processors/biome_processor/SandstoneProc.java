@@ -30,7 +30,7 @@ public class SandstoneProc extends BiomeProcessorType {
 
     @Override
     public boolean isBiomeGood(Biome biome) {
-        return biome.getCategory() == Biome.Category.DESERT;
+        return biome.getBiomeCategory() == Biome.Category.DESERT;
     }
 
     @Override

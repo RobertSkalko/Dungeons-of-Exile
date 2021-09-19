@@ -30,7 +30,7 @@ public class MossyProc extends BiomeProcessorType {
 
     @Override
     public boolean isBiomeGood(Biome biome) {
-        return biome.getCategory() == Biome.Category.JUNGLE;
+        return biome.getBiomeCategory() == Biome.Category.JUNGLE;
     }
 
     @Override

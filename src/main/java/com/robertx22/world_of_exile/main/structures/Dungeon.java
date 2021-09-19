@@ -1,5 +1,6 @@
 package com.robertx22.world_of_exile.main.structures;
 
+import com.robertx22.world_of_exile.MyBiomeSelectors;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModProcessorLists;
 import com.robertx22.world_of_exile.main.ModWorldGenIds;
@@ -7,35 +8,34 @@ import com.robertx22.world_of_exile.main.WOE;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.AbstractPool;
 import com.robertx22.world_of_exile.world_gen.jigsaw.dungeon.ModDungeonFeature;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.processor.StructureProcessorList;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
+import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
+import net.minecraft.world.gen.feature.template.StructureProcessorList;
 
 public class Dungeon extends StructureWrapper {
 
     public Dungeon() {
-        super(BiomeSelectors.foundInOverworld(), ModWorldGenIds.DUNGEON_ID, true, ModConfig.get().DUNGEON, GenerationStep.Feature.UNDERGROUND_STRUCTURES);
+        super(MyBiomeSelectors.OVERWORLD_LAND, ModWorldGenIds.DUNGEON_ID, true, ModConfig.get().DUNGEON, GenerationStage.Decoration.UNDERGROUND_STRUCTURES);
     }
 
     @Override
-    public ConfiguredStructureFeature createConfiguredFeature() {
-        return feature.configure(new StructurePoolFeatureConfig(() -> {
+    public StructureFeature createConfiguredFeature() {
+        return feature.configured(new VillageConfig(() -> {
             return this.startPool;
         }, 6));
     }
 
     @Override
-    public StructureFeature createFeature() {
-        return new ModDungeonFeature(StructurePoolFeatureConfig.CODEC);
+    public Structure createFeature() {
+        return new ModDungeonFeature(VillageConfig.CODEC);
     }
 
     @Override
-    public StructurePool createPoolAndInitPools() {
+    public JigsawPattern createPoolAndInitPools() {
         AbstractPool startBuilder = new Pool(WOE.id("dungeon/starts"));
         startBuilder.add(WOE.id("dungeon/starts/start"));
 
@@ -58,7 +58,7 @@ public class Dungeon extends StructureWrapper {
 
     static class Pool extends AbstractPool {
 
-        public Pool(Identifier poolId) {
+        public Pool(ResourceLocation poolId) {
             super(poolId);
         }
 

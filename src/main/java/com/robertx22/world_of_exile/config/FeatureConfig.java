@@ -1,6 +1,6 @@
 package com.robertx22.world_of_exile.config;
 
-import net.minecraft.world.gen.chunk.StructureConfig;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 
 public class FeatureConfig {
 
@@ -28,8 +28,8 @@ public class FeatureConfig {
         public MyStructureConfig() {
         }
 
-        public StructureConfig get() {
-            return new StructureConfig(spacing, separation, salt);
+        public StructureSeparationSettings get() {
+            return new StructureSeparationSettings(spacing, separation, salt);
         }
     }
 

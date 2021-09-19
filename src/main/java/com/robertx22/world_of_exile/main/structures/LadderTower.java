@@ -8,35 +8,35 @@ import com.robertx22.world_of_exile.main.WOE;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.AbstractPool;
 import com.robertx22.world_of_exile.world_gen.jigsaw.ladder_tower.LadderTowerStructure;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.processor.StructureProcessorList;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.StructurePoolFeatureConfig;
+import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
+import net.minecraft.world.gen.feature.template.StructureProcessorList;
 
 // this doesnt work cus it needs very big pool size to make the TOP piece, but when i increase the size game crashes and says cant find structure registry
 public class LadderTower extends StructureWrapper {
 
     public LadderTower() {
-        super(MyBiomeSelectors.OVERWORLD_LAND, ModWorldGenIds.LADDER_TOWER_ID, true, ModConfig.get().LADDER_TOWER, GenerationStep.Feature.SURFACE_STRUCTURES);
+        super(MyBiomeSelectors.OVERWORLD_LAND, ModWorldGenIds.LADDER_TOWER_ID, true, ModConfig.get().LADDER_TOWER, GenerationStage.Decoration.SURFACE_STRUCTURES);
     }
 
     @Override
-    public ConfiguredStructureFeature createConfiguredFeature() {
-        return feature.configure(new StructurePoolFeatureConfig(() -> {
+    public StructureFeature createConfiguredFeature() {
+        return feature.configured(new VillageConfig(() -> {
             return this.startPool;
         }, 7));
     }
 
     @Override
-    public StructureFeature createFeature() {
-        return new LadderTowerStructure(StructurePoolFeatureConfig.CODEC);
+    public Structure createFeature() {
+        return new LadderTowerStructure(VillageConfig.CODEC);
     }
 
     @Override
-    public StructurePool createPoolAndInitPools() {
+    public JigsawPattern createPoolAndInitPools() {
         Pool startBuilder = new Pool(WOE.id("ladder_tower_start"));
         startBuilder.add(WOE.id("ladder_tower/start/start0"));
 
@@ -53,7 +53,7 @@ public class LadderTower extends StructureWrapper {
 
     static class Pool extends AbstractPool {
 
-        public Pool(Identifier poolId) {
+        public Pool(ResourceLocation poolId) {
             super(poolId);
         }
 

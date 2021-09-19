@@ -1,32 +1,27 @@
 package com.robertx22.world_of_exile.main.structures.base;
 
 import com.robertx22.world_of_exile.config.FeatureConfig;
-import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
-import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
-import net.fabricmc.fabric.api.structure.v1.FabricStructureBuilder;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryKey;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.feature.ConfiguredStructureFeature;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import java.util.function.Predicate;
 
 public abstract class StructureWrapper {
 
-    public Identifier id;
-    public ConfiguredStructureFeature configuredFeature;
+    public ResourceLocation id;
+    public StructureFeature configuredFeature;
     public FeatureConfig config;
-    public GenerationStep.Feature genStep;
-    public StructureFeature feature;
+    public GenerationStage.Decoration genStep;
+    public Structure feature;
     public boolean adjustsSurface;
-    public StructurePool startPool;
-    Predicate<BiomeSelectionContext> biomeSelector;
+    public JigsawPattern startPool;
+    public Predicate<BiomeLoadingEvent> biomeSelector;
 
-    public StructureWrapper(Predicate<BiomeSelectionContext> biomeSelector, Identifier id, boolean adjustsSurface, FeatureConfig config, GenerationStep.Feature genStep) {
+    public StructureWrapper(Predicate<BiomeLoadingEvent> biomeSelector, ResourceLocation id, boolean adjustsSurface, FeatureConfig config, GenerationStage.Decoration genStep) {
         this.config = config;
         this.biomeSelector = biomeSelector;
         this.genStep = genStep;
@@ -34,11 +29,11 @@ public abstract class StructureWrapper {
         this.adjustsSurface = adjustsSurface;
     }
 
-    public abstract ConfiguredStructureFeature createConfiguredFeature();
+    public abstract StructureFeature createConfiguredFeature();
 
-    public abstract StructureFeature createFeature();
+    public abstract Structure createFeature();
 
-    public abstract StructurePool createPoolAndInitPools();
+    public abstract JigsawPattern createPoolAndInitPools();
 
     public final void init() {
         this.feature = createFeature();
@@ -46,13 +41,10 @@ public abstract class StructureWrapper {
         this.startPool = createPoolAndInitPools();
     }
 
-    public void addExtratoRegisteration(FabricStructureBuilder b) {
-
-    }
-
     public void register() {
         init();
 
+        /*
         FabricStructureBuilder b = FabricStructureBuilder.create(id, feature)
             .step(genStep)
             .defaultConfig(config.config.get())
@@ -63,11 +55,13 @@ public abstract class StructureWrapper {
         addExtratoRegisteration(b);
         b.register();
 
-        RegistryKey<ConfiguredStructureFeature<?, ?>> key = RegistryKey.of(Registry.CONFIGURED_STRUCTURE_FEATURE_WORLDGEN, id);
+        RegistryKey<StructureFeature<?, ?>> key = RegistryKey.create(Registry.CONFIGURED_STRUCTURE_FEATURE_REGISTRY, id);
 
-        BuiltinRegistries.add(BuiltinRegistries.CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
+        WorldGenRegistries.register(WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE, id, configuredFeature);
 
         BiomeModifications.addStructure(biomeSelector, key);
+
+         */
 
     }
 }

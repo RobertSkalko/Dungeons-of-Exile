@@ -5,11 +5,11 @@ import com.robertx22.world_of_exile.main.ModItems;
 import com.robertx22.world_of_exile.main.ModLoottables;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
-import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.RandomUtils;
@@ -17,7 +17,7 @@ import org.apache.commons.lang3.RandomUtils;
 public class LockedTreasureBlock extends AbstractLockedBlock {
 
     public LockedTreasureBlock() {
-        super(AbstractBlock.Settings.of(Material.STONE)
+        super(AbstractBlock.Properties.of(Material.STONE)
             .strength(5000, 50000));
     }
 
@@ -29,9 +29,9 @@ public class LockedTreasureBlock extends AbstractLockedBlock {
     @Override
     public void onKeyUsed(World world, BlockPos pos, PlayerEntity player, ItemStack stack) {
 
-        world.setBlockState(pos, Blocks.CHEST.getDefaultState());
+        world.setBlockAndUpdate(pos, Blocks.CHEST.defaultBlockState());
 
-        ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos);
+        ChestTileEntity chest = (ChestTileEntity) world.getBlockEntity(pos);
         chest.setLootTable(ModLoottables.BIG_TREASURE, RandomUtils.nextLong());
 
     }

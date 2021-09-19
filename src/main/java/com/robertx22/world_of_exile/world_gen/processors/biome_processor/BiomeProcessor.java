@@ -6,13 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
 import net.minecraft.block.StairsBlock;
-import net.minecraft.structure.Structure;
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.processor.StructureProcessor;
-import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.feature.template.IStructureProcessorType;
+import net.minecraft.world.gen.feature.template.PlacementSettings;
+import net.minecraft.world.gen.feature.template.StructureProcessor;
+import net.minecraft.world.gen.feature.template.Template;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,7 +40,7 @@ public class BiomeProcessor extends StructureProcessor {
     public static final Codec<BiomeProcessor> CODEC = Codec.unit(BiomeProcessor::new);
 
     @Override
-    public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo blockinfo2, StructurePlacementData structurePlacementData) {
+    public Template.BlockInfo processBlock(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfo, Template.BlockInfo blockinfo2, PlacementSettings structurePlacementData) {
 
         BiomeProcessorType type = null;
 
@@ -64,25 +64,25 @@ public class BiomeProcessor extends StructureProcessor {
             return blockinfo2;
         } else {
             BlockState blockState = blockinfo2.state;
-            BlockState blockState2 = block.getDefaultState();
-            if (blockState.contains(StairsBlock.FACING)) {
-                blockState2 = (BlockState) blockState2.with(StairsBlock.FACING, blockState.get(StairsBlock.FACING));
+            BlockState blockState2 = block.defaultBlockState();
+            if (blockState.hasProperty(StairsBlock.FACING)) {
+                blockState2 = (BlockState) blockState2.setValue(StairsBlock.FACING, blockState.getValue(StairsBlock.FACING));
             }
 
-            if (blockState.contains(StairsBlock.HALF)) {
-                blockState2 = (BlockState) blockState2.with(StairsBlock.HALF, blockState.get(StairsBlock.HALF));
+            if (blockState.hasProperty(StairsBlock.HALF)) {
+                blockState2 = (BlockState) blockState2.setValue(StairsBlock.HALF, blockState.getValue(StairsBlock.HALF));
             }
 
-            if (blockState.contains(SlabBlock.TYPE)) {
-                blockState2 = (BlockState) blockState2.with(SlabBlock.TYPE, blockState.get(SlabBlock.TYPE));
+            if (blockState.hasProperty(SlabBlock.TYPE)) {
+                blockState2 = (BlockState) blockState2.setValue(SlabBlock.TYPE, blockState.getValue(SlabBlock.TYPE));
             }
 
-            return new Structure.StructureBlockInfo(blockinfo2.pos, blockState2, blockinfo2.tag);
+            return new Template.BlockInfo(blockinfo2.pos, blockState2, blockinfo2.nbt);
         }
     }
 
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected IStructureProcessorType<?> getType() {
         return ModWorldGen.INSTANCE.BIOME_PROCESSOR;
     }
 }

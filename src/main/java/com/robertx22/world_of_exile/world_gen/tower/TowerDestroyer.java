@@ -3,11 +3,11 @@ package com.robertx22.world_of_exile.world_gen.tower;
 import com.robertx22.world_of_exile.main.WOE;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
-import net.minecraft.tag.Tag;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
@@ -34,11 +34,11 @@ public class TowerDestroyer {
 
     int tick = 0;
 
-    public TowerDestroyer(BlockPos pos, World world, ChestBlockEntity chest) {
+    public TowerDestroyer(BlockPos pos, World world, ChestTileEntity chest) {
         this.pos = pos;
         this.world = world;
 
-        this.chestPos = chest.getPos();
+        this.chestPos = chest.getBlockPos();
 
     }
 
@@ -56,7 +56,7 @@ public class TowerDestroyer {
         return timesDidntDestroy > 2;
     }
 
-    static List<Tag.Identified<Block>> TAGS = Arrays.asList(BlockTags.SIGNS, BlockTags.STONE_BRICKS, BlockTags.STAIRS, BlockTags.SLABS, BlockTags.WALLS, BlockTags.FENCES);
+    static List<ITag.INamedTag<Block>> TAGS = Arrays.asList(BlockTags.SIGNS, BlockTags.STONE_BRICKS, BlockTags.STAIRS, BlockTags.SLABS, BlockTags.WALLS, BlockTags.FENCES);
     static List<Block> BLOCKS = Arrays.asList(Blocks.COBWEB, Blocks.LAVA, Blocks.WATER, Blocks.SMOOTH_STONE, Blocks.SPAWNER, Blocks.CHEST, Blocks.LADDER, Blocks.OBSIDIAN);
 
     static boolean shouldDestroyBlock(Block block) {
@@ -74,7 +74,7 @@ public class TowerDestroyer {
             return true;
         }
 
-        if (Registry.BLOCK.getId(block)
+        if (Registry.BLOCK.getKey(block)
             .getNamespace()
             .equals(WOE.MODID)) {
             return true;
@@ -106,7 +106,7 @@ public class TowerDestroyer {
             tick++;
 
             if (!started && tick % 20 == 0) {
-                world.playSound(null, pos, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
+                world.playSound(null, pos, SoundEvents.TNT_PRIMED, SoundCategory.BLOCKS, 1F, 1F);
             }
             if (!started && tick > 160) {
                 started = true;
@@ -127,17 +127,17 @@ public class TowerDestroyer {
                         if (block == Blocks.CHEST) {
                             try {
                                 // set table to null so players arent rewarded for going straight to top
-                                ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(p);
+                                ChestTileEntity chest = (ChestTileEntity) world.getBlockEntity(p);
                                 chest.setLootTable(null, 0);
-                                world.setBlockState(p, Blocks.AIR.getDefaultState());
+                                world.setBlockAndUpdate(p, Blocks.AIR.defaultBlockState());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         } else {
                             if (shouldDestroyBlock(block)) {
                                 destroyed = true;
-                                world.breakBlock(p, shouldKeepDrops(world, block));
-                                world.setBlockState(p, Blocks.AIR.getDefaultState());
+                                world.destroyBlock(p, shouldKeepDrops(world, block));
+                                world.setBlockAndUpdate(p, Blocks.AIR.defaultBlockState());
                             }
                         }
                     }
@@ -148,10 +148,10 @@ public class TowerDestroyer {
                     timesDidntDestroy++;
                 }
 
-                pos = pos.down(1);
+                pos = pos.below(1);
 
                 if (isDone(world)) {
-                    world.breakBlock(this.chestPos, true);
+                    world.destroyBlock(this.chestPos, true);
                 }
             }
         } catch (Exception e) {

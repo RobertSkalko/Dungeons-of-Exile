@@ -7,18 +7,18 @@ import com.robertx22.world_of_exile.main.ModWorldGen;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.structure.Structure;
-import net.minecraft.structure.StructurePlacementData;
-import net.minecraft.structure.processor.StructureProcessor;
-import net.minecraft.structure.processor.StructureProcessorType;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
+import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.MobSpawnerEntry;
-import net.minecraft.world.WorldView;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.gen.feature.template.IStructureProcessorType;
+import net.minecraft.world.gen.feature.template.PlacementSettings;
+import net.minecraft.world.gen.feature.template.StructureProcessor;
+import net.minecraft.world.gen.feature.template.Template;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
@@ -30,32 +30,32 @@ public class BeaconProcessor extends StructureProcessor {
     public static final Codec<BeaconProcessor> CODEC = Codec.unit(BeaconProcessor::new);
 
     @Override
-    public Structure.StructureBlockInfo process(WorldView worldView, BlockPos pos, BlockPos blockPos, Structure.StructureBlockInfo structureBlockInfo, Structure.StructureBlockInfo info, StructurePlacementData data) {
+    public Template.BlockInfo processBlock(IWorldReader worldView, BlockPos pos, BlockPos blockPos, Template.BlockInfo structureBlockInfo, Template.BlockInfo info, PlacementSettings data) {
         BlockState currentState = info.state;
         BlockState resultState = info.state;
 
         try {
             if (currentState.getBlock() == Blocks.BEACON) {
 
-                if (worldView.isClient()) {
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), new NbtCompound());
+                if (worldView.isClientSide()) {
+                    return new Template.BlockInfo(info.pos, Blocks.SPAWNER.defaultBlockState(), new CompoundNBT());
                 }
                 Random random = data.getRandom(info.pos);
 
                 if (random.nextFloat() < 0.5F) {
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), new NbtCompound());
+                    return new Template.BlockInfo(info.pos, Blocks.AIR.defaultBlockState(), new CompoundNBT());
                 }
 
                 if (random.nextFloat() > 0.85F) {
-                    NbtCompound resultTag = new NbtCompound();
-                    ChestBlockEntity chest = new ChestBlockEntity();
+                    CompoundNBT resultTag = new CompoundNBT();
+                    ChestTileEntity chest = new ChestTileEntity();
                     chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
-                    chest.writeNbt(resultTag);
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.CHEST.getDefaultState(), resultTag);
+                    chest.save(resultTag);
+                    return new Template.BlockInfo(info.pos, Blocks.CHEST.defaultBlockState(), resultTag);
 
                 } else {
-                    MobSpawnerBlockEntity spawner = new MobSpawnerBlockEntity();
-                    MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getLogic();
+                    MobSpawnerTileEntity spawner = new MobSpawnerTileEntity();
+                    MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getSpawner();
                     saccess.getspawnPotentials()
                         .clear();
 
@@ -65,31 +65,31 @@ public class BeaconProcessor extends StructureProcessor {
                         .getAllowedSpawnerMobs());
                     type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
-                    MobSpawnerEntry entry = new MobSpawnerEntry();
-                    entry.getEntityNbt()
-                        .putString("id", Registry.ENTITY_TYPE.getId(type)
+                    WeightedSpawnerEntity entry = new WeightedSpawnerEntity();
+                    entry.getTag()
+                        .putString("id", Registry.ENTITY_TYPE.getKey(type)
                             .toString());
 
                     saccess.getspawnPotentials()
                         .add(entry);
-                    spawner.getLogic()
-                        .setSpawnEntry(entry);
+                    spawner.getSpawner()
+                        .setNextSpawnData(entry);
 
-                    NbtCompound resultTag = new NbtCompound();
-                    spawner.writeNbt(resultTag);
+                    CompoundNBT resultTag = new CompoundNBT();
+                    spawner.save(resultTag);
 
-                    return new Structure.StructureBlockInfo(info.pos, Blocks.SPAWNER.getDefaultState(), resultTag);
+                    return new Template.BlockInfo(info.pos, Blocks.SPAWNER.defaultBlockState(), resultTag);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return new Structure.StructureBlockInfo(info.pos, resultState, info.tag);
+        return new Template.BlockInfo(info.pos, resultState, info.nbt);
     }
 
     @Override
-    protected StructureProcessorType<?> getType() {
+    protected IStructureProcessorType<?> getType() {
         return ModWorldGen.INSTANCE.BEACON_PROCESSOR;
     }
 }

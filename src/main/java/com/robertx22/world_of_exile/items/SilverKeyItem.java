@@ -6,7 +6,7 @@ import net.minecraft.item.Item;
 public class SilverKeyItem extends Item {
 
     public SilverKeyItem() {
-        super(new Settings().fireproof()
-            .group(CreativeTabs.MAIN));
+        super(new Properties().fireResistant()
+            .tab(CreativeTabs.MAIN));
     }
 }

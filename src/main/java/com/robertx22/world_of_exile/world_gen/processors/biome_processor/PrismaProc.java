@@ -30,7 +30,7 @@ public class PrismaProc extends BiomeProcessorType {
 
     @Override
     public boolean isBiomeGood(Biome biome) {
-        return biome.getCategory() == Biome.Category.SWAMP;
+        return biome.getBiomeCategory() == Biome.Category.SWAMP;
     }
 
     @Override

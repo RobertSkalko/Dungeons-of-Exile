@@ -5,16 +5,16 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
-import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public abstract class AbstractLockedBlock extends Block {
 
-    public AbstractLockedBlock(Settings set) {
+    public AbstractLockedBlock(Properties set) {
         super(set);
     }
 
@@ -23,30 +23,30 @@ public abstract class AbstractLockedBlock extends Block {
     public abstract void onKeyUsed(World world, BlockPos pos, PlayerEntity player, ItemStack stack);
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult ray) {
-        if (world.isClient) {
-            return ActionResult.CONSUME;
+    public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult ray) {
+        if (world.isClientSide) {
+            return ActionResultType.CONSUME;
         } else {
 
             try {
 
-                ItemStack stack = player.getMainHandStack();
+                ItemStack stack = player.getMainHandItem();
 
                 if (stack
                     .getItem() == getKey()) {
 
-                    stack.decrement(1);
+                    stack.shrink(1);
 
                     onKeyUsed(world, pos, player, stack);
 
                 } else {
-                    player.sendMessage(new LiteralText("").append(new ItemStack(getKey()).getName())
+                    player.displayClientMessage(new StringTextComponent("").append(new ItemStack(getKey()).getHoverName())
                         .append(" Required"), false);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return ActionResult.SUCCESS;
+            return ActionResultType.SUCCESS;
         }
     }
 

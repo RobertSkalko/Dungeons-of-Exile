@@ -1,0 +1,28 @@
+modLoader="javafml" #mandatory
+loaderVersion="[36,)"
+license="All rights reserved"
+issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+[[mods]]
+modId="divine_missions"
+version="${file.jarVersion}"
+displayName="Divine Missions"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
+logoFile="icon.png"
+credits=""
+authors="mcrobertx22"
+description='''
+Random quest mod themed around gods.
+'''
+[[dependencies.divine_missions]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.divine_missions]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"

@@ -7,11 +7,11 @@ import com.robertx22.world_of_exile.main.ModLoottables;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.Material;
-import net.minecraft.block.entity.ChestBlockEntity;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.RandomUtils;
@@ -19,7 +19,7 @@ import org.apache.commons.lang3.RandomUtils;
 public class FinalTreasureBlock extends AbstractLockedBlock {
 
     public FinalTreasureBlock() {
-        super(AbstractBlock.Settings.of(Material.STONE)
+        super(AbstractBlock.Properties.of(Material.STONE)
             .strength(5000, 50000));
     }
 
@@ -31,10 +31,10 @@ public class FinalTreasureBlock extends AbstractLockedBlock {
     @Override
     public void onKeyUsed(World world, BlockPos pos, PlayerEntity player, ItemStack stack) {
 
-        world.setBlockState(pos.up(), Blocks.CHEST.getDefaultState());
-        world.setBlockState(pos, Blocks.AIR.getDefaultState());
+        world.setBlockAndUpdate(pos.above(), Blocks.CHEST.defaultBlockState());
+        world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 
-        ChestBlockEntity chest = (ChestBlockEntity) world.getBlockEntity(pos.up());
+        ChestTileEntity chest = (ChestTileEntity) world.getBlockEntity(pos.above());
         chest.setLootTable(ModLoottables.MEDIUM_TREASURE, RandomUtils.nextLong());
 
         if (ModConfig.get().AUTO_DESTROY_TOWERS) {

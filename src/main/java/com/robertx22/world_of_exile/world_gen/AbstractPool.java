@@ -1,50 +1,47 @@
 package com.robertx22.world_of_exile.world_gen;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.structure.pool.StructurePool;
-import net.minecraft.structure.pool.StructurePoolElement;
-import net.minecraft.structure.pool.StructurePools;
-import net.minecraft.structure.processor.StructureProcessorList;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.gen.feature.jigsaw.JigsawPattern;
+import net.minecraft.world.gen.feature.jigsaw.JigsawPatternRegistry;
+import net.minecraft.world.gen.feature.jigsaw.JigsawPiece;
+import net.minecraft.world.gen.feature.template.StructureProcessorList;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import static net.minecraft.structure.pool.StructurePool.Projection.RIGID;
-import static net.minecraft.structure.pool.StructurePoolElement.method_30435;
-
 public abstract class AbstractPool {
-    Identifier poolId;
+    ResourceLocation poolId;
 
-    protected StructurePool.Projection proj = RIGID;
+    protected JigsawPattern.PlacementBehaviour proj = JigsawPattern.PlacementBehaviour.RIGID;
 
     boolean built = false;
-    List<Pair<Function<StructurePool.Projection, ? extends StructurePoolElement>, Integer>> elements = new ArrayList<>();
+    List<Pair<Function<JigsawPattern.PlacementBehaviour, ? extends JigsawPiece>, Integer>> elements = new ArrayList<>();
 
     public abstract StructureProcessorList processorList();
 
-    public AbstractPool(Identifier poolId) {
+    public AbstractPool(ResourceLocation poolId) {
         this.poolId = poolId;
     }
 
-    public AbstractPool add(Identifier id) {
+    public AbstractPool add(ResourceLocation id) {
 
         crashIfAlreadyBuilt();
 
-        elements.add(Pair.of(method_30435(id.toString(), processorList()), 1000));
+        elements.add(Pair.of(JigsawPiece.single(id.toString(), processorList()), 1000));
         return this;
     }
 
-    public AbstractPool add(Identifier id, int weight) {
+    public AbstractPool add(ResourceLocation id, int weight) {
         crashIfAlreadyBuilt();
-        elements.add(Pair.of(method_30435(id.toString(), processorList()), weight));
+        elements.add(Pair.of(JigsawPiece.single(id.toString(), processorList()), weight));
         return this;
     }
 
-    public AbstractPool add(Identifier id, StructureProcessorList processors) {
+    public AbstractPool add(ResourceLocation id, StructureProcessorList processors) {
         crashIfAlreadyBuilt();
-        elements.add(Pair.of(method_30435(id.toString(), processors), 1000));
+        elements.add(Pair.of(JigsawPiece.single(id.toString(), processors), 1000));
         return this;
     }
 
@@ -54,9 +51,9 @@ public abstract class AbstractPool {
         }
     }
 
-    public StructurePool build() {
+    public JigsawPattern build() {
         crashIfAlreadyBuilt();
         this.built = true;
-        return StructurePools.register(new StructurePool(poolId, new Identifier("empty"), elements, proj));
+        return JigsawPatternRegistry.register(new JigsawPattern(poolId, new ResourceLocation("empty"), elements, proj));
     }
 }

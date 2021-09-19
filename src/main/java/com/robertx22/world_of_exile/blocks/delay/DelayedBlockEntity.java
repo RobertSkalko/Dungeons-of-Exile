@@ -4,20 +4,20 @@ import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Tickable;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.server.ServerWorld;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DelayedBlockEntity extends BlockEntity implements Tickable {
+public class DelayedBlockEntity extends TileEntity implements ITickableTileEntity {
 
     public String executionString = "";
 
@@ -40,7 +40,7 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
         if (ticks % 5 == 0) {
             if (deployer != null) {
                 if (deployer.isDone()) {
-                    world.setBlockState(pos, Blocks.AIR.getDefaultState());
+                    level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
                     return;
                 } else {
                     deployer.onTick();
@@ -53,7 +53,7 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
 
             if (executionString.contains("deploy")) {
                 if (deployer == null) {
-                    deployer = new TowerDeployer(world, pos);
+                    deployer = new TowerDeployer(level, worldPosition);
                     return;
                 }
             } else if (executionString.contains("mob")) {
@@ -61,59 +61,59 @@ public class DelayedBlockEntity extends BlockEntity implements Tickable {
                     .getAllowedSpawnerMobs());
                 EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
-                Entity en = type.create(world);
+                Entity en = type.create(level);
 
-                en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
-                ServerWorld sw = (ServerWorld) world;
+                en.moveTo(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), level.random.nextFloat() * 360.0F, 0.0F);
+                ServerWorld sw = (ServerWorld) level;
 
                 if (en instanceof MobEntity) {
                     MobEntity mob = (MobEntity) en;
-                    mob.initialize(sw, sw.getLocalDifficulty(en.getBlockPos()), SpawnReason.SPAWNER, null, null);
+                    mob.finalizeSpawn(sw, sw.getCurrentDifficultyAt(en.blockPosition()), SpawnReason.SPAWNER, null, null);
                 }
 
-                sw.spawnEntityAndPassengers(en);
-                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+                sw.addFreshEntityWithPassengers(en);
+                level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
 
             } else if (executionString.equals("boss")) {
                 List<EntityType> mobs = new ArrayList<>(ModConfig.get()
                     .getAllowedBosses());
                 EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
-                Entity en = type.create(world);
+                Entity en = type.create(level);
 
                 if (en instanceof MobEntity) {
                     MobEntity mob = (MobEntity) en;
-                    mob.setPersistent();
+                    mob.setPersistenceRequired();
                 }
 
-                en.refreshPositionAndAngles(pos.getX(), pos.getY(), pos.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
-                ServerWorld sw = (ServerWorld) world;
+                en.moveTo(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), level.random.nextFloat() * 360.0F, 0.0F);
+                ServerWorld sw = (ServerWorld) level;
 
                 if (en instanceof MobEntity) {
                     MobEntity mob = (MobEntity) en;
-                    mob.initialize(sw, sw.getLocalDifficulty(en.getBlockPos()), SpawnReason.SPAWNER, null, null);
+                    mob.finalizeSpawn(sw, sw.getCurrentDifficultyAt(en.blockPosition()), SpawnReason.SPAWNER, null, null);
                 }
 
-                sw.spawnEntityAndPassengers(en);
-                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+                sw.addFreshEntityWithPassengers(en);
+                level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            world.setBlockState(pos, Blocks.AIR.getDefaultState());
+            level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
         }
     }
 
     @Override
-    public void fromTag(BlockState state, NbtCompound tag) {
-        super.fromTag(state, tag);
+    public void load(BlockState state, CompoundNBT tag) {
+        super.load(state, tag);
         executionString = tag.getString("ex");
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public CompoundNBT save(CompoundNBT tag) {
         tag.putString("ex", executionString);
-        return super.writeNbt(tag);
+        return super.save(tag);
     }
 
 }

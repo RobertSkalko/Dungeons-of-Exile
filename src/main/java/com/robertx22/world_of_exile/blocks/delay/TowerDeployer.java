@@ -1,18 +1,17 @@
 package com.robertx22.world_of_exile.blocks.delay;
 
-import com.robertx22.world_of_exile.blocks.delay.TowerDeployer.FloorType;
 import com.robertx22.world_of_exile.config.ModConfig;
 import com.robertx22.world_of_exile.main.ModLoottables;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LadderBlock;
-import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.block.entity.MobSpawnerBlockEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.MobSpawnerTileEntity;
+import net.minecraft.util.Direction;
+import net.minecraft.util.WeightedSpawnerEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.MobSpawnerEntry;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.RandomUtils;
 
@@ -115,13 +114,13 @@ public class TowerDeployer {
 
             BlockPos pos = new BlockPos(x.getX() + deployBlockPos.getX(), currentHeight, x.getZ() + deployBlockPos.getZ());
 
-            if (world.getBlockState(pos.down())
-                .isSolidBlock(world, pos.down()) && world.getBlockState(pos)
+            if (world.getBlockState(pos.below())
+                .isRedstoneConductor(world, pos.below()) && world.getBlockState(pos)
                 .isAir()) {
 
                 if (spawners < TOTAL_SPAWNERS) {
-                    MobSpawnerBlockEntity spawner = new MobSpawnerBlockEntity();
-                    MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getLogic();
+                    MobSpawnerTileEntity spawner = new MobSpawnerTileEntity();
+                    MobSpawnerLogicDuck saccess = (MobSpawnerLogicDuck) spawner.getSpawner();
                     saccess.getspawnPotentials()
                         .clear();
 
@@ -131,23 +130,23 @@ public class TowerDeployer {
                         .getAllowedSpawnerMobs());
                     type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
-                    MobSpawnerEntry entry = new MobSpawnerEntry();
-                    entry.getEntityNbt()
-                        .putString("id", Registry.ENTITY_TYPE.getId(type)
+                    WeightedSpawnerEntity entry = new WeightedSpawnerEntity();
+                    entry.getTag()
+                        .putString("id", Registry.ENTITY_TYPE.getKey(type)
                             .toString());
 
                     saccess.getspawnPotentials()
                         .add(entry);
-                    spawner.getLogic()
-                        .setSpawnEntry(entry);
+                    spawner.getSpawner()
+                        .setNextSpawnData(entry);
 
-                    world.setBlockState(pos, Blocks.SPAWNER.getDefaultState());
+                    world.setBlockAndUpdate(pos, Blocks.SPAWNER.defaultBlockState());
                     world.setBlockEntity(pos, spawner);
 
                     spawners++;
                 } else if (chests < TOTAL_CHESTS) {
 
-                    ChestBlockEntity chest = new ChestBlockEntity();
+                    ChestTileEntity chest = new ChestTileEntity();
 
                     if (floorType == FloorType.NORMAL) {
                         chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
@@ -156,7 +155,7 @@ public class TowerDeployer {
                         chests++;
                     }
 
-                    world.setBlockState(pos, Blocks.CHEST.getDefaultState());
+                    world.setBlockAndUpdate(pos, Blocks.CHEST.defaultBlockState());
                     world.setBlockEntity(pos, chest);
 
                     chests++;
@@ -183,9 +182,9 @@ public class TowerDeployer {
             .getZ());
 
         for (int i = 0; i < LADDERS_NEEDED; i++) {
-            world.setBlockState(pos, Blocks.LADDER.getDefaultState()
-                .with(LadderBlock.FACING, dir.getOpposite()));
-            pos = pos.down();
+            world.setBlockAndUpdate(pos, Blocks.LADDER.defaultBlockState()
+                .setValue(LadderBlock.FACING, dir.getOpposite()));
+            pos = pos.below();
         }
 
     }
@@ -199,11 +198,11 @@ public class TowerDeployer {
             if (world.getBlockState(pos)
                 .getBlock() == Blocks.BEACON) {
                 this.towerBottom = pos.getY();
-                world.setBlockState(pos, Blocks.AIR.getDefaultState());
+                world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                 break;
             }
 
-            pos = pos.down();
+            pos = pos.below();
 
         }
     }
@@ -212,14 +211,14 @@ public class TowerDeployer {
 
         for (Direction dir : DIRECTIONS) {
 
-            BlockPos test = deployBlockPos.offset(dir, 0);
+            BlockPos test = deployBlockPos.relative(dir, 0);
 
             for (int i = 0; i < 15; i++) {
-                test = deployBlockPos.offset(dir, i)
-                    .down();
+                test = deployBlockPos.relative(dir, i)
+                    .below();
 
                 if (world.getBlockState(test)
-                    .isSolidBlock(world, test) && world.getBlockState(test.offset(dir, 3))
+                    .isRedstoneConductor(world, test) && world.getBlockState(test.relative(dir, 3))
                     .isAir()) {
                     sides.put(dir, test);
                     break;
