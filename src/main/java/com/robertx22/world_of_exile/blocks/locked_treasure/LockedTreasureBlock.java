@@ -1,8 +1,8 @@
 package com.robertx22.world_of_exile.blocks.locked_treasure;
 
 import com.robertx22.world_of_exile.blocks.AbstractLockedBlock;
-import com.robertx22.world_of_exile.main.ModItems;
-import com.robertx22.world_of_exile.main.ModLoottables;
+import com.robertx22.world_of_exile.main.WOEItems;
+import com.robertx22.world_of_exile.main.WOELootTables;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -23,7 +23,7 @@ public class LockedTreasureBlock extends AbstractLockedBlock {
 
     @Override
     public Item getKey() {
-        return ModItems.INSTANCE.SILVER_KEY;
+        return WOEItems.SILVER_KEY.get();
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LockedTreasureBlock extends AbstractLockedBlock {
         world.setBlockAndUpdate(pos, Blocks.CHEST.defaultBlockState());
 
         ChestTileEntity chest = (ChestTileEntity) world.getBlockEntity(pos);
-        chest.setLootTable(ModLoottables.BIG_TREASURE, RandomUtils.nextLong());
+        chest.setLootTable(WOELootTables.BIG_TREASURE, RandomUtils.nextLong());
 
     }
 }

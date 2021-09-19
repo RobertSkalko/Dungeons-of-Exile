@@ -1,7 +1,7 @@
 package com.robertx22.world_of_exile.blocks.delay;
 
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModLoottables;
+import com.robertx22.world_of_exile.main.WOELootTables;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LadderBlock;
@@ -149,9 +149,9 @@ public class TowerDeployer {
                     ChestTileEntity chest = new ChestTileEntity();
 
                     if (floorType == FloorType.NORMAL) {
-                        chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
+                        chest.setLootTable(WOELootTables.DUNGEON_DEFAULT, RandomUtils.nextLong());
                     } else {
-                        chest.setLootTable(ModLoottables.BIG_TREASURE, RandomUtils.nextLong());
+                        chest.setLootTable(WOELootTables.BIG_TREASURE, RandomUtils.nextLong());
                         chests++;
                     }
 

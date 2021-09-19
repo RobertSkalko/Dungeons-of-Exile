@@ -1,7 +1,7 @@
 package com.robertx22.world_of_exile.world_gen.processors.biome_processor;
 
 import com.mojang.serialization.Codec;
-import com.robertx22.world_of_exile.main.ModWorldGen;
+import com.robertx22.world_of_exile.main.WOEProcessors;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlabBlock;
@@ -83,6 +83,6 @@ public class BiomeProcessor extends StructureProcessor {
 
     @Override
     protected IStructureProcessorType<?> getType() {
-        return ModWorldGen.INSTANCE.BIOME_PROCESSOR;
+        return WOEProcessors.INSTANCE.BIOME_PROCESSOR;
     }
 }

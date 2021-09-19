@@ -2,8 +2,8 @@ package com.robertx22.world_of_exile.world_gen.processors;
 
 import com.mojang.serialization.Codec;
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModLoottables;
-import com.robertx22.world_of_exile.main.ModWorldGen;
+import com.robertx22.world_of_exile.main.WOELootTables;
+import com.robertx22.world_of_exile.main.WOEProcessors;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -49,7 +49,7 @@ public class BeaconProcessor extends StructureProcessor {
                 if (random.nextFloat() > 0.85F) {
                     CompoundNBT resultTag = new CompoundNBT();
                     ChestTileEntity chest = new ChestTileEntity();
-                    chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
+                    chest.setLootTable(WOELootTables.DUNGEON_DEFAULT, RandomUtils.nextLong());
                     chest.save(resultTag);
                     return new Template.BlockInfo(info.pos, Blocks.CHEST.defaultBlockState(), resultTag);
 
@@ -90,7 +90,7 @@ public class BeaconProcessor extends StructureProcessor {
 
     @Override
     protected IStructureProcessorType<?> getType() {
-        return ModWorldGen.INSTANCE.BEACON_PROCESSOR;
+        return WOEProcessors.INSTANCE.BEACON_PROCESSOR;
     }
 }
 

@@ -3,9 +3,9 @@ package com.robertx22.world_of_exile.world_gen.processors;
 import com.mojang.serialization.Codec;
 import com.robertx22.world_of_exile.blocks.delay.DelayedBlockEntity;
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModBlocks;
-import com.robertx22.world_of_exile.main.ModLoottables;
-import com.robertx22.world_of_exile.main.ModWorldGen;
+import com.robertx22.world_of_exile.main.WOEBlocks;
+import com.robertx22.world_of_exile.main.WOELootTables;
+import com.robertx22.world_of_exile.main.WOEProcessors;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import com.robertx22.world_of_exile.mixin_ducks.SignDuck;
 import net.minecraft.block.BlockState;
@@ -110,7 +110,7 @@ public class SignProcessor extends StructureProcessor {
                     if (str.contains("[treasure]")) {
                         CompoundNBT resultTag = new CompoundNBT();
                         ChestTileEntity chest = new ChestTileEntity();
-                        chest.setLootTable(ModLoottables.DUNGEON_DEFAULT, RandomUtils.nextLong());
+                        chest.setLootTable(WOELootTables.DUNGEON_DEFAULT, RandomUtils.nextLong());
                         chest.save(resultTag);
                         return new Template.BlockInfo(info.pos, Blocks.CHEST.defaultBlockState(), resultTag);
                     }
@@ -119,20 +119,24 @@ public class SignProcessor extends StructureProcessor {
                         DelayedBlockEntity delay = new DelayedBlockEntity();
                         delay.executionString = "boss";
                         delay.save(resultTag);
-                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.defaultBlockState(), resultTag);
+                        return new Template.BlockInfo(info.pos, WOEBlocks.DELAY_BLOCK.get()
+                            .defaultBlockState(), resultTag);
                     }
                     if (str.contains("[deployer]")) {
                         CompoundNBT resultTag = new CompoundNBT();
                         DelayedBlockEntity delay = new DelayedBlockEntity();
                         delay.executionString = "deploy";
                         delay.save(resultTag);
-                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.DELAY_BLOCK.defaultBlockState(), resultTag);
+                        return new Template.BlockInfo(info.pos, WOEBlocks.DELAY_BLOCK.get()
+                            .defaultBlockState(), resultTag);
                     }
                     if (str.contains("[final_treasure]")) {
-                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.FINAL_TREASURE_BLOCK.defaultBlockState(), new CompoundNBT());
+                        return new Template.BlockInfo(info.pos, WOEBlocks.FINAL_TREASURE_BLOCK.get()
+                            .defaultBlockState(), new CompoundNBT());
                     }
                     if (str.contains("[lock_treasure]")) {
-                        return new Template.BlockInfo(info.pos, ModBlocks.INSTANCE.LOCKED_TREASURE_BLOCK.defaultBlockState(), new CompoundNBT());
+                        return new Template.BlockInfo(info.pos, WOEBlocks.LOCKED_TREASURE_BLOCK.get()
+                            .defaultBlockState(), new CompoundNBT());
                     }
 
                 }
@@ -147,7 +151,7 @@ public class SignProcessor extends StructureProcessor {
 
     @Override
     protected IStructureProcessorType<?> getType() {
-        return ModWorldGen.INSTANCE.SIGN_PROCESSOR;
+        return WOEProcessors.INSTANCE.SIGN_PROCESSOR;
     }
 }
 

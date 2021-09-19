@@ -3,11 +3,10 @@
   "required": true,
   "package": "com.robertx22.world_of_exile.mixins",
   "compatibilityLevel": "JAVA_8",
+  "refmap": "world_of_exile-refmap.json",
   "mixins": [
     "MobSpawnerLogicMixin",
     "SignMixin"
-  ],
-  "client": [
   ],
   "injectors": {
     "defaultRequire": 1

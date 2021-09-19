@@ -2,9 +2,9 @@ package com.robertx22.world_of_exile.main.structures;
 
 import com.robertx22.world_of_exile.MyBiomeSelectors;
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModProcessorLists;
-import com.robertx22.world_of_exile.main.ModWorldGenIds;
 import com.robertx22.world_of_exile.main.WOE;
+import com.robertx22.world_of_exile.main.WOEIds;
+import com.robertx22.world_of_exile.main.WOEProcessorLists;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.AbstractPool;
 import com.robertx22.world_of_exile.world_gen.jigsaw.stone_brick_tower.StoneBrickTowerStructure;
@@ -19,14 +19,15 @@ import net.minecraft.world.gen.feature.template.StructureProcessorList;
 public class StoneBrickTower extends StructureWrapper {
 
     public StoneBrickTower() {
-        super(MyBiomeSelectors.OVERWORLD_LAND, ModWorldGenIds.STONE_BRICK_TOWER_ID, true, ModConfig.get().STONE_BRICK_TOWER, GenerationStage.Decoration.SURFACE_STRUCTURES);
+        super(MyBiomeSelectors.OVERWORLD_LAND, WOEIds.STONE_BRICK_TOWER_ID, true, ModConfig.get().STONE_BRICK_TOWER, GenerationStage.Decoration.SURFACE_STRUCTURES);
     }
 
     @Override
     public StructureFeature createConfiguredFeature() {
-        return feature.configured(new VillageConfig(() -> {
-            return this.startPool;
-        }, 6));
+        return feature.get()
+            .configured(new VillageConfig(() -> {
+                return this.startPool;
+            }, 6));
     }
 
     @Override
@@ -60,7 +61,7 @@ public class StoneBrickTower extends StructureWrapper {
 
         @Override
         public StructureProcessorList processorList() {
-            return ModProcessorLists.INSTANCE.STONE_BRICK_TOWER;
+            return WOEProcessorLists.INSTANCE.STONE_BRICK_TOWER;
         }
 
     }

@@ -1,7 +1,7 @@
 package com.robertx22.world_of_exile.blocks.delay;
 
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModBlocks;
+import com.robertx22.world_of_exile.main.WOEBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -22,7 +22,7 @@ public class DelayedBlockEntity extends TileEntity implements ITickableTileEntit
     public String executionString = "";
 
     public DelayedBlockEntity() {
-        super(ModBlocks.INSTANCE.DELAY_ENTITY);
+        super(WOEBlockEntities.DELAY_ENTITY.get());
     }
 
     TowerDeployer deployer;
