@@ -1,7 +1,5 @@
 package com.robertx22.world_of_exile.config;
 
-import com.robertx22.world_of_exile.main.entities.MobTags;
-import com.robertx22.world_of_exile.main.entities.registration.MobManager;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
 import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
@@ -24,9 +22,6 @@ public class ModConfig implements ConfigData {
 
     public boolean AUTO_DESTROY_TOWERS = true;
 
-    public boolean ENABLE_BLOCK_BREAK_GOLEM_SPAWNS = true;
-    public boolean ENABLE_WATERED_LAVA_GOLEM_SPAWNS = true;
-
     @ConfigEntry.Gui.CollapsibleObject
     public FeatureConfig DUNGEON = new FeatureConfig(new FeatureConfig.MyStructureConfig(50, 25, 378235));
 
@@ -44,11 +39,7 @@ public class ModConfig implements ConfigData {
 
     static List<String> defaultBosses() {
         List<String> list = new ArrayList<>();
-
-        MobManager.MAP.entrySet()
-            .stream()
-            .filter(x -> x.getValue().tags.contains(MobTags.RANDOM_TOWER_BOSS))
-            .forEach(b -> addBoss(list, b.getKey()));
+        addBoss(list, EntityType.WITHER_SKELETON);
         return list;
 
     }

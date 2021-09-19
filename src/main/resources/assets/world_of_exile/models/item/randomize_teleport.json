@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "world_of_exile:item/randomize_teleport"
-    }
-}

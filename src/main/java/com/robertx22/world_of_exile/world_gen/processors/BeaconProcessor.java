@@ -2,7 +2,6 @@ package com.robertx22.world_of_exile.world_gen.processors;
 
 import com.mojang.serialization.Codec;
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.ModBlocks;
 import com.robertx22.world_of_exile.main.ModLoottables;
 import com.robertx22.world_of_exile.main.ModWorldGen;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
@@ -45,10 +44,6 @@ public class BeaconProcessor extends StructureProcessor {
 
                 if (random.nextFloat() < 0.5F) {
                     return new Structure.StructureBlockInfo(info.pos, Blocks.AIR.getDefaultState(), new NbtCompound());
-                }
-
-                if (random.nextFloat() > 0.95F) {
-                    return new Structure.StructureBlockInfo(info.pos, ModBlocks.INSTANCE.RANDOM_BLOCK.getDefaultState(), new NbtCompound());
                 }
 
                 if (random.nextFloat() > 0.85F) {

@@ -1,11 +1,10 @@
 package com.robertx22.world_of_exile.main;
 
-import com.robertx22.library_of_exile.main.Packets;
 import com.robertx22.world_of_exile.items.SilverKeyItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.registry.Registry;
 
-public class ModItems extends Packets {
+public class ModItems {
     public static ModItems INSTANCE;
 
     public SilverKeyItem SILVER_KEY = item("silver_key", new SilverKeyItem());

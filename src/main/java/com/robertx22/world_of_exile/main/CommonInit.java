@@ -1,10 +1,6 @@
 package com.robertx22.world_of_exile.main;
 
 import com.robertx22.world_of_exile.config.ModConfig;
-import com.robertx22.world_of_exile.main.entities.MobEvents;
-import com.robertx22.world_of_exile.main.entities.ModEntityAttributes;
-import com.robertx22.world_of_exile.main.entities.registration.MobSpawnsInit;
-import com.robertx22.world_of_exile.main.entities.registration.ModEntities;
 import com.robertx22.world_of_exile.main.structures.StoneBrickTower;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
@@ -51,18 +47,11 @@ public class CommonInit implements ModInitializer {
         ModBlocks.INSTANCE = new ModBlocks();
         ModItems.INSTANCE = new ModItems();
 
-        ModEntities.INSTANCE = new ModEntities();
-        ModEntityAttributes.register();
-
         ModWorldGen.init();
-
-        MobSpawnsInit.register();
 
         ServerTickEvents.END_WORLD_TICK.register(x -> TowerDestroyer.tickAll(x));
 
         registerFeatures();
-
-        MobEvents.register();
 
         ServerLifecycleEvents.SERVER_STARTING.register(s -> {
             CommonInit.SERVER = s;
