@@ -1,7 +1,7 @@
 package com.robertx22.world_of_exile.main.structures;
 
 import com.robertx22.world_of_exile.MyBiomeSelectors;
-import com.robertx22.world_of_exile.config.ModConfig;
+import com.robertx22.world_of_exile.config.WOEConfig;
 import com.robertx22.world_of_exile.main.WOE;
 import com.robertx22.world_of_exile.main.WOEIds;
 import com.robertx22.world_of_exile.main.WOEProcessorLists;
@@ -19,7 +19,8 @@ import net.minecraft.world.gen.feature.template.StructureProcessorList;
 public class StoneBrickTower extends StructureWrapper {
 
     public StoneBrickTower() {
-        super(MyBiomeSelectors.OVERWORLD_LAND, WOEIds.STONE_BRICK_TOWER_ID, true, ModConfig.get().STONE_BRICK_TOWER, GenerationStage.Decoration.SURFACE_STRUCTURES);
+        super(MyBiomeSelectors.OVERWORLD_LAND, WOEIds.STONE_BRICK_TOWER_ID, true, WOEConfig.get()
+            .getTowerConfig(), GenerationStage.Decoration.SURFACE_STRUCTURES);
     }
 
     @Override

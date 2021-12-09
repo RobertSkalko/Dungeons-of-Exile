@@ -1,5 +1,3 @@
-v.1.3.0
+v.1.4.3
 
-Removed hell dimension
-Made towers less common
-Disable mod config should now work
+switch to server configs

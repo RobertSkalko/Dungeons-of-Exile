@@ -9,7 +9,6 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 public abstract class AbstractLockedBlock extends Block {
@@ -32,17 +31,8 @@ public abstract class AbstractLockedBlock extends Block {
 
                 ItemStack stack = player.getMainHandItem();
 
-                if (stack
-                    .getItem() == getKey()) {
+                onKeyUsed(world, pos, player, stack);
 
-                    stack.shrink(1);
-
-                    onKeyUsed(world, pos, player, stack);
-
-                } else {
-                    player.displayClientMessage(new StringTextComponent("").append(new ItemStack(getKey()).getHoverName())
-                        .append(" Required"), false);
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

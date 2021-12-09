@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
 import com.robertx22.library_of_exile.main.ForgeEvents;
+import com.robertx22.world_of_exile.config.WOEConfig;
 import com.robertx22.world_of_exile.main.structures.StoneBrickTower;
 import com.robertx22.world_of_exile.main.structures.base.StructureWrapper;
 import com.robertx22.world_of_exile.world_gen.tower.TowerDestroyer;
@@ -26,9 +27,11 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import java.lang.reflect.Method;
@@ -63,6 +66,9 @@ public class WorldOfExile {
 
         WOEProcessorLists.INSTANCE = new WOEProcessorLists();
 
+        ModLoadingContext.get()
+            .registerConfig(ModConfig.Type.SERVER, WOEConfig.SPEC);
+
         modEventBus.addListener(this::commonSetup);
 
         forgeBus.addListener(EventPriority.NORMAL, this::addDimensionalSpacing);
@@ -71,7 +77,9 @@ public class WorldOfExile {
         WOEProcessors.init();
 
         ForgeEvents.registerForgeEvent(TickEvent.WorldTickEvent.class, (event) -> {
-            TowerDestroyer.tickAll(event.world);
+            if (event.phase == TickEvent.Phase.END) {
+                TowerDestroyer.tickAll(event.world);
+            }
         });
 
         registerFeatures();
@@ -80,7 +88,7 @@ public class WorldOfExile {
     }
 
     // STRUCTURE REGISTRATION STUFF
-    public void commonSetup(final FMLCommonSetupEvent event) {
+    public void commonSetup(final InterModEnqueueEvent event) {
         event.enqueueWork(() -> {
             setupStructures();
             registerConfiguredStructures();

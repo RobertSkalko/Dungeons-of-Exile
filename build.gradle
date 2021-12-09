@@ -165,7 +165,7 @@ curseforge {
         mainArtifact(jar)
 
         afterEvaluate {
-            uploadTask.dependsOn("remapJar")
+            uploadTask.dependsOn("jar")
         }
     }
     options {

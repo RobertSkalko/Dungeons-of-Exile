@@ -1,6 +1,6 @@
 package com.robertx22.world_of_exile.blocks.delay;
 
-import com.robertx22.world_of_exile.config.ModConfig;
+import com.robertx22.world_of_exile.config.WOEConfig;
 import com.robertx22.world_of_exile.main.WOEBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -57,7 +57,7 @@ public class DelayedBlockEntity extends TileEntity implements ITickableTileEntit
                     return;
                 }
             } else if (executionString.contains("mob")) {
-                List<EntityType> mobs = new ArrayList<>(ModConfig.get()
+                List<EntityType> mobs = new ArrayList<>(WOEConfig.get()
                     .getAllowedSpawnerMobs());
                 EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
@@ -75,7 +75,7 @@ public class DelayedBlockEntity extends TileEntity implements ITickableTileEntit
                 level.setBlockAndUpdate(worldPosition, Blocks.AIR.defaultBlockState());
 
             } else if (executionString.equals("boss")) {
-                List<EntityType> mobs = new ArrayList<>(ModConfig.get()
+                List<EntityType> mobs = new ArrayList<>(WOEConfig.get()
                     .getAllowedBosses());
                 EntityType type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 

@@ -5,7 +5,7 @@ issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
 [[mods]]
 modId="world_of_exile"
 version="${file.jarVersion}"
-displayName="Worlf of Exile"
+displayName="Dungeons of Exile"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
 #displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
 logoFile="icon.png"

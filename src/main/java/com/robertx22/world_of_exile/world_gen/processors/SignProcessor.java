@@ -2,7 +2,7 @@ package com.robertx22.world_of_exile.world_gen.processors;
 
 import com.mojang.serialization.Codec;
 import com.robertx22.world_of_exile.blocks.delay.DelayedBlockEntity;
-import com.robertx22.world_of_exile.config.ModConfig;
+import com.robertx22.world_of_exile.config.WOEConfig;
 import com.robertx22.world_of_exile.main.WOEBlocks;
 import com.robertx22.world_of_exile.main.WOELootTables;
 import com.robertx22.world_of_exile.main.WOEProcessors;
@@ -86,7 +86,7 @@ public class SignProcessor extends StructureProcessor {
 
                         EntityType type = null;
 
-                        List<EntityType> mobs = new ArrayList<>(ModConfig.get()
+                        List<EntityType> mobs = new ArrayList<>(WOEConfig.get()
                             .getAllowedSpawnerMobs());
                         type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 

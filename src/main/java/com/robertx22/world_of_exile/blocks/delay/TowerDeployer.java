@@ -1,6 +1,6 @@
 package com.robertx22.world_of_exile.blocks.delay;
 
-import com.robertx22.world_of_exile.config.ModConfig;
+import com.robertx22.world_of_exile.config.WOEConfig;
 import com.robertx22.world_of_exile.main.WOELootTables;
 import com.robertx22.world_of_exile.mixin_ducks.MobSpawnerLogicDuck;
 import net.minecraft.block.Blocks;
@@ -126,7 +126,7 @@ public class TowerDeployer {
 
                     EntityType type = null;
 
-                    List<EntityType> mobs = new ArrayList<>(ModConfig.get()
+                    List<EntityType> mobs = new ArrayList<>(WOEConfig.get()
                         .getAllowedSpawnerMobs());
                     type = mobs.get(RandomUtils.nextInt(0, mobs.size()));
 
