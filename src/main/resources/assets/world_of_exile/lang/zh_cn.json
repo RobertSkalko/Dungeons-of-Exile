@@ -1,0 +1,13 @@
+{
+	"entity.world_of_exile.fire_golem": "熔岩傀儡",
+	"entity.world_of_exile.frost_golem": "冰霜傀儡",
+	
+	"entity.world_of_exile.frost_blaze": "冰霜烈焰人",
+	
+	"block.world_of_exile.stargate": "星门",
+	
+	"item.world_of_exile.silver_key": "银质钥匙",
+	"item.world_of_exile.randomize_teleport": "传送随机函数发生器",
+	"item.world_of_exile.teleport_back": "传送回"
+	
+}
